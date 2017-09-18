@@ -1,0 +1,74 @@
+{
+  "name": "@kuali/cor-workflows-common",
+  "version": "0.1.0",
+  "description": "Workflows code common to both client and server",
+  "main": "index.js",
+  "author": "Kuali Core Team",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/KualiCo/cor-workflows-common/issues"
+  },
+  "homepage": "https://github.com/KualiCo/cor-workflows-common#readme",
+  "scripts": {
+    "build": "babel src -d lib",
+    "prepublish": "npm test && npm build",
+    "test": "standard && jest"    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/KualiCo/cor-workflows-common.git"
+  },
+  "keywords": [
+    "kuali",
+    "core",
+    "workflows"
+  ],
+  "standard": {
+    "env": [
+      "browser",
+      "node",
+      "jest"
+    ],
+    "ignore": ["coverage", "lib"],
+    "parser": "babel-eslint"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "html",
+      "json",
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 47,
+        "branches": 28,
+        "lines": 50,
+        "functions": 41
+      }
+    },
+    "mapCoverage": true,
+    "rootDir": "src",
+    "verbose": true
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "bluebird": "^3.5.0",
+    "lodash": "^4.17.4",
+    "querystring": "^0.2.0",
+    "shorthash": "^0.0.2"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.9.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.0",
+    "babel-jest": "^21.0.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "jest": "^21.1.0",
+    "standard": "^10.0.3"
+  }
+}
