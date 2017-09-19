@@ -1,3 +1,8 @@
-coverage
-lib
-node_modules
+/api
+/coverage
+/data-dictionary
+/data-dictionary-integration
+/ancestry-util.js
+/lib
+/node_modules
+/style.css

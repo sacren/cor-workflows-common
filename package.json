@@ -1,18 +1,21 @@
 {
   "name": "@kuali/cor-workflows-common",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "Workflows code common to both client and server",
-  "main": "index.js",
   "author": "Kuali Core Team",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/KualiCo/cor-workflows-common/issues"
   },
   "homepage": "https://github.com/KualiCo/cor-workflows-common#readme",
+  "publishConfig": {
+    "registry": "https://npm.kuali.co"
+  },
   "scripts": {
-    "build": "babel src -d lib",
-    "prepublish": "npm test && npm build",
-    "test": "standard && jest"    
+    "clean": "gulp clean",
+    "build": "gulp",
+    "prepublish": "npm test && npm run build",
+    "test": "standard && jest"
   },
   "repository": {
     "type": "git",
@@ -29,11 +32,15 @@
       "node",
       "jest"
     ],
-    "ignore": ["coverage", "lib"],
+    "ignore": [
+      "coverage",
+      "lib"
+    ],
     "parser": "babel-eslint"
   },
   "jest": {
     "collectCoverage": true,
+    "coverageDirectory": "../coverage",
     "coverageReporters": [
       "html",
       "json",
@@ -60,6 +67,7 @@
     "shorthash": "^0.0.2"
   },
   "devDependencies": {
+    "autoprefixer": "^7.1.4",
     "axios-mock-adapter": "^1.9.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.0",
@@ -68,7 +76,14 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-postcss": "^7.0.0",
     "jest": "^21.1.0",
+    "postcss-cli": "^4.1.1",
+    "postcss-modules": "^0.8.0",
+    "rimraf": "^2.6.2",
     "standard": "^10.0.3"
   }
 }
