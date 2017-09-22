@@ -6,7 +6,7 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 import { pick } from 'lodash'
-import StepModel from '../../step-model'
+import StepModel from '../../index'
 import FlowAPI from '@kuali/cor-workflows-common/api/flow'
 
 const i18n = {
