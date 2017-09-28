@@ -5,7 +5,8 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import styles from './style.css'
 import { Icon, TextField } from 'kuali-ui'
 import ListItem from 'react-md/lib/Lists/ListItem'

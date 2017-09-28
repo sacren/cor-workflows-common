@@ -5,7 +5,8 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import styles from './style.css'
 import ColumnMenuColumn from './column-menu-column'
 import ColumnMenuHelp from './column-menu-help'
