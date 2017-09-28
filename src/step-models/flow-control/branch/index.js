@@ -7,7 +7,7 @@
  */
 import { pick } from 'lodash'
 import StepModel from '../../index'
-import FlowAPI from '@kuali/cor-workflows-common/api/flow'
+import FlowAPI from '../../../api/flow'
 
 const i18n = {
   MISSING_CONDITIONS: 'Unable to create a Conditional step without routes'

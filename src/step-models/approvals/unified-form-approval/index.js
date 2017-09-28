@@ -8,8 +8,8 @@
 import { pick } from 'lodash'
 import StepModel from '../../index'
 import ctx
-  from '@kuali/cor-workflows-common/data-dictionary/context-utils'
-import Context from '@kuali/cor-workflows-common/data-dictionary/context'
+  from '../../../data-dictionary/context-utils'
+import Context from '../../../data-dictionary/context'
 
 const i18n = {
   MISSING_FORM: 'Unable to create a Form Approval step without a form',

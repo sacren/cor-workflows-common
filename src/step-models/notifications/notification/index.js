@@ -7,7 +7,7 @@
  */
 import { mapValues, pick } from 'lodash'
 import StepModel from '../../index'
-import ctx from '@kuali/cor-workflows-common/data-dictionary/context-utils'
+import ctx from '../../../data-dictionary/context-utils'
 
 const i18n = {
   INVALID_FORMAT: 'Notification Step data has an invalid format',

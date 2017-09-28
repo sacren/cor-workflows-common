@@ -7,7 +7,7 @@
  */
 import { pick } from 'lodash'
 import StepModel from '../../index'
-import ctx from '@kuali/cor-workflows-common/data-dictionary/context-utils'
+import ctx from '../../../data-dictionary/context-utils'
 
 const i18n = {
   MISSING_FORM: 'Unable to create a Formfill step without a form'
