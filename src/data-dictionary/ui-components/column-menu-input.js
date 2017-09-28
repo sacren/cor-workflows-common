@@ -6,7 +6,8 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 import { isEqual } from 'lodash'
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import TextField from 'react-md/lib/TextFields'
 import FontIcon from 'react-md/lib/FontIcons'
 import styles from './style.css'
