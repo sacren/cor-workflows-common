@@ -8,7 +8,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styles from './style.css'
-import { Icon, TextField } from 'kuali-ui'
+import { Icon, TextField } from '@kuali/kuali-ui'
 import ListItem from 'react-md/lib/Lists/ListItem'
 import Menu from 'react-md/lib/Menus/Menu'
 
