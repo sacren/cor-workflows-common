@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Conditional Model Construction should throw an error if no data is provided 1`] = `"Unable to create a Conditional step without routes"`;
+
+exports[`Conditional Model Construction should throw an error if no routes are provided within data 1`] = `"Unable to create a Conditional step without routes"`;
