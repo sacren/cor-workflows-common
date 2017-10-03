@@ -29,7 +29,7 @@ export default class LogModel extends StepModel {
   static displayName = 'Log'
   static type = 'log'
 
-  constructor (data) {
+  constructor(data) {
     super(data)
     this.meta = {
       template: data.template,
@@ -37,7 +37,7 @@ export default class LogModel extends StepModel {
     }
   }
 
-  validate () {
+  validate() {
     if (!this.meta) throw new Error(i18n.INVALID_FORMAT)
     const { template, variables } = this.meta
     if (!template) throw new Error(i18n.MISSING_TEMPLATE)
@@ -58,7 +58,7 @@ export default class LogModel extends StepModel {
    *   }
    * }
    */
-  toJSON () {
+  toJSON() {
     const persistable = pick(this, ['_id', 'name', 'type'])
     const variables = mapValues(this.meta.variables, v => ctx.deflate(v))
     persistable.meta = { ...this.meta, variables }
