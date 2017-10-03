@@ -50,7 +50,9 @@ export function getWorkflowRelevantContexts (_ancestry, position, returnTypes) {
   const { contextMap, getDeflatedContextType } = ctx
   const relevant = []
   ancestry.forEachStep(position, stepLocation => {
-    const stepContextMap = stepDefinitionMap[stepLocation.step.type].contexts
+    const stepType = get(stepLocation, 'step.type')
+    if (!stepType) return
+    const stepContextMap = stepDefinitionMap[stepType].contexts
     if (!stepContextMap) return
     forEach(stepContextMap, (path, type) => {
       const deflated = get(stepLocation.step, path)
