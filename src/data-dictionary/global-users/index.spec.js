@@ -12,6 +12,7 @@ import { ALL, USER } from '../return-types'
 import GlobalUsers from '../global-users'
 import User from './user'
 import { USERS } from '../test/fake-users'
+import TestDeflation from '../../test/utils/deflation'
 
 describe('Global users contexts', () => {
   let mock
@@ -46,5 +47,11 @@ describe('Global users contexts', () => {
     expect(userCtxs[0]).toBeInstanceOf(User)
     expect(userCtxs[0].data).toHaveProperty('id')
     expect(userCtxs[0].data).toHaveProperty('name')
+  })
+
+  TestDeflation(parent => new GlobalUsers(parent), {
+    type: GlobalUsers.type,
+    name: 'Users',
+    requiresParent: false
   })
 })

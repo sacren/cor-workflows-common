@@ -41,28 +41,30 @@ describe('Roles contexts', () => {
     const root = ctx.getRoot()
     const role = new Role(root, ALL, { id: 1, name: 'test' }, ctx)
     const deflated = role.deflate()
-    expect(deflated)
-    expect(deflated[1]).toHaveProperty('type', 'role')
-    expect(deflated[1]).toHaveProperty('name', 'test')
-    expect(deflated[1]).toHaveProperty('id', 1)
-    expect(deflated[1]).toHaveProperty('requiresParent', true)
+    expect(deflated[0]).toMatchObject({
+      type: 'role',
+      name: 'test',
+      id: 1,
+      requiresParent: true
+    })
   })
 
   test('deflates without a parent', async () => {
     const role = new Role(undefined, ALL, { id: 1, name: 'test' }, ctx)
     const deflated = role.deflate()
-    expect(deflated)
-    expect(deflated[0]).toHaveProperty('type', 'role')
-    expect(deflated[0]).toHaveProperty('name', 'test')
-    expect(deflated[0]).toHaveProperty('id', 1)
-    expect(deflated[0]).toHaveProperty('requiresParent', true)
+    expect(deflated[0]).toMatchObject({
+      type: 'role',
+      name: 'test',
+      id: 1,
+      requiresParent: true
+    })
   })
 
   test('inflates', async () => {
     const deflated = { id: 1 }
-    const parent = { getChildren: async () => [
-      { type: Role.type, data: { id: deflated.id } }
-    ]}
+    const parent = {
+      getChildren: async () => [{ type: Role.type, data: { id: deflated.id } }]
+    }
     const data = await Role.inflate(ctx, deflated, parent)
     expect(data).toHaveProperty('id', 1)
   })
