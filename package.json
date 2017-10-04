@@ -9,7 +9,7 @@
   },
   "homepage": "https://github.com/KualiCo/cor-workflows-common#readme",
   "publishConfig": {
-    "registry": "https://npm.kuali.co"
+    "registry": "https://registry.npmjs.org"
   },
   "scripts": {
     "clean": "gulp clean",
