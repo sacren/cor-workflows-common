@@ -6,6 +6,7 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 import Context from '../context'
+import Promise from 'bluebird'
 import { compact, filter as _filter, get, isArray, keyBy, values } from 'lodash'
 import FieldChecklist from './field-checklist'
 import FieldCoreGroupMultiselect from './field-core-group-multiselect'
