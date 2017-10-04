@@ -1,6 +1,6 @@
 {
-  "name": "@kuali/cor-workflows-common",
-  "version": "0.1.4",
+  "name": "kuali-cor-workflows-common",
+  "version": "0.1.8",
   "description": "Workflows code common to both client and server",
   "author": "Kuali Core Team",
   "license": "SEE LICENSE IN LICENSE",
@@ -9,7 +9,7 @@
   },
   "homepage": "https://github.com/KualiCo/cor-workflows-common#readme",
   "publishConfig": {
-    "registry": "https://npm.kuali.co"
+    "registry": "https://registry.npmjs.org"
   },
   "scripts": {
     "clean": "gulp clean",
