@@ -62,6 +62,30 @@ describe('User Context', () => {
     })
   })
 
+  describe('getValue', () => {
+    it('should call getValue an an existing parent', async () => {
+      let passedValueMap
+      const parent = {
+        getValue: jest.fn().mockImplementation(map => {
+          passedValueMap = { ...map }
+        })
+      }
+      user.parent = parent
+      await user.getValue({})
+      expect(passedValueMap).toMatchObject({})
+    })
+
+    it('should return an object describing the user and insert it into map', async () => {
+      const valueMap = {}
+      user.data = { foo: 'bar' }
+      const value = await user.getValue(valueMap)
+      value.displayName = 'value display name'
+      expect(value).toMatchObject({ ...user.data })
+      expect(value.toString()).toEqual('value display name')
+      expect(valueMap.user).toMatchObject({ value })
+    })
+  })
+
   TestDeflation(
     parent => new User(parent, null, { displayName: 'My User', id: '123' }),
     {
