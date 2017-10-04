@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "kuali-cor-workflows-common",
-=======
-  "name": "@kuali/cor-workflows-common",
->>>>>>> origin/master
   "version": "0.1.8",
   "description": "Workflows code common to both client and server",
   "author": "Kuali Core Team",
