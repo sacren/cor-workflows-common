@@ -1,6 +1,6 @@
 {
-  "name": "@kuali/cor-workflows-common",
-  "version": "0.1.7",
+  "name": "kuali-cor-workflows-common",
+  "version": "0.1.8",
   "description": "Workflows code common to both client and server",
   "author": "Kuali Core Team",
   "license": "SEE LICENSE IN LICENSE",
