@@ -12,7 +12,7 @@ export default class UserAPI extends api {
   static API_KEY = 'users'
   static USER_API = '/api/v1/users'
 
-  async getUsers (q) {
+  async getUsers(q) {
     const query = qs.encode({
       limit: 15,
       sort: 'displayName',
@@ -21,27 +21,18 @@ export default class UserAPI extends api {
     return this._get(`${UserAPI.USER_API}?${query}`, [])
   }
 
-  async getUser (id) {
+  async getUser(id) {
     return this._get(`${UserAPI.USER_API}/${id}`, null)
   }
 
-  async getManyUsers (ids) {
+  async getManyUsers(ids) {
     const promises = ids.map(id => {
       return this._get(`${UserAPI.USER_API}/${id}`, null)
     })
     return Promise.all(promises)
   }
 
-  async getCurUser () {
+  async getCurUser() {
     return this._get(`${UserAPI.USER_API}/current`, null)
-  }
-
-  async _get (url, defaultValue) {
-    try {
-      const response = await this.axios.get(url)
-      return response.data
-    } catch (err) {
-      return defaultValue
-    }
   }
 }
