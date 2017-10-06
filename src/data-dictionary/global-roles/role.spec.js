@@ -8,6 +8,7 @@
 import Role from './role'
 import { ALL } from '../return-types'
 import { ContextUtil } from '../context-utils'
+import Context from '../context'
 
 describe('Roles contexts', () => {
   let ctx
@@ -42,10 +43,9 @@ describe('Roles contexts', () => {
     const role = new Role(root, ALL, { id: 1, name: 'test' }, ctx)
     const deflated = role.deflate()
     expect(deflated[0]).toMatchObject({
-      type: 'role',
-      name: 'test',
-      id: 1,
-      requiresParent: true
+      type: root.type,
+      name: Context.displayName,
+      requiresParent: false
     })
   })
 

@@ -60,13 +60,15 @@ describe('Notification Step Model', () => {
       expect(model.toJSON()).toMatchObject({
         _id: '123',
         name: 'notification model',
-        body: 'a body',
-        subject: 'a subject',
         type: 'notification',
-        recipient: 'deflated recipient',
-        sources: {
-          one: 'sourceOne',
-          two: 'sourceTwo'
+        meta: {
+          body: 'a body',
+          subject: 'a subject',
+          recipient: 'deflated recipient',
+          sources: {
+            one: 'sourceOne',
+            two: 'sourceTwo'
+          }
         }
       })
     })

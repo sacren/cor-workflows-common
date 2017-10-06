@@ -9,6 +9,7 @@
 import WorkflowContext from './workflow-context'
 import Ancestry from '../ancestry-util'
 import { ALL } from '../data-dictionary/return-types'
+import { deepCopy } from 'lodash'
 import Context from '../data-dictionary/context'
 
 const workflowData = function(ctxData) {
@@ -175,7 +176,141 @@ describe('Workflow Context', () => {
     })
   })
 
-  it('should be able to find a definition step within its ancestry', () => {
-    const wfData = workflowData()
+  describe('getFormfillValue', () => {
+    it('should perform an elaborate stitching of data as a return value', async () => {
+      const formResponse = { name: 'i am form' }
+      const schemaResponse = { name: 'i am schema' }
+      const documentResponse = { name: 'i am document' }
+      const ctx = {
+        apis: {
+          forms: {
+            getForm: jest.fn().mockReturnValue(formResponse),
+            getSchema: jest.fn().mockReturnValue(schemaResponse),
+            getDocument: jest.fn().mockReturnValue(documentResponse)
+          }
+        }
+      }
+      const wf = new WorkflowContext(null, null, workflowData(), ctx)
+      const definitionStep = { _id: 999 }
+      const instanceStep = { meta: { form: { _id: 888 } } }
+      wf.findDefinitionStep = jest
+        .fn()
+        .mockReturnValue({ step: definitionStep })
+      wf.findInstanceStep = jest.fn().mockReturnValue(instanceStep)
+
+      const formContext = { data: { _id: '123' } }
+      const valueMap = {
+        definition: {},
+        instance: { name: 'instance' },
+        instances: { name: 'instances' }
+      }
+      const value = await wf.getFormfillValue(formContext, valueMap)
+      expect(wf.findDefinitionStep).toHaveBeenCalledWith(
+        formContext.data._id,
+        valueMap.definition
+      )
+      expect(wf.findInstanceStep).toHaveBeenCalledWith(
+        definitionStep._id.toString(),
+        valueMap.instance,
+        valueMap.instances
+      )
+      expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({
+        _id: formContext.data._id
+      })
+      expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({
+        _id: formContext.data._id
+      })
+      expect(ctx.apis.forms.getDocument).toHaveBeenCalledWith(
+        instanceStep.meta.form._id
+      )
+      const data = {
+        container: formResponse,
+        schema: schemaResponse,
+        document: documentResponse,
+        definitionStep,
+        instanceStep
+      }
+      expect(valueMap.formfill).toMatchObject(data)
+      expect(value).toMatchObject(data)
+    })
+  })
+
+  describe('findInstanceStep', () => {
+    let wf, instance
+    beforeEach(() => {
+      wf = new WorkflowContext(null, null, workflowData())
+      instance = {
+        steps: [
+          { stepDefinitionId: 100 },
+          { stepDefinitionId: 101 },
+          { stepDefinitionId: 102 },
+          { stepDefinitionId: 103 }
+        ]
+      }
+    })
+
+    it('should return undefined if no instance or instance steps are provided', () => {
+      expect(wf.findInstanceStep()).toBeUndefined()
+      expect(wf.findInstanceStep(null, {})).toBeUndefined()
+    })
+
+    it('should return an instance step if one if found', () => {
+      const step = wf.findInstanceStep('102', instance)
+      expect(step).toMatchObject(instance.steps[2])
+    })
+
+    it('should call findInstaceStep again with the next instance if it does not find a step', () => {
+      const instances = {
+        foo: {
+          steps: [...instance.steps]
+        }
+      }
+      instance.parent = { instance: 'foo' }
+      const newStep = { stepDefinitionId: 104 }
+      instances.foo.steps.push(newStep)
+      const step = wf.findInstanceStep('104', instance, instances)
+      expect(step).toMatchObject(newStep)
+    })
+  })
+
+  describe('findDefinitionStep', () => {
+    let steps, wf
+    let createStep = function(type, formId) {
+      const flowId = Math.floor(Math.random() * (10 - 0))
+      return {
+        flow: flowId,
+        step: { type, meta: { form: [{ _id: formId }] } }
+      }
+    }
+
+    beforeEach(() => {
+      steps = [
+        createStep('formfill', 222),
+        createStep('notification', 333),
+        createStep('conditional', 444),
+        createStep('formfill', 555),
+        createStep('parallel', 666)
+      ]
+
+      const wfData = workflowData()
+      wfData.ancestry.forEachStep = jest.fn().mockImplementation(func => {
+        steps.forEach(step => {
+          func(step)
+        })
+      })
+      wf = new WorkflowContext(null, null, wfData)
+    })
+
+    it('should be able to find a formfill step with a matching form id', () => {
+      const step = steps[0]
+      expect(wf.findDefinitionStep(222)).toMatchObject({
+        flow: step.flow,
+        step: step.step
+      })
+    })
+
+    it('should not match a step with the correct id that is not a formfill', () => {
+      expect(wf.findDefinitionStep(333)).toBeUndefined()
+    })
   })
 })
