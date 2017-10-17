@@ -15,7 +15,7 @@
     "clean": "gulp clean",
     "build": "gulp",
     "prepublish": "npm test && npm run build",
-    "test": "standard && jest"
+    "test": "standard --parser babel-eslint && jest"
   },
   "repository": {
     "type": "git",
@@ -49,10 +49,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 47,
-        "branches": 28,
-        "lines": 50,
-        "functions": 41
+        "statements": 92,
+        "branches": 88,
+        "lines": 93,
+        "functions": 91
       }
     },
     "mapCoverage": true,
