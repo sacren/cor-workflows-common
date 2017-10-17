@@ -9,10 +9,9 @@
 import WorkflowContext from './workflow-context'
 import Ancestry from '../ancestry-util'
 import { ALL } from '../data-dictionary/return-types'
-import { deepCopy } from 'lodash'
 import Context from '../data-dictionary/context'
 
-const workflowData = function(ctxData) {
+const workflowData = function (ctxData) {
   return {
     ancestry: {},
     stepId: 1,
@@ -22,7 +21,6 @@ const workflowData = function(ctxData) {
 
 describe('Workflow Context', () => {
   it('should inflate both its ancestry and context', async () => {
-    const originalInflate = Ancestry.inflate
     Ancestry.inflate = jest.fn().mockReturnValue({ name: 'my ancestry' })
     const context = {
       scope: {
@@ -51,6 +49,7 @@ describe('Workflow Context', () => {
   describe('Construction', () => {
     it('should throw an error if no data is provided', () => {
       expect(() => {
+        // eslint-disable-next-line
         new WorkflowContext()
       }).toThrowErrorMatchingSnapshot()
     })
@@ -58,21 +57,25 @@ describe('Workflow Context', () => {
     it('should throw and error if incorrect is provided', () => {
       // no ancestry
       expect(() => {
+        // eslint-disable-next-line
         new WorkflowContext(null, null, {})
       }).toThrowErrorMatchingSnapshot()
 
       // no stepId
       expect(() => {
+        // eslint-disable-next-line
         new WorkflowContext(null, null, { ancestry: {} })
       }).toThrowErrorMatchingSnapshot()
 
       // no context
       expect(() => {
+        // eslint-disable-next-line
         new WorkflowContext(null, null, { ancestry: {}, stepId: 1 })
       }).toThrowErrorMatchingSnapshot()
 
       // wrong type of context
       expect(() => {
+        // eslint-disable-next-line
         new WorkflowContext(null, null, {
           ancestry: {},
           stepId: 1,
@@ -128,7 +131,7 @@ describe('Workflow Context', () => {
       wf.getFormfillValue = jest.fn()
       wf.parent = parent
       wf.context.type = 'formfill'
-      const value = await wf.getValue({})
+      await wf.getValue({})
       expect(passedMap).toMatchObject({})
       expect(wf.getFormfillValue).toHaveBeenCalledWith(wfData.context, {})
     })
@@ -154,7 +157,7 @@ describe('Workflow Context', () => {
         })
       }
       const wf = new WorkflowContext(parent, null, wfData, ctx)
-      const deflation = wf.deflate()
+      wf.deflate()
       expect(parentDeflateList).toMatchObject([])
     })
 
@@ -275,7 +278,7 @@ describe('Workflow Context', () => {
 
   describe('findDefinitionStep', () => {
     let steps, wf
-    let createStep = function(type, formId) {
+    let createStep = function (type, formId) {
       const flowId = Math.floor(Math.random() * (10 - 0))
       return {
         flow: flowId,

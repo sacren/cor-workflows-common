@@ -56,6 +56,7 @@ describe('TextInput', () => {
       }
       input.parent = parent
       const value = await input.getValue()
+      expect(value)
       expect(parent.getValue).toHaveBeenCalledWith({})
     })
 

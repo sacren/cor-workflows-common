@@ -7,19 +7,20 @@
  */
 
 import FormfillModel from './'
-import Context from '../../../data-dictionary/context'
 import ContextUtils from '../../../data-dictionary/context-utils'
 
 describe('Formfill Model', () => {
   describe('Construction', () => {
     it('should require data to be passed', () => {
       expect(() => {
+        // eslint-disable-next-line
         const model = new FormfillModel()
       }).toThrowErrorMatchingSnapshot()
     })
 
     it('should require a form to be passed within data', () => {
       expect(() => {
+        // eslint-disable-next-line
         const model = new FormfillModel({})
       }).toThrowErrorMatchingSnapshot()
     })

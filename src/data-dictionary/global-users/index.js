@@ -15,14 +15,14 @@ export default class GlobalUsers extends Context {
   static displayName = 'Users'
   static returnTypes = [TEXT, USER]
 
-  static async inflate() {}
+  static async inflate () {}
 
-  async getChildren(filter) {
+  async getChildren (filter) {
     const users = await this.ctx.apis.users.getUsers(filter)
     return users.map(user => new User(this, this.returnTypes, user, this.ctx))
   }
 
-  deflate(valueList = []) {
+  deflate (valueList = []) {
     const { parent, type, name } = this
     if (parent) parent.deflate(valueList)
     valueList.push({ type, name, requiresParent: false })

@@ -7,9 +7,8 @@
  */
 
 import UserTypeahead from './field-core-user-typeahead'
-import { mockFieldData } from '../../test/utils/fields'
 import { TEXT, USER } from '../return-types'
-import FieldTest from '../../test/utils/fields'
+import FieldTest, { mockFieldData } from '../../test/utils/fields'
 
 FieldTest(UserTypeahead, [USER, TEXT], [USER, TEXT], true)
 

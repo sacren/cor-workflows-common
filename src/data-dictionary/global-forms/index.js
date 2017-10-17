@@ -14,9 +14,9 @@ export default class GlobalForms extends Context {
   static displayName = 'Forms'
   static returnTypes = '*'
 
-  static async inflate() {}
+  static async inflate () {}
 
-  async getChildren(filter) {
+  async getChildren (filter) {
     if (!this.ctx) throw new Error('no ctx')
     const forms = await this.ctx.apis.forms.list(filter)
     const formCtxs = forms.map(
@@ -25,7 +25,7 @@ export default class GlobalForms extends Context {
     return formCtxs
   }
 
-  deflate(valueList = []) {
+  deflate (valueList = []) {
     const { parent, type, name } = this
     if (parent) parent.deflate(valueList)
     valueList.push({ type, name, requiresParent: false })

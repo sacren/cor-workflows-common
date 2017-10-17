@@ -6,7 +6,6 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 import Context from './context'
-import GlobalForms from './global-forms'
 import { CATEGORY, FORM, ALL } from './return-types'
 
 describe('Data Dictionary > Context', () => {

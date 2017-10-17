@@ -104,6 +104,7 @@ describe('Field', () => {
       }
       field.parent = parent
       const value = await field.getValue()
+      expect(value)
       expect(passedMap).toMatchObject({})
     })
 

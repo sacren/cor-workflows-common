@@ -24,6 +24,7 @@ describe('User Context', () => {
       }
     }
     const inflated = await User.inflate(ctx, { id: '123' })
+    expect(inflated)
     expect(ctx.apis.users.getUser).toHaveBeenCalledWith('123')
   })
 

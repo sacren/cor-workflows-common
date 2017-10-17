@@ -24,12 +24,14 @@ describe('Conditional Model', () => {
   describe('Construction', () => {
     it('should throw an error if no data is provided', () => {
       expect(() => {
+        // eslint-disable-next-line
         new ConditionalModel()
       }).toThrowErrorMatchingSnapshot()
     })
 
     it('should throw an error if no routes are provided within data', () => {
       expect(() => {
+        // eslint-disable-next-line
         new ConditionalModel({})
       }).toThrowErrorMatchingSnapshot()
     })

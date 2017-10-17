@@ -6,11 +6,11 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 
-export function mockFieldData() {
+export function mockFieldData () {
   return { type: 'foo', formKey: 'bar', label: 'baz', jsType: 'boom' }
 }
 
-export default function testField(
+export default function testField (
   Field,
   returnTypes,
   matchTypes,

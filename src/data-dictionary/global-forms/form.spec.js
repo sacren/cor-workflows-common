@@ -8,7 +8,7 @@
 
 import Form from './form'
 import TestDeflation from '../../test/utils/deflation'
-import { ALL, TEXT, USER, GROUP } from '../return-types'
+import { ALL, USER, GROUP } from '../return-types'
 
 describe('Form', () => {
   it('should call the apis and create an object on inflate', async () => {
@@ -34,6 +34,7 @@ describe('Form', () => {
     const data = { _id: 'bar' }
     const spy = jest.spyOn(Form.prototype, 'validate')
     const form = new Form(null, null, data)
+    expect(form)
     expect(spy).toHaveBeenCalledWith(data)
     spy.mockRestore()
   })
@@ -125,7 +126,7 @@ describe('Form', () => {
   })
 
   describe('getValue', () => {
-    let data, ctx, parent
+    let data, ctx
     beforeEach(() => {
       data = { _id: '123' }
       ctx = {
@@ -147,6 +148,7 @@ describe('Form', () => {
       }
       const form = new Form(parent, null, data, ctx)
       const value = await form.getValue()
+      expect(value)
       expect(passedMap).toMatchObject({})
     })
 

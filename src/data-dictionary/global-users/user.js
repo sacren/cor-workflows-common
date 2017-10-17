@@ -14,11 +14,11 @@ export default class User extends Context {
   static returnTypes = [TEXT, USER]
   static matchTypes = [TEXT, USER]
 
-  static async inflate(ctx, deflated) {
+  static async inflate (ctx, deflated) {
     return ctx.apis.users.getUser(deflated.id)
   }
 
-  constructor(parent, returnTypes, data, ctx) {
+  constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
     this.name = data.displayName
   }
@@ -27,12 +27,12 @@ export default class User extends Context {
 
   isLeaf = () => true
 
-  isEqual(ctx) {
+  isEqual (ctx) {
     if (!ctx || !ctx.data || !this.data) return false
     return this.data.id === ctx.data.id
   }
 
-  deflate(valueList = []) {
+  deflate (valueList = []) {
     const { parent, type, name, data } = this
     if (parent) parent.deflate(valueList)
     valueList.push({ type, name, id: data.id, requiresParent: false })
@@ -43,12 +43,12 @@ export default class User extends Context {
    * Not yet implemented
    * @abstract
    */
-  async getValue(valueMap = {}) {
+  async getValue (valueMap = {}) {
     const { parent } = this
     if (parent) await parent.getValue(valueMap)
     const user = Object.assign(
       {
-        toString: function() {
+        toString: function () {
           return this.displayName
         }
       },

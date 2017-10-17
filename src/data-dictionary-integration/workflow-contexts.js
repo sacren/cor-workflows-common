@@ -16,12 +16,12 @@ export default class WorkflowContexts extends Context {
   static displayName = 'Workflow Data'
   static returnTypes = ALL
 
-  static async inflate(ctx, deflated, parent, scope) {
+  static async inflate (ctx, deflated, parent, scope) {
     const { ancestry, position } = scope
     return { ancestry, position }
   }
 
-  async getChildren(filter) {
+  async getChildren (filter) {
     const { ctx } = this
     const { ancestry, position } = this.data
 
@@ -43,11 +43,11 @@ export default class WorkflowContexts extends Context {
     )
   }
 
-  isEqual(ctx) {
+  isEqual (ctx) {
     return ctx && ctx.type === this.type
   }
 
-  deflate(valueList = []) {
+  deflate (valueList = []) {
     const { parent, type, name } = this
     if (parent) parent.deflate(valueList)
     valueList.push({ type, name, requiresParent: false })

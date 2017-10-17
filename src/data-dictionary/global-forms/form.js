@@ -61,7 +61,7 @@ export default class Form extends Context {
   static returnTypes = ALL
   static matchTypes = [FORM, TEXT]
 
-  static async inflate(ctx, deflated) {
+  static async inflate (ctx, deflated) {
     const pieces = await Promise.all([
       ctx.apis.forms.getForm({ _id: deflated._id }),
       ctx.apis.forms.getSchema({ _id: deflated._id })
@@ -71,13 +71,13 @@ export default class Form extends Context {
     return form
   }
 
-  constructor(parent, returnTypes, data, ctx) {
+  constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
     this.validate(data)
     this.name = data.lbl
   }
 
-  async getChildren(filter) {
+  async getChildren (filter) {
     if (!this.data || !this.data._id) return []
     const form = await this.ctx.apis.forms.getSchema(this.data)
     const filtered = _filter(values(form.schema), filter)
@@ -97,11 +97,11 @@ export default class Form extends Context {
     return compact(children)
   }
 
-  isLeaf() {
+  isLeaf () {
     return false
   }
 
-  deflate(valueList = []) {
+  deflate (valueList = []) {
     const { parent, type, name, data } = this
     if (parent) parent.deflate(valueList)
     valueList.push({ type, name, _id: data._id, requiresParent: false })
@@ -112,7 +112,7 @@ export default class Form extends Context {
    * Expect the parent form to have provided a document containing values
    * @param {Object} valueMap a map of parent's output
    */
-  async getValue(valueMap = {}) {
+  async getValue (valueMap = {}) {
     const { data, parent } = this
     if (parent) await parent.getValue(valueMap)
     const { forms: formsAPI } = this.ctx.apis
@@ -124,13 +124,13 @@ export default class Form extends Context {
     return responses
   }
 
-  isEqual(ctx) {
+  isEqual (ctx) {
     return get(this, 'data._id') === get(ctx, 'data._id')
   }
 
   // --- Utility Functions ---
 
-  validate(data) {
+  validate (data) {
     if (!data || !data._id) {
       throw new Error(
         'Cannot create a Form Context without propperly formatted form data'

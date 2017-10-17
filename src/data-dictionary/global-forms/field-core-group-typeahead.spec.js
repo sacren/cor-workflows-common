@@ -8,7 +8,6 @@
 
 import GroupTypeahead from './field-core-group-typeahead'
 import { GROUP, TEXT } from '../return-types'
-import FieldTest from '../../test/utils/fields'
 import { mockFieldData } from '../../test/utils/fields'
 import TestDeflation from '../../test/utils/deflation'
 
@@ -47,6 +46,7 @@ describe('Field Core Group Typeahead', () => {
 
     it('should call the context categories get', async () => {
       const children = await group.getChildren()
+      expect(children)
       expect(ctx.apis.categories.get).toHaveBeenCalledWith('123')
     })
 
@@ -95,6 +95,7 @@ describe('Field Core Group Typeahead', () => {
       }
       group.parent = parent
       const value = await group.getValue()
+      expect(value)
       expect(passedMap).toMatchObject({})
     })
 

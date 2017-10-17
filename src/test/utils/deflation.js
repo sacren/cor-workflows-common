@@ -8,7 +8,7 @@
 
 import { last } from 'lodash'
 
-export default function testDeflate(ContextFactory, deflatedObject) {
+export default function testDeflate (ContextFactory, deflatedObject) {
   describe('Deflation', () => {
     let parent, context, passedValueList
     beforeEach(() => {

@@ -10,18 +10,18 @@ export default class StepModel {
   static displayName = 'BaseStepModel'
   static type = 'base-step-model'
 
-  constructor(data = {}) {
+  constructor (data = {}) {
     const { displayName, type } = this.constructor
     this.name = data.name || displayName
     this.type = type
     this._id = data._id
   }
 
-  validate() {
+  validate () {
     return true
   }
 
-  toJSON() {
+  toJSON () {
     throw new Error('Not yet implemented')
   }
 }
