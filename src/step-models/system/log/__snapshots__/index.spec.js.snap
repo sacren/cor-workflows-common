@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Log Model Validation should throw an error if no meta is present 1`] = `"Log Step data has an invalid format"`;
+
+exports[`Log Model Validation should throw an error if no template is present 1`] = `"Log Steps require a template"`;
+
+exports[`Log Model Validation should throw an error if no variables are present 1`] = `"Log Steps require variables"`;

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Global Forms getChildren should throw and error if there is no context 1`] = `"received is not a function"`;

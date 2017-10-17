@@ -12,7 +12,8 @@ import { ALL } from '../data-dictionary/return-types'
 import Ancestry from '../ancestry-util'
 
 const i18n = {
-  MISSING_DATA: 'Workflow Context expects data to have ancestry, stepId & context'
+  MISSING_DATA:
+    'Workflow Context expects data to have ancestry, stepId & context'
 }
 
 export default class WorkflowContext extends Context {
@@ -21,7 +22,7 @@ export default class WorkflowContext extends Context {
   static displayName = 'Workflow Context'
   static returnTypes = ALL
 
-  static async inflate (ctx, deflated, parent, scope) {
+  static async inflate(ctx, deflated, parent, scope) {
     const { ancestry, context, stepId } = deflated
     const params = await Promise.props({
       ancestry: Ancestry.inflate(ancestry, ctx.scope.axios),
@@ -30,7 +31,7 @@ export default class WorkflowContext extends Context {
     return { ...params, stepId }
   }
 
-  constructor (parent, returnTypes, data, ctx) {
+  constructor(parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
     if (!data) throw new Error(i18n.MISSING_DATA)
     const { context, ancestry, stepId } = data
@@ -45,7 +46,7 @@ export default class WorkflowContext extends Context {
     this.data = context.data
   }
 
-  async getChildren (filter) {
+  async getChildren(filter) {
     const children = await this.context.getChildren(filter)
     children.forEach(child => {
       child.parent = this
@@ -54,7 +55,7 @@ export default class WorkflowContext extends Context {
     return children
   }
 
-  deflate (valueList = []) {
+  deflate(valueList = []) {
     const { ancestry, context, name, parent, stepId, type } = this
     if (parent) parent.deflate(valueList)
     const deflatedCtx = this.ctx.deflate(context)
@@ -70,7 +71,7 @@ export default class WorkflowContext extends Context {
     return valueList
   }
 
-  async getValue (valueMap = {}) {
+  async getValue(valueMap = {}) {
     const { context, parent } = this
     if (parent) await parent.getValue(valueMap)
     switch (context.type) {
@@ -83,7 +84,7 @@ export default class WorkflowContext extends Context {
     }
   }
 
-  async getFormfillValue (formContext, valueMap) {
+  async getFormfillValue(formContext, valueMap) {
     const { definition, instance, instances } = valueMap
     const formId = formContext.data._id
     const { step: definitionStep } = this.findDefinitionStep(formId, definition)
@@ -107,7 +108,7 @@ export default class WorkflowContext extends Context {
     return data
   }
 
-  findDefinitionStep (formId) {
+  findDefinitionStep(formId) {
     let match
     this.ancestry.forEachStep(({ flow, step }) => {
       if (step.type === 'formfill' && last(step.meta.form)._id === formId) {
@@ -117,7 +118,7 @@ export default class WorkflowContext extends Context {
     return match
   }
 
-  findInstanceStep (definitionStepId, instance, instances) {
+  findInstanceStep(definitionStepId, instance, instances) {
     if (!instance || !instance.steps) return
     const instanceStep = instance.steps.find(
       s => s.stepDefinitionId.toString() === definitionStepId

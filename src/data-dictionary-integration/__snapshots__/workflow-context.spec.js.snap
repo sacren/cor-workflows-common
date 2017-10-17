@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Workflow Context Construction should throw an error if no data is provided 1`] = `"Workflow Context expects data to have ancestry, stepId & context"`;
+
+exports[`Workflow Context Construction should throw and error if incorrect is provided 1`] = `"Workflow Context expects data to have ancestry, stepId & context"`;
+
+exports[`Workflow Context Construction should throw and error if incorrect is provided 2`] = `"Workflow Context expects data to have ancestry, stepId & context"`;
+
+exports[`Workflow Context Construction should throw and error if incorrect is provided 3`] = `"Workflow Context expects data to have ancestry, stepId & context"`;
+
+exports[`Workflow Context Construction should throw and error if incorrect is provided 4`] = `"Workflow Context expects data to have ancestry, stepId & context"`;
+
+exports[`Workflow Context getData should throw an error if its context tyep is not formfill 1`] = `"received is not a function"`;

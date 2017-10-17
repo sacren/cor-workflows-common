@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form Validation should throw and error data._id is missing 1`] = `"Cannot create a Form Context without propperly formatted form data"`;
+
+exports[`Form Validation should throw and error if no data is provided 1`] = `"Cannot create a Form Context without propperly formatted form data"`;

@@ -28,7 +28,7 @@ export default class Context {
    * Not yet implemented
    * @abstract
    */
-  static async inflate (deflated) {
+  static async inflate(deflated) {
     throw new Error('Not yet implemented')
   }
 
@@ -38,7 +38,7 @@ export default class Context {
    * @param {Object} parent The parent context
    * @param {Object} data Any data that should be available
    */
-  constructor (parent, returnTypes = DEFAULTS['returnTypes'], data, ctx) {
+  constructor(parent, returnTypes = DEFAULTS['returnTypes'], data, ctx) {
     const { type, displayName, matchTypes } = this.constructor
     this.type = type
     this.name = displayName
@@ -49,7 +49,7 @@ export default class Context {
     this.ctx = ctx
   }
 
-  getParent () {
+  getParent() {
     return this.parent
   }
 
@@ -58,27 +58,27 @@ export default class Context {
    * @abstract
    * @param {dunno} filter
    */
-  async getChildren (filter) {
+  async getChildren(filter) {
     throw new Error('Not yet implemented')
   }
 
-  async getData () {
+  async getData() {
     return this.data
   }
 
-  setData (data) {
+  setData(data) {
     this.data = data
   }
 
-  isLeaf () {
+  isLeaf() {
     return false
   }
 
-  isEqual (ctx) {
+  isEqual(ctx) {
     return isEqual(this, ctx)
   }
 
-  matches (match) {
+  matches(match) {
     if (!this.match || !match) return false
     if (match === ALL) return true
     const thisMatch = isArray(this.match) ? this.match : [this.match]
@@ -90,7 +90,7 @@ export default class Context {
    * Not yet implemented
    * @abstract
    */
-  deflate () {
+  deflate() {
     throw new Error('Not yet implemented')
   }
 
@@ -98,26 +98,26 @@ export default class Context {
    * Not yet implemented
    * @abstract
    */
-  async getValue (valueMap = {}) {
+  async getValue(valueMap = {}) {
     const { parent } = this
     if (parent) await parent.getValue(valueMap)
   }
 
-  toString () {
+  toString() {
     return this.parent ? `${this.parent.toString()} > ${this.name}` : this.name
   }
 
-  toShortString () {
+  toShortString() {
     return this.name
   }
 
-  hash () {
+  hash() {
     return this.parent
       ? `${this.parent.hash()}:${this.shortHash()}`
       : this.shortHash()
   }
 
-  shortHash () {
+  shortHash() {
     return `${hash.unique(this.type)}-${hash.unique(this.name)}`
   }
 
@@ -126,7 +126,7 @@ export default class Context {
   /**
    * Return the filtered set of passed contexts
    */
-  reduceByReturnType (contexts) {
+  reduceByReturnType(contexts) {
     return contexts.filter(Context => {
       return (
         Context.returnTypes === '*' ||

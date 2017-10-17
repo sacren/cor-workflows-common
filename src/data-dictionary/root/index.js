@@ -20,9 +20,9 @@ export default class RootContext extends Context {
   static displayName = 'Data Source'
   static returnTypes = ALL
 
-  static async inflate () {}
+  static async inflate() {}
 
-  constructor (parent, returnTypes, data, ctx) {
+  constructor(parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
     this.contexts = [
       { type: GlobalCategories },
@@ -38,21 +38,20 @@ export default class RootContext extends Context {
    * Returns relevant child contexts
    * @override
    */
-  getChildren (filter) {
-    const reduced = this.returnTypes === ALL
-      ? this.contexts
-      : this.reduceByReturnType()
+  getChildren(filter) {
+    const reduced =
+      this.returnTypes === ALL ? this.contexts : this.reduceByReturnType()
     return reduced.map(context => {
       const { type: Context, data } = context
       return new Context(this, this.returnTypes, data, this.ctx)
     })
   }
 
-  isEqual (ctx) {
+  isEqual(ctx) {
     return ctx && ctx.type === this.type
   }
 
-  deflate (valueList = []) {
+  deflate(valueList = []) {
     const { parent, type, name } = this
     if (parent) parent.deflate(valueList)
     valueList.push({ type, name, requiresParent: false })
@@ -61,14 +60,14 @@ export default class RootContext extends Context {
 
   // --- other stuff ---
 
-  addContext (type, data) {
+  addContext(type, data) {
     this.contexts.unshift({ type, data })
   }
 
   /**
    * Return the filtered set of passed contexts
    */
-  reduceByReturnType () {
+  reduceByReturnType() {
     return this.contexts.filter(ctx => {
       const { type: Context } = ctx
       return (

@@ -18,7 +18,7 @@ import {
   GROUPS_RESPONSE,
   GROUP_METRO_RESPONSE
 } from '../test/fake-data'
-// import util from 'util'
+import TestDeflation from '../../test/utils/deflation'
 
 describe('Global groups contexts', () => {
   let mock
@@ -68,5 +68,11 @@ describe('Global groups contexts', () => {
     expect(children[1]).toBeInstanceOf(Category)
     expect(children[2]).toBeInstanceOf(Role)
     expect(children[3]).toBeInstanceOf(Role)
+  })
+
+  TestDeflation(parent => new GlobalGroups(parent), {
+    type: GlobalGroups.type,
+    name: GlobalGroups.displayName,
+    requiresParent: false
   })
 })

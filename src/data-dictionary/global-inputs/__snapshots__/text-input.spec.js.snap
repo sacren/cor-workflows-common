@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInput Validation should throw an error if there is no data 1`] = `"Cannot create a Text Input Context without a string"`;
+
+exports[`TextInput Validation should throw and error if data is not a string 1`] = `"Cannot create a Text Input Context without a string"`;

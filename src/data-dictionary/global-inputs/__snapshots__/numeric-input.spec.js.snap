@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Numeric Input Validation should throw an error if the data cannot be coeerced 1`] = `"Cannot create a Numeric Input Context from the passed type"`;
+
+exports[`Numeric Input Validation should throw and error if data is not provided 1`] = `"Cannot create a Numeric Input Context without a value"`;

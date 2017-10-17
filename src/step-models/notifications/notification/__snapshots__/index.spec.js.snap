@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notification Step Model Validation should throw an error if meta is missing 1`] = `"Notification Step data has an invalid format"`;
+
+exports[`Notification Step Model Validation should throw an error if sources are missing 1`] = `"Notification Steps require sources"`;
+
+exports[`Notification Step Model Validation should throw an error if subject is missing 1`] = `"Notification Steps require a subject"`;
+
+exports[`Notification Step Model Validation should throw an error is recipient is missing 1`] = `"Notification Steps require a recipient"`;

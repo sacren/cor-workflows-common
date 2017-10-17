@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Data Dictionary > Context should throw an error for getChildren 1`] = `"received is not a function"`;
+
+exports[`Data Dictionary > Context should throw an error when inflate is called 1`] = `"received is not a function"`;
+
+exports[`Data Dictionary > Context should throw and error for deflation 1`] = `"Not yet implemented"`;
