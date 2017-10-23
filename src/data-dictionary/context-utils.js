@@ -47,6 +47,7 @@ import formAPI from '../api/form'
 import groupAPI from '../api/group'
 import userAPI from '../api/user'
 import { ALL } from './return-types'
+import { contexts as additionalContexts, apis as additionalApis } from '../extensions'
 
 const i18n = {
   UNSUPPORTED_TYPE: 'Cannot getContextType of a non-deflated context'
@@ -82,7 +83,7 @@ export const contexts = [
   FieldTextInput,
   TextInput,
   NumericInput
-]
+].concat(additionalContexts)
 
 export const apis = [
   categoryAPI,
@@ -91,7 +92,7 @@ export const apis = [
   formAPI,
   groupAPI,
   userAPI
-]
+].concat(additionalApis)
 
 export const DEFAULT_SCOPE = {
   axios,

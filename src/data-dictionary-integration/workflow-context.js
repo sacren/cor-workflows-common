@@ -10,6 +10,7 @@ import Promise from 'bluebird'
 import Context from '../data-dictionary/context'
 import { ALL } from '../data-dictionary/return-types'
 import Ancestry from '../ancestry-util'
+import { getValue as getValueFromExt } from '../extensions'
 
 const i18n = {
   MISSING_DATA:
@@ -74,6 +75,10 @@ export default class WorkflowContext extends Context {
   async getValue (valueMap = {}) {
     const { context, parent } = this
     if (parent) await parent.getValue(valueMap)
+
+    const value = getValueFromExt(this, context, valueMap)
+    if (value) return value
+
     switch (context.type) {
       case 'formfill':
         return this.getFormfillValue(context, valueMap)
