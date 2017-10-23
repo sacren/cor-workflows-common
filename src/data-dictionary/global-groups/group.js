@@ -7,6 +7,7 @@
  */
 import Context from '../context'
 import Category from '../global-categories/category'
+import Role from '../global-roles/role'
 import { CATEGORY, GROUP, ROLE, TEXT, USER } from '../return-types'
 
 export default class Group extends Context {
@@ -29,7 +30,7 @@ export default class Group extends Context {
     const parent = resp[0]
     const category = resp[1]
     const roles = await this.getGroupRoles(category)
-    const children = [category, ...roles]
+    const children = category ? [category].concat(roles) : roles
     if (parent) children.unshift(parent)
     return children
   }
@@ -49,6 +50,11 @@ export default class Group extends Context {
   }
 
   async getGroupRoles (category) {
+    if (this.data.roleSchemas) {
+      return this.data.roleSchemas.map(
+        role => new Role(this, this.returnTypes, role, this.ctx)
+      )
+    }
     const cat = category || (await this.getGroupCategory())
     if (!cat) return
     const roles = await category.getChildren()
