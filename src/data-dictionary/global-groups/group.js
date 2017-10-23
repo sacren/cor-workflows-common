@@ -65,7 +65,7 @@ export default class Group extends Context {
   }
 
   static async inflate (ctx, deflated) {
-    return deflated
+    return deflated.data
   }
 
   deflate (valueList = []) {

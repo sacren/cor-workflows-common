@@ -175,20 +175,12 @@ export class ContextUtil {
    */
   async inflate (deflated, returnTypes = '*') {
     const { scope } = this
-    const promises = deflated.map(d => {
-      if (d.requiresParent) return
-      return this.contextMap[d.type].inflate(this, d, undefined, scope)
-    })
-    const datas = await Promise.all(promises)
     const contexts = []
-    for (let i = 0; i < datas.length; i++) {
+    for (let i = 0; i < deflated.length; i++) {
       const defd = deflated[i]
-      let data = datas[i]
-      const Context = this.contextMap[defd.type]
       const parent = i > 0 ? contexts[i - 1] : undefined
-      if (defd.requiresParent) {
-        data = datas[i] = await Context.inflate(this, defd, parent, scope)
-      }
+      const Context = this.contextMap[defd.type]
+      let data = await Context.inflate(this, defd, parent, scope)
       const ctx = Context.type === this.Root.type
         ? this.root || new Root(parent, returnTypes, data, this)
         : new Context(parent, returnTypes, data, this)
