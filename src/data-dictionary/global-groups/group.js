@@ -58,6 +58,18 @@ export default class Group extends Context {
     return roles
   }
 
+  static async inflate (ctx, deflated) {
+    return deflated
+  }
+
+  deflate (valueList = []) {
+    const { parent, type, name, data } = this
+    if (parent) parent.deflate(valueList)
+    // TODO: Should probably actually deflate instead of saving all data
+    valueList.push({ type, name, data, requiresParent: true })
+    return valueList
+  }
+
   isLeaf () {
     if (!this.data) return true
     return false
