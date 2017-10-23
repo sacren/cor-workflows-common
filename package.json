@@ -15,7 +15,8 @@
     "clean": "gulp clean",
     "build": "gulp",
     "prepublish": "npm test && npm run build",
-    "test": "standard --parser babel-eslint && jest"
+    "test": "standard --parser babel-eslint && jest",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
