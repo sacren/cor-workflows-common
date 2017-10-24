@@ -5,6 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
+import { last } from 'lodash'
 import Context from '../context'
 import { ROLE, TEXT, USER } from '../return-types'
 
@@ -19,7 +20,9 @@ export default class Role extends Context {
     const role = children.find(child =>
       child.type === Role.type && child.data.id === deflated.id
     )
-    return role.data
+    const parentData = parent.deflate()
+    const formKey = parentData.length ? last(parentData).formKey : undefined
+    return {...role.data, formKey}
   }
 
   constructor (parent, returnTypes, data, ctx) {
