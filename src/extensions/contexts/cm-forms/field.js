@@ -42,11 +42,19 @@ export default class CMField extends Context {
   }
 
   /**
-   * Expect the parent form to have provided a document containing values
+   * Expect the parent form to have provided an item containing form values
    * @param {Object} valueMap a map of parent's output
    */
   async getValue (valueMap = {}) {
-    throw new Error('Unimplemented')
+    const { data, parent } = this
+    if (parent) {
+      const parentData = await parent.getValue(valueMap)
+      if (parentData.item) {
+        const value = parentData.item[data.formKey]
+        valueMap.field = { value }
+        return value
+      }
+    }
   }
 
   // --- Utility Functions ---
