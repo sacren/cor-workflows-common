@@ -12,12 +12,14 @@ import { ALL } from '../../../data-dictionary/return-types'
 import { CMFORM } from '../../return-types'
 import CMFieldTextInput from './field-text-input'
 import CMFieldCoreGroupTypeahead from './field-core-group-typeahead'
+import CMFieldCoreGroupMultiselect from './field-core-group-multiselect'
 import CMFieldRadioButton from './field-radio-button'
 import CMFieldTextArea from './field-text-area'
 
 const fieldList = {
   CMFieldTextInput,
   CMFieldCoreGroupTypeahead,
+  CMFieldCoreGroupMultiselect,
   CMFieldRadioButton,
   CMFieldTextArea
 }

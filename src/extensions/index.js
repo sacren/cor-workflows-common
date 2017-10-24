@@ -11,6 +11,7 @@ import CMForms from './contexts/cm-forms'
 import CMForm from './contexts/cm-forms/form'
 import CMFieldTextInput from './contexts/cm-forms/field-text-input'
 import CMFieldCoreGroupTypeahead from './contexts/cm-forms/field-core-group-typeahead'
+import CMFieldCoreGroupMultiselect from './contexts/cm-forms/field-core-group-multiselect'
 import CMFieldRadioButton from './contexts/cm-forms/field-radio-button'
 import RadioOption from './contexts/cm-forms/radio-option'
 import CMFieldTextArea from './contexts/cm-forms/field-text-area'
@@ -21,6 +22,7 @@ export const contexts = [
   CMForm,
   CMFieldTextInput,
   CMFieldCoreGroupTypeahead,
+  CMFieldCoreGroupMultiselect,
   CMFieldRadioButton,
   RadioOption,
   CMFieldTextArea
