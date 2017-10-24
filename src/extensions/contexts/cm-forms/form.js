@@ -12,10 +12,14 @@ import { ALL } from '../../../data-dictionary/return-types'
 import { CMFORM } from '../../return-types'
 import CMFieldTextInput from './field-text-input'
 import CMFieldCoreGroupTypeahead from './field-core-group-typeahead'
+import CMFieldRadioButton from './field-radio-button'
+import CMFieldTextArea from './field-text-area'
 
 const fieldList = {
   CMFieldTextInput,
-  CMFieldCoreGroupTypeahead
+  CMFieldCoreGroupTypeahead,
+  CMFieldRadioButton,
+  CMFieldTextArea
 }
 const fieldMap = keyBy(fieldList, 'fieldType')
 
