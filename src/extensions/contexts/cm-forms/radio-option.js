@@ -55,9 +55,9 @@ export default class RadioOption extends Context {
   // --- Utility Functions ---
 
   validate (data) {
-    if (!data || !data.key || !data.text) {
+    if (!data || !data.key) {
       throw new Error(
-        `Invalid RadioOption value: ${data}`
+        `Invalid RadioOption value: ${JSON.stringify(data)}`
       )
     }
   }
