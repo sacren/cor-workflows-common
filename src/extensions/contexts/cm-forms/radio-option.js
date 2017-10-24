@@ -7,22 +7,23 @@
  */
 import { isEqual } from 'lodash'
 import Context from '../../../data-dictionary/context'
+import { NUMBER, TEXT } from '../../../data-dictionary/return-types'
 
-export default class CMField extends Context {
-  static fieldType = 'Unknown'
-  static type = 'cmfield'
-  static displayName = 'CM Field'
-  static returnTypes = '*'
+export default class RadioOption extends Context {
+  static fieldType = 'radio-option'
+  static type = 'radio-option'
+  static displayName = 'Radio Option'
+  static returnTypes = [NUMBER, TEXT]
+  static matchTypes = [NUMBER, TEXT]
 
-  static async inflate (ctx, deflated, parent) {
-    return {...deflated, schema: parent.data.schema[deflated.formKey]}
+  static async inflate (ctx, deflated) {
+    return deflated.data
   }
 
   constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
     this.validate(data)
-    this.name = data.label
-    this.formKey = data.formKey
+    this.name = data.text
   }
 
   getChildren = async filter => []
@@ -35,26 +36,28 @@ export default class CMField extends Context {
   }
 
   deflate (valueList = []) {
-    const { parent, type, name, data } = this
+    const { data, parent, type, name } = this
     if (parent) parent.deflate(valueList)
-    valueList.push({ type, name, formKey: data.formKey, label: data.label, requiresParent: true })
+    valueList.push({ type, name, requiresParent: false, data })
     return valueList
   }
 
   /**
-   * Expect the parent form to have provided a document containing values
    * @param {Object} valueMap a map of parent's output
    */
   async getValue (valueMap = {}) {
-    throw new Error('Unimplemented')
+    const { data, parent } = this
+    if (parent) await parent.getValue(valueMap)
+    valueMap[RadioOption.type] = data
+    return data.key
   }
 
   // --- Utility Functions ---
 
   validate (data) {
-    if (!data || !data.type || !data.formKey || !data.label) {
+    if (!data || !data.key || !data.text) {
       throw new Error(
-        'Cannot create a CM Field Context without propperly formatted form data'
+        `Invalid RadioOption value: ${data}`
       )
     }
   }
