@@ -8,6 +8,7 @@
 import CMField from './field'
 import Category from '../../../data-dictionary/global-categories/category'
 import Role from '../../../data-dictionary/global-roles/role'
+import Group from '../../../data-dictionary/global-groups/group'
 import { GROUP, TEXT } from '../../../data-dictionary/return-types'
 
 export default class FieldCoreGroupTypeahead extends CMField {
@@ -24,12 +25,18 @@ export default class FieldCoreGroupTypeahead extends CMField {
     const { categoryId } = this.data
     const category = await this.ctx.apis.categories.get(categoryId)
     const { parentId, roleSchemas } = category
-    const children = roleSchemas.map(
+    let children = roleSchemas.map(
       role => new Role(this, this.returnTypes, role, this.ctx)
     )
     if (parentId) {
       const pData = await this.ctx.apis.categories.get(parentId)
       children.unshift(new Category(this, this.returnTypes, pData, this.ctx))
+    }
+    if (this.ctx) {
+      const groups = await this.ctx.apis.groups.list(filter)
+      children = children.concat(groups.map(
+        group => new Group(this, this.returnTypes, group, this.ctx)
+      ))
     }
     return children
   }
