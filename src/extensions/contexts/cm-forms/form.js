@@ -14,6 +14,7 @@ import CMFieldTextInput from './field-text-input'
 import CMFieldCoreGroupTypeahead from './field-core-group-typeahead'
 import CMFieldCoreGroupMultiselect from './field-core-group-multiselect'
 import CMFieldRadioButton from './field-radio-button'
+import CMFieldCheckbox from './field-checkbox'
 import CMFieldTextArea from './field-text-area'
 
 const fieldList = {
@@ -21,6 +22,7 @@ const fieldList = {
   CMFieldCoreGroupTypeahead,
   CMFieldCoreGroupMultiselect,
   CMFieldRadioButton,
+  CMFieldCheckbox,
   CMFieldTextArea
 }
 const fieldMap = keyBy(fieldList, 'fieldType')
