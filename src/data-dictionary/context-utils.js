@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { isArray, keyBy, last } from 'lodash'
+import { get, isArray, keyBy, last } from 'lodash'
 import axios from 'axios'
 import Context from './context'
 import Root from './root'
@@ -176,7 +176,8 @@ export class ContextUtil {
   async inflate (deflated, returnTypes = '*') {
     const { scope } = this
     const contexts = []
-    for (let i = 0; i < deflated.length; i++) {
+    const length = get(deflated, 'length', 0)
+    for (let i = 0; i < length; i++) {
       const defd = deflated[i]
       const parent = i > 0 ? contexts[i - 1] : undefined
       const Context = this.contextMap[defd.type]
