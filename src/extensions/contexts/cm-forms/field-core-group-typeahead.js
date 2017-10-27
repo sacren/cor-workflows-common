@@ -57,13 +57,7 @@ export default class FieldCoreGroupTypeahead extends CMField {
   }
 
   async getValue (valueMap = {}) {
-    const { data, parent } = this
-    if (parent) await parent.getValue(valueMap)
-    if (!valueMap.formfill || !valueMap.formfill.document) return
-    const { document } = valueMap.formfill
-    const groupId = document.data[data.formKey].id
-    const group = await this.ctx.apis.groups.get(groupId)
-    valueMap.field = { value: group }
-    return group
+    super.getValue(valueMap)
+    valueMap.formKey = this.data.formKey
   }
 }

@@ -16,6 +16,7 @@
     "build": "gulp",
     "prepublish": "npm test && npm run build",
     "test": "standard --parser babel-eslint && jest",
+    "test:jest:watch": "jest --watch",
     "watch": "gulp watch"
   },
   "repository": {
