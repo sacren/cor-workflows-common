@@ -38,7 +38,7 @@ export const apis = [
   cmAPI
 ]
 
-export function getValue (wfContext, context, valueMap = {}) {
+export async function getValue (wfContext, context, valueMap = {}) {
   switch (context.type) {
     case 'cmformfill':
       return getCMFormfillValue(wfContext, context, valueMap)

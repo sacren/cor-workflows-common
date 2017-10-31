@@ -46,7 +46,7 @@ export default class Form extends Context {
 
   constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
-    // this.validate(data)
+    this.validate(data)
     this.name = data.lbl
   }
 

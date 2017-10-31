@@ -32,12 +32,10 @@ export default class FieldCoreGroupTypeahead extends CMField {
       const pData = await this.ctx.apis.categories.get(parentId)
       children.unshift(new Category(this, this.returnTypes, pData, this.ctx))
     }
-    if (this.ctx) {
-      const groups = await this.ctx.apis.groups.list(filter)
-      children = children.concat(groups.map(
-        group => new Group(this, this.returnTypes, group, this.ctx)
-      ))
-    }
+    const groups = await this.ctx.apis.groups.list(filter)
+    children = children.concat(groups.map(
+      group => new Group(this, this.returnTypes, group, this.ctx)
+    ))
     return children
   }
 

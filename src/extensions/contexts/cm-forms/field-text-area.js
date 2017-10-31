@@ -13,8 +13,4 @@ export default class FieldTextArea extends CMField {
   static type = 'cm-field-text-area'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
-
-  getChildren = async filter => []
-
-  isLeaf = () => true
 }
