@@ -17,7 +17,7 @@ describe('GroupTypeahead', () => {
     getFn = jest.fn()
     listFn = jest.fn()
     parent = { deflate: jest.fn(), getValue: jest.fn().mockReturnValue({}) }
-    ctx = { apis: { categories: { get: getFn }, groups: { list: listFn }}}
+    ctx = { apis: { categories: { get: getFn }, groups: { list: listFn } } }
     data = { type: 'foo', formKey: 'bar', label: 'baz', categoryId: 'cat1' }
     field = new GroupTypeahead(parent, '*', data, ctx)
   })
@@ -56,7 +56,7 @@ describe('GroupTypeahead', () => {
 
   describe('getChildren', () => {
     it('finds role children', async () => {
-      getFn.mockReturnValue({ roleSchemas: ['role1']})
+      getFn.mockReturnValue({ roleSchemas: ['role1'] })
       listFn.mockReturnValue([])
       const children = await field.getChildren()
       expect(children.length).toBe(1)
@@ -64,7 +64,7 @@ describe('GroupTypeahead', () => {
     })
 
     it('finds category children', async () => {
-      getFn.mockReturnValue({ parentId: 'p123', roleSchemas: []})
+      getFn.mockReturnValue({ parentId: 'p123', roleSchemas: [] })
       listFn.mockReturnValue([])
       const children = await field.getChildren()
       expect(children.length).toBe(1)
@@ -72,7 +72,7 @@ describe('GroupTypeahead', () => {
     })
 
     it('finds group children', async () => {
-      getFn.mockReturnValue({ roleSchemas: []})
+      getFn.mockReturnValue({ roleSchemas: [] })
       listFn.mockReturnValue(['groupA'])
       const children = await field.getChildren()
       expect(children.length).toBe(1)
@@ -88,4 +88,3 @@ describe('GroupTypeahead', () => {
     })
   })
 })
-

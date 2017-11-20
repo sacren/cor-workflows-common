@@ -11,10 +11,9 @@ import CMFieldRadioButton from './field-radio-button'
 import { CMFORM } from '../../return-types'
 
 describe('Form', () => {
-  let form, data, ctx, parent, schemaFn, listFn
+  let form, data, ctx, parent, schemaFn
   beforeEach(() => {
     schemaFn = jest.fn()
-    listFn = jest.fn()
     parent = { deflate: jest.fn() }
     ctx = { apis: { cm: { schema: schemaFn } } }
     data = {
@@ -136,8 +135,8 @@ describe('Form', () => {
       expect(form.matches('A')).toBe(true)
     })
     it('matches ARRAYS', () => {
-      form.match = ['A','B']
-      expect(form.matches(['B','C'])).toBe(true)
+      form.match = ['A', 'B']
+      expect(form.matches(['B', 'C'])).toBe(true)
     })
     it('return false when things do not match', () => {
       form.match = 'A'
