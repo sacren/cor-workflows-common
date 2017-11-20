@@ -1,6 +1,6 @@
 {
   "name": "kuali-cor-workflows-common",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Workflows code common to both client and server",
   "author": "Kuali Core Team",
   "license": "SEE LICENSE IN LICENSE",
@@ -15,7 +15,9 @@
     "clean": "gulp clean",
     "build": "gulp",
     "prepublish": "npm test && npm run build",
-    "test": "standard --parser babel-eslint && jest"
+    "test": "standard --parser babel-eslint && jest",
+    "test:jest:watch": "jest --watch",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",

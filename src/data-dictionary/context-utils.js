@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { isArray, keyBy, last } from 'lodash'
+import { get, isArray, keyBy, last } from 'lodash'
 import axios from 'axios'
 import Context from './context'
 import Root from './root'
@@ -47,6 +47,7 @@ import formAPI from '../api/form'
 import groupAPI from '../api/group'
 import userAPI from '../api/user'
 import { ALL } from './return-types'
+import { contexts as additionalContexts, apis as additionalApis } from '../extensions'
 
 const i18n = {
   UNSUPPORTED_TYPE: 'Cannot getContextType of a non-deflated context'
@@ -82,7 +83,7 @@ export const contexts = [
   FieldTextInput,
   TextInput,
   NumericInput
-]
+].concat(additionalContexts)
 
 export const apis = [
   categoryAPI,
@@ -91,7 +92,7 @@ export const apis = [
   formAPI,
   groupAPI,
   userAPI
-]
+].concat(additionalApis)
 
 export const DEFAULT_SCOPE = {
   axios,
@@ -174,20 +175,13 @@ export class ContextUtil {
    */
   async inflate (deflated, returnTypes = '*') {
     const { scope } = this
-    const promises = deflated.map(d => {
-      if (d.requiresParent) return
-      return this.contextMap[d.type].inflate(this, d, undefined, scope)
-    })
-    const datas = await Promise.all(promises)
     const contexts = []
-    for (let i = 0; i < datas.length; i++) {
+    const length = get(deflated, 'length', 0)
+    for (let i = 0; i < length; i++) {
       const defd = deflated[i]
-      let data = datas[i]
-      const Context = this.contextMap[defd.type]
       const parent = i > 0 ? contexts[i - 1] : undefined
-      if (defd.requiresParent) {
-        data = datas[i] = await Context.inflate(this, defd, parent, scope)
-      }
+      const Context = this.contextMap[defd.type]
+      let data = await Context.inflate(this, defd, parent, scope)
       const ctx = Context.type === this.Root.type
         ? this.root || new Root(parent, returnTypes, data, this)
         : new Context(parent, returnTypes, data, this)

@@ -5,6 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
+import { get } from 'lodash'
 import Context from '../context'
 import { TEXT, USER } from '../return-types'
 
@@ -20,7 +21,7 @@ export default class User extends Context {
 
   constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
-    this.name = data.displayName
+    this.name = get(data, 'displayName') || 'User Not Found'
   }
 
   getChildren = async () => []

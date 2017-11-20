@@ -12,6 +12,7 @@ import GlobalForms from '../global-forms'
 import GlobalUsers from '../global-users'
 import TextInput from '../global-inputs/text-input'
 import NumericInput from '../global-inputs/numeric-input'
+import { rootContexts as additionalContexts } from '../../extensions'
 import { ALL } from '../return-types'
 
 export default class RootContext extends Context {
@@ -31,7 +32,7 @@ export default class RootContext extends Context {
       { type: GlobalUsers },
       { type: TextInput },
       { type: NumericInput }
-    ]
+    ].concat(additionalContexts)
   }
 
   /**

@@ -22,7 +22,7 @@ describe('Group', () => {
 
   test('list with a query', async () => {
     await group.list()
-    expect(group._get).toHaveBeenCalledWith(`${Group.GROUP_API}?limit=10`)
+    expect(group._get).toHaveBeenCalledWith(`${Group.GROUP_API}?limit=2000`)
   })
 
   test('get', async () => {

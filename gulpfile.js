@@ -60,4 +60,8 @@ gulp.task('clean', finish => {
 
 gulp.task('build', ['clean', 'js', 'css'])
 
+gulp.task('watch', () => {
+  gulp.watch('src/**/*.js', ['build'])
+})
+
 gulp.task('default', ['build'])
