@@ -42,6 +42,7 @@ export default class Role extends Context {
     const { data, parent } = this
     if (parent) await parent.getValue(valueMap)
     valueMap.role = { value: data }
-    return data
+    const { formKey, groupId } = valueMap
+    return {...data, formKey, groupId}
   }
 }

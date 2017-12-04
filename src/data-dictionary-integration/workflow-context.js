@@ -76,7 +76,7 @@ export default class WorkflowContext extends Context {
     const { context, parent } = this
     if (parent) await parent.getValue(valueMap)
 
-    const value = getValueFromExt(this, context, valueMap)
+    const value = await getValueFromExt(this, context, valueMap)
     if (value) return value
 
     switch (context.type) {

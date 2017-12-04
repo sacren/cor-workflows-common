@@ -22,7 +22,7 @@ export default class CMForms extends Context {
   }
 
   async getChildren (filter) {
-    if (!this.ctx) throw new Error('no ctx')
+    if (!this.ctx) return []
     const institution = await this.ctx.apis.cm.institution()
     const settings = await this.ctx.apis.cm.settings()
     const forms = CMForms.extractFormOptionsFromSettings(institution, settings)
@@ -53,7 +53,7 @@ export default class CMForms extends Context {
     if (get(institution, 'flags.experienceItem')) {
       formOptions.push({
         _id: 'experiences',
-        lbl: get(settings, 'uiTextReplacements.experience') || 'Experiences '
+        lbl: get(settings, 'uiTextReplacements.experience') || 'Experiences'
       })
     }
     if (get(institution, 'flags.specializationItem')) {

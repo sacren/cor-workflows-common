@@ -11,9 +11,9 @@ import Role from '../../../data-dictionary/global-roles/role'
 import Group from '../../../data-dictionary/global-groups/group'
 import { GROUP, TEXT } from '../../../data-dictionary/return-types'
 
-export default class FieldCoreGroupTypeahead extends CMField {
-  static fieldType = 'GroupsTypeahead'
-  static type = 'cm-field-core-group-typeahead'
+export default class FieldCoreGroupMultiselect extends CMField {
+  static fieldType = 'GroupsMultiselect'
+  static type = 'cm-field-core-group-multiselect'
   static returnTypes = [GROUP, TEXT]
   static matchTypes = [GROUP, TEXT]
 

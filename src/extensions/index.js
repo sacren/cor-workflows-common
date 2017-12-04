@@ -11,13 +11,23 @@ import CMForms from './contexts/cm-forms'
 import CMForm from './contexts/cm-forms/form'
 import CMFieldTextInput from './contexts/cm-forms/field-text-input'
 import CMFieldCoreGroupTypeahead from './contexts/cm-forms/field-core-group-typeahead'
+import CMFieldCoreGroupMultiselect from './contexts/cm-forms/field-core-group-multiselect'
+import CMFieldRadioButton from './contexts/cm-forms/field-radio-button'
+import CMFieldCheckbox from './contexts/cm-forms/field-checkbox'
+import RadioOption from './contexts/cm-forms/radio-option'
+import CMFieldTextArea from './contexts/cm-forms/field-text-area'
 import cmAPI from './api/cm'
 
 export const contexts = [
   CMForms,
   CMForm,
   CMFieldTextInput,
-  CMFieldCoreGroupTypeahead
+  CMFieldCoreGroupTypeahead,
+  CMFieldCoreGroupMultiselect,
+  CMFieldRadioButton,
+  CMFieldCheckbox,
+  RadioOption,
+  CMFieldTextArea
 ]
 
 export const rootContexts = [
@@ -28,7 +38,7 @@ export const apis = [
   cmAPI
 ]
 
-export function getValue (wfContext, context, valueMap = {}) {
+export async function getValue (wfContext, context, valueMap = {}) {
   switch (context.type) {
     case 'cmformfill':
       return getCMFormfillValue(wfContext, context, valueMap)

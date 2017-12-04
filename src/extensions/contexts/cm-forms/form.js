@@ -12,10 +12,18 @@ import { ALL } from '../../../data-dictionary/return-types'
 import { CMFORM } from '../../return-types'
 import CMFieldTextInput from './field-text-input'
 import CMFieldCoreGroupTypeahead from './field-core-group-typeahead'
+import CMFieldCoreGroupMultiselect from './field-core-group-multiselect'
+import CMFieldRadioButton from './field-radio-button'
+import CMFieldCheckbox from './field-checkbox'
+import CMFieldTextArea from './field-text-area'
 
 const fieldList = {
   CMFieldTextInput,
-  CMFieldCoreGroupTypeahead
+  CMFieldCoreGroupTypeahead,
+  CMFieldCoreGroupMultiselect,
+  CMFieldRadioButton,
+  CMFieldCheckbox,
+  CMFieldTextArea
 }
 const fieldMap = keyBy(fieldList, 'fieldType')
 
@@ -38,7 +46,7 @@ export default class Form extends Context {
 
   constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
-    // this.validate(data)
+    this.validate(data)
     this.name = data.lbl
   }
 
