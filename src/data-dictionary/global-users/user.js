@@ -47,15 +47,18 @@ export default class User extends Context {
   async getValue (valueMap = {}) {
     const { parent } = this
     if (parent) await parent.getValue(valueMap)
-    const user = Object.assign(
-      {
-        toString: function () {
-          return this.displayName
-        }
-      },
-      this.data
-    )
-    valueMap.user = { value: user }
-    return user
+    if (this.data) {
+      const user = Object.assign(
+        {
+          toString: function () {
+            return this.displayName
+          }
+        },
+        this.data
+      )
+      valueMap.user = { value: user }
+      return user
+    }
+    return undefined
   }
 }
