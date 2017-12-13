@@ -11,6 +11,7 @@ import { USER, TEXT } from '../return-types'
 export default class FieldCoreUserTypeahead extends Field {
   static fieldType = 'UserTypeahead'
   static type = 'field-core-user-typeahead'
+  static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
 
