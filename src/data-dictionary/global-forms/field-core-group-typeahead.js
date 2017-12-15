@@ -13,6 +13,7 @@ import { GROUP, TEXT } from '../return-types'
 export default class FieldCoreGroupTypeahead extends Field {
   static fieldType = 'GroupTypeahead'
   static type = 'field-core-group-typeahead'
+  static treatAsType = GROUP
   static returnTypes = [GROUP, TEXT]
   static matchTypes = [GROUP, TEXT]
 
