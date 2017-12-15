@@ -16,8 +16,8 @@ export default class Role extends Context {
 
   static async inflate (ctx, deflated, parent) {
     const children = await parent.getChildren()
-    const role = children.find(child =>
-      child.type === Role.type && child.data.id === deflated.id
+    const role = children.find(
+      child => child.type === Role.type && child.data.id === deflated.id
     )
     return role.data
   }
@@ -40,9 +40,10 @@ export default class Role extends Context {
 
   async getValue (valueMap = {}) {
     const { data, parent } = this
-    if (parent) await parent.getValue(valueMap)
+    const group = parent
+      ? await parent.getValue(valueMap)
+      : undefined
     valueMap.role = { value: data }
-    const { formKey, groupId } = valueMap
-    return {...data, formKey, groupId}
+    return { ...data, group }
   }
 }

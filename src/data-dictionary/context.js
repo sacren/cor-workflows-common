@@ -20,6 +20,7 @@ const DEFAULTS = {
 export default class Context {
   static global = true
   static type = 'base-context'
+  static treatAsType = undefined
   static displayName = 'Data Source'
   static returnTypes = ALL
   static matchTypes = false
@@ -39,8 +40,9 @@ export default class Context {
    * @param {Object} data Any data that should be available
    */
   constructor (parent, returnTypes = DEFAULTS['returnTypes'], data, ctx) {
-    const { type, displayName, matchTypes } = this.constructor
+    const { type, treatAsType, displayName, matchTypes } = this.constructor
     this.type = type
+    this.treatAsType = treatAsType
     this.name = displayName
     this.match = matchTypes
     this.parent = parent

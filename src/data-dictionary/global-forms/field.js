@@ -34,9 +34,16 @@ export default class Field extends Context {
   }
 
   deflate (valueList = []) {
-    const { parent, type, name, data } = this
+    const { parent, type, treatAsType, name, data } = this
     if (parent) parent.deflate(valueList)
-    valueList.push({ type, name, formKey: data.formKey, requiresParent: true })
+    const deflatedValue = {
+      type,
+      ...treatAsType && { treatAsType },
+      name,
+      formKey: data.formKey,
+      requiresParent: true
+    }
+    valueList.push(deflatedValue)
     return valueList
   }
 
