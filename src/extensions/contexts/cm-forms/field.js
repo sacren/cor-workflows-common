@@ -35,9 +35,9 @@ export default class CMField extends Context {
   }
 
   deflate (valueList = []) {
-    const { parent, type, name, data } = this
+    const { parent, type, name, data, treatAsType } = this
     if (parent) parent.deflate(valueList)
-    valueList.push({ type, name, formKey: data.formKey, label: data.label, requiresParent: true })
+    valueList.push({ type, treatAsType, name, formKey: data.formKey, label: data.label, requiresParent: true })
     return valueList
   }
 

@@ -13,6 +13,7 @@ import { CMFORM } from '../../return-types'
 import CMFieldTextInput from './field-text-input'
 import CMFieldCoreGroupTypeahead from './field-core-group-typeahead'
 import CMFieldCoreGroupMultiselect from './field-core-group-multiselect'
+import CMFieldUserTypeahead from './field-core-user-typeahead'
 import CMFieldRadioButton from './field-radio-button'
 import CMFieldCheckbox from './field-checkbox'
 import CMFieldTextArea from './field-text-area'
@@ -21,6 +22,7 @@ const fieldList = {
   CMFieldTextInput,
   CMFieldCoreGroupTypeahead,
   CMFieldCoreGroupMultiselect,
+  CMFieldUserTypeahead,
   CMFieldRadioButton,
   CMFieldCheckbox,
   CMFieldTextArea
