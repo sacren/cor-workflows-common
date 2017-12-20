@@ -84,5 +84,6 @@ export default class Group extends Context {
   async getValue (valueMap = {}) {
     super.getValue(valueMap)
     valueMap.groupId = this.data.id
+    return this.data
   }
 }
