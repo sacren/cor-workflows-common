@@ -62,7 +62,6 @@ export default class FieldCoreGroupMultiselect extends CMField {
       const {formKey} = valueMap
       const id = parentData.item[formKey]
       return this.ctx.apis.groups.get(id)
-
     }
   }
 }
