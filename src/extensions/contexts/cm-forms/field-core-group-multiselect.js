@@ -33,9 +33,9 @@ export default class FieldCoreGroupMultiselect extends CMField {
       children.unshift(new Category(this, this.returnTypes, pData, this.ctx))
     }
     const groups = await this.ctx.apis.groups.list(filter)
-    children = children.concat(groups.map(
-      group => new Group(this, this.returnTypes, group, this.ctx)
-    ))
+    children = children.concat(
+      groups.map(group => new Group(this, this.returnTypes, group, this.ctx))
+    )
     return children
   }
 
@@ -59,7 +59,7 @@ export default class FieldCoreGroupMultiselect extends CMField {
     if (parent) {
       const parentData = await parent.getValue(valueMap)
       valueMap.formKey = this.data.formKey
-      const {formKey} = valueMap
+      const { formKey } = valueMap
       const id = parentData.item[formKey]
       return this.ctx.apis.groups.get(id)
     }

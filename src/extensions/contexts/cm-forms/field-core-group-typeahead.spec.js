@@ -16,8 +16,13 @@ describe('GroupTypeahead', () => {
   beforeEach(() => {
     getFn = jest.fn()
     listFn = jest.fn()
-    parent = { deflate: jest.fn(), getValue: jest.fn().mockReturnValue({}) }
-    ctx = { apis: { categories: { get: getFn }, groups: { list: listFn } } }
+    parent = {
+      deflate: jest.fn(),
+      getValue: jest.fn().mockReturnValue({ item: { bar: 'foo' } })
+    }
+    ctx = {
+      apis: { categories: { get: getFn }, groups: { list: listFn, get: getFn } }
+    }
     data = { type: 'foo', formKey: 'bar', label: 'baz', categoryId: 'cat1' }
     field = new GroupTypeahead(parent, '*', data, ctx)
   })
@@ -81,9 +86,10 @@ describe('GroupTypeahead', () => {
   })
 
   describe('getValue', () => {
-    it('returns formKey', () => {
+    it('returns formKey', async () => {
       const valueMap = {}
-      field.getValue(valueMap)
+      await field.getValue(valueMap)
+      expect(getFn).toHaveBeenCalled()
       expect(valueMap.formKey).toBe('bar')
     })
   })

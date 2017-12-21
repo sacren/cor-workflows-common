@@ -14,10 +14,18 @@ import Group from '../../../data-dictionary/global-groups/group'
 describe('GroupMultiselect', () => {
   let field, data, ctx, parent, getFn, listFn
   beforeEach(() => {
-    getFn = jest.fn()
+    getFn = jest.fn().mockReturnValue({ name: 'fake value' })
     listFn = jest.fn()
-    parent = { deflate: jest.fn(), getValue: jest.fn().mockReturnValue({}) }
-    ctx = { apis: { categories: { get: getFn }, groups: { list: listFn } } }
+    parent = {
+      deflate: jest.fn(),
+      getValue: jest.fn().mockReturnValue({ item: { bar: 'foo' } })
+    }
+    ctx = {
+      apis: {
+        categories: { get: getFn },
+        groups: { list: listFn, get: getFn }
+      }
+    }
     data = { type: 'foo', formKey: 'bar', label: 'baz', categoryId: 'cat1' }
     field = new GroupMultiselect(parent, '*', data, ctx)
   })
@@ -81,10 +89,11 @@ describe('GroupMultiselect', () => {
   })
 
   describe('getValue', () => {
-    it('returns formKey', () => {
-      const valueMap = {}
-      field.getValue(valueMap)
+    it('returns formKey', async () => {
+      const valueMap = { test: 'test' }
+      const value = await field.getValue(valueMap)
       expect(valueMap.formKey).toBe('bar')
+      expect(value).toHaveProperty('name', 'fake value')
     })
   })
 })
