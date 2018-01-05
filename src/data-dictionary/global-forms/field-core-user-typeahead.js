@@ -5,6 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
+import { get } from 'lodash'
 import Field from './field'
 import { USER, TEXT } from '../return-types'
 
@@ -28,9 +29,11 @@ export default class FieldCoreUserTypeahead extends Field {
     if (parent) await parent.getValue(valueMap)
     if (!valueMap.formfill || !valueMap.formfill.document) return
     const { document } = valueMap.formfill
-    const userId = document.data[data.formKey].id
-    const user = await this.ctx.apis.users.getUser(userId)
-    user.toString = function () { return this.displayName || this.username }
+    const userId = get(document, `data.${data.formKey}.id`)
+    const user = userId ? await this.ctx.apis.users.getUser(userId) : {}
+    user.toString = function () {
+      return this.displayName || this.username
+    }
     valueMap.field = { value: user }
     return user
   }

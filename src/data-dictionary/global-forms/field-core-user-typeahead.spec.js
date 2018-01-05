@@ -13,7 +13,7 @@ import FieldTest, { mockFieldData } from '../../test/utils/fields'
 FieldTest(UserTypeahead, [USER, TEXT], [USER, TEXT], true)
 
 describe('getValue', () => {
-  let data, typeahead, ctx, user
+  let data, typeahead, ctx, user, parent, passedMap
   beforeEach(() => {
     data = mockFieldData()
     user = { name: 'a user' }
@@ -24,19 +24,25 @@ describe('getValue', () => {
         }
       }
     }
-    typeahead = new UserTypeahead(null, null, data, ctx)
-  })
-
-  it('should can the parent getValue', async () => {
-    let passedMap
-    const parent = {
+    parent = {
       getValue: jest.fn().mockImplementation(map => {
         passedMap = { ...map }
       })
     }
-    typeahead.parent = parent
+    typeahead = new UserTypeahead(parent, null, data, ctx)
+  })
+
+  it('should can the parent getValue', async () => {
     await typeahead.getValue()
     expect(passedMap).toMatchObject({})
+  })
+
+  it('handles empty userId value in form', async () => {
+    const user = await typeahead.getValue({
+      formfill: { document: { data: {} } }
+    })
+    expect(ctx.apis.users.getUser).not.toHaveBeenCalled()
+    expect(user.toString()).toBeUndefined()
   })
 
   it('should return nothing if formfill and document are not present', async () => {
