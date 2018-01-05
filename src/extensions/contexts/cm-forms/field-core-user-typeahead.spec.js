@@ -33,4 +33,12 @@ describe('Data Dictionary: Field: Core User Typeahead', () => {
     expect(valueMap.formKey).toBe('bar')
     expect(user.toString()).toEqual('x')
   })
+
+  it('handles empty userId value in form', async () => {
+    data = { type: 'foo', formKey: 'missing', label: 'missing' }
+    field = new UserTypeahead(parent, '*', data, ctx)
+    const user = await field.getValue({})
+    expect(ctx.apis.users.getUser).not.toHaveBeenCalled()
+    expect(user.toString()).toBeUndefined()
+  })
 })

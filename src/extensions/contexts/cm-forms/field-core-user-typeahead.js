@@ -21,11 +21,10 @@ export default class FieldCoreUserTypeahead extends CMField {
     if (parent) {
       const parentData = await parent.getValue(valueMap)
       valueMap.formKey = data.formKey
-      const {formKey} = valueMap
+      const { formKey } = valueMap
       const userId = parentData.item[formKey]
-      const user = await this.ctx.apis.users.getUser(userId)
+      const user = userId ? await this.ctx.apis.users.getUser(userId) : {}
       user.toString = function () {
-        console.log({ thiz: this })
         return this.displayName || this.username
       }
       valueMap.field = { value: user }
