@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { compact, isArray, keyBy, map } from 'lodash'
+import { compact, get, isArray, keyBy, map } from 'lodash'
 
 import Context from '../../../data-dictionary/context'
 import { ALL } from '../../../data-dictionary/return-types'
@@ -103,6 +103,10 @@ export default class Form extends Context {
       requiresParent: false
     })
     return valueList
+  }
+
+  isEqual (ctx) {
+    return get(this, 'data._id') === get(ctx, 'data._id')
   }
 
   // --- Utility Functions ---
