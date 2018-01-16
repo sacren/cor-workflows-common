@@ -14,6 +14,7 @@ import { GROUP, TEXT } from '../../../data-dictionary/return-types'
 export default class FieldCoreGroupMultiselect extends CMField {
   static fieldType = 'GroupsMultiselect'
   static type = 'cm-field-core-group-multiselect'
+  static treatAsType = GROUP
   static returnTypes = [GROUP, TEXT]
   static matchTypes = [GROUP, TEXT]
 
@@ -42,14 +43,15 @@ export default class FieldCoreGroupMultiselect extends CMField {
   isLeaf = () => false
 
   deflate (valueList = []) {
-    const { parent, type, name, data } = this
+    const { parent, type, name, data, treatAsType } = this
     if (parent) parent.deflate(valueList)
     valueList.push({
       type,
       name,
       data,
       formKey: data.formKey,
-      requiresParent: false
+      requiresParent: false,
+      treatAsType
     })
     return valueList
   }

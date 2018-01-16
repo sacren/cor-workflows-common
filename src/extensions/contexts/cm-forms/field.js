@@ -60,9 +60,9 @@ export default class CMField extends Context {
   // --- Utility Functions ---
 
   validate (data) {
-    if (!data || !data.type || !data.formKey || !data.label) {
+    if (!data || !data.type || !data.formKey) {
       throw new Error(
-        'Cannot create a CM Field Context without propperly formatted form data'
+        'Cannot create a CM Field Context without propperly formatted form data: ', JSON.stringify(data)
       )
     }
   }
