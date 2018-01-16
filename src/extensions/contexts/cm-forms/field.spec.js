@@ -105,10 +105,5 @@ describe('Field', () => {
         field.validate({ type: 'blah' })
       }).toThrow()
     })
-    it('errors if data.label is falsy', () => {
-      expect(() => {
-        field.validate({ type: 'blah', formKey: 'key' })
-      }).toThrow()
-    })
   })
 })

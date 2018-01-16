@@ -42,7 +42,8 @@ describe('GroupTypeahead', () => {
       name: data.label,
       data,
       formKey: data.formKey,
-      requiresParent: false
+      requiresParent: false,
+      treatAsType: GroupTypeahead.treatAsType
     })
   })
 
@@ -55,7 +56,8 @@ describe('GroupTypeahead', () => {
       name: data.label,
       data,
       formKey: data.formKey,
-      requiresParent: false
+      requiresParent: false,
+      treatAsType: GroupTypeahead.treatAsType
     })
   })
 
