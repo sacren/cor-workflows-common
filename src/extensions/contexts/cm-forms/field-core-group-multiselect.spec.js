@@ -45,7 +45,8 @@ describe('GroupMultiselect', () => {
       name: data.label,
       data,
       formKey: data.formKey,
-      requiresParent: false
+      requiresParent: false,
+      treatAsType: GroupMultiselect.treatAsType
     })
   })
 
@@ -58,7 +59,8 @@ describe('GroupMultiselect', () => {
       name: data.label,
       data,
       formKey: data.formKey,
-      requiresParent: false
+      requiresParent: false,
+      treatAsType: GroupMultiselect.treatAsType
     })
   })
 

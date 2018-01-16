@@ -144,6 +144,18 @@ describe('Form', () => {
     })
   })
 
+  describe('Equality', () => {
+    it('should return false if the data._id do not match', () => {
+      const form = new Form(null, null, { _id: '123' })
+      expect(form.isEqual({ _id: '567' })).toBeFalsy()
+    })
+
+    it('should return true if the data._id match', () => {
+      const form = new Form(null, null, { _id: '123' })
+      expect(form.isEqual({ data: { _id: '123' } })).toBeTruthy()
+    })
+  })
+
   it('is not a leaf', () => {
     expect(form.isLeaf()).toBe(false)
   })
