@@ -2,7 +2,6 @@ import ctx from '../data-dictionary/context-utils'
 import Rule from './rule'
 
 describe('Rule', () => {
-
   test('constructs', () => {
     const rule = new Rule('l', 'o', 'r')
     expect(rule).toHaveProperty('left', 'l')
