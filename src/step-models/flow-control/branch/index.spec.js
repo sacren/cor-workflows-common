@@ -38,11 +38,13 @@ describe('Conditional Model', () => {
 
     it('should adopt the routes provided in data', () => {
       const model = new ConditionalModel({
-        routes: [1, 2, 3]
+        routes: [
+          { rule: { left: 'l', operator: 'o', right: 'r' } },
+          { rule: { left: 'l', operator: 'o', right: 'r' } },
+          { rule: { left: 'l', operator: 'o', right: 'r' } }
+        ]
       })
-      expect(model.meta).toMatchObject({
-        routes: [1, 2, 3]
-      })
+      expect(model.meta.routes.length).toBe(3)
     })
   })
 
@@ -65,12 +67,12 @@ describe('Conditional Model', () => {
           {
             name: 'route 1',
             flow: 'a flow',
-            rule: { toJSON: () => 'this is some fake json' }
+            rule: { left: 'l', operator: 'o', right: 'r' }
           },
           {
             name: undefined,
             flow: undefined,
-            rule: undefined
+            rule: { left: 'l', operator: 'o', right: 'r' }
           }
         ]
       })
@@ -80,15 +82,8 @@ describe('Conditional Model', () => {
         type: 'conditional',
         meta: {
           routes: [
-            {
-              name: 'route 1',
-              flow: 'a flow',
-              rule: 'this is some fake json'
-            },
-            {
-              name: 'Route 1',
-              flow: expect.stringMatching(/^new-1\.\d+/)
-            }
+            { name: 'route 1', flow: 'a flow' },
+            { name: 'Route 1' }
           ]
         }
       })
@@ -101,11 +96,13 @@ describe('Conditional Model', () => {
       const model = new ConditionalModel({
         routes: [
           {
-            name: 'Route 1'
+            name: 'Route 1',
+            rule: { left: 'l', operator: 'o', right: 'r' }
           },
           {
             name: 'Route 2',
-            flow: 'flow2'
+            flow: 'flow2',
+            rule: { left: 'l', operator: 'o', right: 'r' }
           }
         ]
       })

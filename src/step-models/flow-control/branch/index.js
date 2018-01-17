@@ -38,10 +38,10 @@ export default class ConditionalModel extends StepModel {
     if (!data || !data.routes) {
       throw new Error(i18n.MISSING_CONDITIONS)
     }
-    const routes = data.routes.map(({ name, rule }) => {
+    const routes = data.routes.map(({ name, flow, rule }) => {
       return rule instanceof Rule
-        ? { name, rule }
-        : { name, rule: new Rule(rule.left, rule.operator, rule.right) }
+        ? { name, flow, rule }
+        : { name, flow, rule: new Rule(rule.left, rule.operator, rule.right) }
     })
     this.meta = { routes }
   }
@@ -50,9 +50,9 @@ export default class ConditionalModel extends StepModel {
     this.meta.routes = await Promise.all(
       this.meta.routes.map(
         (route, index) =>
-          (route.flow
+          route.flow
             ? Promise.resolve(route)
-            : this.addFlowToRoute(route, index))
+            : this.addFlowToRoute(route, index)
       )
     )
   }
