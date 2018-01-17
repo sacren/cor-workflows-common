@@ -8,6 +8,7 @@
 import { pick } from 'lodash'
 import StepModel from '../../index'
 import FlowAPI from '../../../api/flow'
+import Rule from '../../../rules/rule'
 
 const i18n = {
   MISSING_CONDITIONS: 'Unable to create a Conditional step without routes'
@@ -37,9 +38,12 @@ export default class ConditionalModel extends StepModel {
     if (!data || !data.routes) {
       throw new Error(i18n.MISSING_CONDITIONS)
     }
-    this.meta = {
-      routes: data.routes
-    }
+    const routes = data.routes.map(({ name, rule }) => {
+      return rule instanceof Rule
+        ? { name, rule }
+        : { name, rule: new Rule(rule.left, rule.operator, rule.right) }
+    })
+    this.meta = { routes }
   }
 
   async createMissingFlows () {
