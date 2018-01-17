@@ -5,8 +5,8 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import ctx from 'kuali-cor-workflows-common/data-dictionary/context-utils'
-import Context from 'kuali-cor-workflows-common/data-dictionary/context'
+import ctx from '../data-dictionary/context-utils'
+import Context from '../data-dictionary/context'
 
 const i18n = {
   BASE: 'Unable to create a Conditional step.'
