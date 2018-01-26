@@ -7,6 +7,7 @@
  */
 
 import Group from './group'
+import GlobalGroups from './index'
 
 describe('Global Groups', () => {
   it('should adopt a name pass into data', () => {
@@ -128,5 +129,11 @@ describe('Global Groups', () => {
       const children = await group.getChildren()
       expect(children).toMatchObject([category, ...roles])
     })
+  })
+
+  it('should be able to getValue', async () => {
+    const group = new Group(null, null, { id: 'test' })
+    const value = await group.getValue()
+    expect(value).toHaveProperty('id', 'test')
   })
 })

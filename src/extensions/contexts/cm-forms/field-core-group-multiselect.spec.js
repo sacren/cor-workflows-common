@@ -66,7 +66,7 @@ describe('GroupMultiselect', () => {
 
   describe('getChildren', () => {
     it('finds role children', async () => {
-      getFn.mockReturnValue({ roleSchemas: ['role1'] })
+      getFn.mockReturnValue({ roleSchemas: [{ id: 'role1' }] })
       listFn.mockReturnValue([])
       const children = await field.getChildren()
       expect(children.length).toBe(1)
