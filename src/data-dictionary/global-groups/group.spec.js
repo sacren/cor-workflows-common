@@ -7,7 +7,6 @@
  */
 
 import Group from './group'
-import GlobalGroups from './index'
 
 describe('Global Groups', () => {
   it('should adopt a name pass into data', () => {
