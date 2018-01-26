@@ -25,6 +25,7 @@ export default class Role extends Context {
   constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
     this.name = data.name
+    data.type = 'role'
   }
 
   getChildren = async () => []
@@ -38,12 +39,27 @@ export default class Role extends Context {
     return valueList
   }
 
+  /**
+   * This function should account for the following scenarios:
+   * 1. The role is a child of a group and identifies actual members
+   * 2. The role is a child of a category and represents a classification
+   * @param {*} valueMap
+   */
   async getValue (valueMap = {}) {
     const { data, parent } = this
-    const group = parent
-      ? await parent.getValue(valueMap)
-      : undefined
+    const parentValue = parent ? await parent.getValue(valueMap) : undefined
+
     valueMap.role = { value: data }
-    return { ...data, group }
+    if (parent === undefined) return data
+    if (parent.type === 'group' || parent.treatAsType === 'group') {
+      return { ...data, group: parentValue }
+    }
+    if (parent.type === 'category' || parent.treatAsType === 'category') {
+      return valueMap.instance && parentValue.group
+        ? { ...data, group: parentValue.group }
+        : data
+    }
+
+    throw new Error(`Unexpected context where Role parent is: ${parentValue}`)
   }
 }
