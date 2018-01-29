@@ -5,6 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
+import { get } from 'lodash'
 import Context from '../context'
 import Category from '../global-categories/category'
 import Role from '../global-roles/role'
@@ -16,16 +17,17 @@ export default class Group extends Context {
   static returnTypes = [CATEGORY, GROUP, ROLE, TEXT, USER]
   static matchTypes = [TEXT, GROUP]
 
-  constructor (parent, returnTypes, data, ctx) {
+  constructor (parent, returnTypes, data, ctx, secondaryName) {
     super(parent, returnTypes, data, ctx)
     this.name = data.name
+    this.secondaryName = secondaryName
   }
 
   async getChildren (filter) {
     if (!this.data) return []
     const resp = await Promise.all([
       this.getGroupParent(),
-      this.getGroupCategory()
+      this.getGroupCategory(this.data.categoryId)
     ])
     const parent = resp[0]
     const category = resp[1]
@@ -35,18 +37,25 @@ export default class Group extends Context {
     return children
   }
 
-  async getGroupCategory () {
-    if (!this.data.categoryId) return
-    const categoryData = await this.ctx.apis.categories.get(
-      this.data.categoryId
-    )
+  async getGroupCategory (categoryId) {
+    if (!categoryId) return
+    const categoryData = await this.ctx.apis.categories.get(categoryId)
     return new Category(this, this.returnTypes, categoryData, this.ctx)
   }
 
   async getGroupParent () {
     if (!this.data.parentId) return
     const groupData = await this.ctx.apis.groups.get(this.data.parentId)
-    return new Group(this, this.returnTypes, groupData, this.ctx)
+    const parentCategory = await this.getGroupCategory(
+      get(groupData, 'categoryId')
+    )
+    return new Group(
+      this,
+      this.returnTypes,
+      groupData,
+      this.ctx,
+      get(parentCategory, 'name')
+    )
   }
 
   async getGroupRoles (category) {
@@ -55,7 +64,7 @@ export default class Group extends Context {
         role => new Role(this, this.returnTypes, role, this.ctx)
       )
     }
-    const cat = category || (await this.getGroupCategory())
+    const cat = category || (await this.getGroupCategory(this.data.categoryId))
     if (!cat) return
     const roles = await category.getChildren()
     roles.forEach(role => {

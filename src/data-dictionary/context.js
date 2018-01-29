@@ -40,10 +40,17 @@ export default class Context {
    * @param {Object} data Any data that should be available
    */
   constructor (parent, returnTypes = DEFAULTS['returnTypes'], data, ctx) {
-    const { type, treatAsType, displayName, matchTypes } = this.constructor
+    const {
+      type,
+      treatAsType,
+      displayName,
+      matchTypes,
+      fieldType
+    } = this.constructor
     this.type = type
     this.treatAsType = treatAsType
     this.name = displayName
+    this.secondaryName = fieldType
     this.match = matchTypes
     this.parent = parent
     this.returnTypes = returnTypes
