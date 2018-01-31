@@ -5,11 +5,11 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
+import { includes } from 'lodash'
 import CMField from './field'
 import Category from '../../../data-dictionary/global-categories/category'
 import Role from '../../../data-dictionary/global-roles/role'
-import Group from '../../../data-dictionary/global-groups/group'
-import { GROUP, TEXT } from '../../../data-dictionary/return-types'
+import { GROUP, ROLE, TEXT } from '../../../data-dictionary/return-types'
 
 export default class FieldCoreGroupMultiselect extends CMField {
   static fieldType = 'GroupsMultiselect'
@@ -22,21 +22,22 @@ export default class FieldCoreGroupMultiselect extends CMField {
     return deflated.data
   }
 
-  getChildren = async filter => {
-    const { categoryId } = this.data
-    const category = await this.ctx.apis.categories.get(categoryId)
-    const { parentId, roleSchemas } = category
-    let children = roleSchemas.map(
-      role => new Role(this, this.returnTypes, role, this.ctx)
-    )
-    if (parentId) {
-      const pData = await this.ctx.apis.categories.get(parentId)
-      children.unshift(new Category(this, this.returnTypes, pData, this.ctx))
+  getChildren = async (filter = {}, match) => {
+    let children = []
+    if (includes(match, ROLE)) {
+      const { categoryId } = this.data
+      const category = await this.ctx.apis.categories.get(categoryId)
+      const { parentId, roleSchemas } = category
+      children = children.concat(
+        roleSchemas.map(
+          role => new Role(this, this.returnTypes, role, this.ctx)
+        )
+      )
+      if (parentId) {
+        const pData = await this.ctx.apis.categories.get(parentId)
+        children.unshift(new Category(this, this.returnTypes, pData, this.ctx))
+      }
     }
-    const groups = await this.ctx.apis.groups.list(filter)
-    children = children.concat(
-      groups.map(group => new Group(this, this.returnTypes, group, this.ctx))
-    )
     return children
   }
 
