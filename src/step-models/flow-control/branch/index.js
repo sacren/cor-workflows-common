@@ -37,7 +37,6 @@ export default class ConditionalModel extends StepModel {
     if (!data || !data.routes) {
       throw new Error(i18n.MISSING_CONDITIONS)
     }
-    this.name = data.name
     const routes = data.routes.map(({ name, flow, rule }) => {
       return rule instanceof Rule
         ? { name, flow, rule }

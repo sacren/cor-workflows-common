@@ -35,8 +35,7 @@ export default class FormApprovalModel extends StepModel {
     super(data)
     this.meta = {}
     if (data) {
-      const { form, approver, name, voting } = data
-      this.name = name
+      const { form, approver, voting } = data
       Object.assign(this.meta, { form, approver, voting })
     }
   }

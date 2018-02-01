@@ -36,8 +36,7 @@ export default class NotificationModel extends StepModel {
 
   constructor (data) {
     super(data)
-    const { recipient, type = 'email', subject, body, name, sources = {} } = data
-    this.name = name
+    const { recipient, type = 'email', subject, body, sources = {} } = data
     this.meta = {
       type,
       recipient,

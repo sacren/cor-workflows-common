@@ -33,8 +33,7 @@ export default class AcknowledgeModel extends StepModel {
     super(data)
     this.meta = {}
     if (data) {
-      const { form, acknowledger, name } = data
-      this.name = name
+      const { form, acknowledger } = data
       Object.assign(this.meta, { form, acknowledger })
     }
   }

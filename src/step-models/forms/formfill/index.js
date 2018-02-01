@@ -22,7 +22,6 @@ export default class FormfillModel extends StepModel {
     if (!data || !data.form) {
       throw new Error(i18n.MISSING_FORM)
     }
-    this.name = data.name
     this.meta = {
       form: data.form
     }
