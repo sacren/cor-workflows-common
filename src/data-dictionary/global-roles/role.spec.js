@@ -70,9 +70,10 @@ describe('Roles contexts', () => {
   })
 
   test('getValue', async () => {
-    const root = ctx.getRoot()
-    const role = new Role(root, ALL, { id: 1, name: 'test' }, ctx)
+    const fakeCat = { type: 'category', getValue: jest.fn() }
+    const role = new Role(fakeCat, ALL, { id: 1, name: 'test' }, ctx)
     const data = await role.getValue()
+    expect(fakeCat.getValue).toHaveBeenCalled()
     expect(data).toHaveProperty('id', 1)
     expect(data).toHaveProperty('name', 'test')
   })

@@ -8,6 +8,7 @@
 import Context from '../context'
 import Promise from 'bluebird'
 import { compact, filter as _filter, get, isArray, keyBy, values } from 'lodash'
+import Field from './field'
 import FieldChecklist from './field-checklist'
 import FieldCoreGroupMultiselect from './field-core-group-multiselect'
 import FieldCoreGroupTypeahead from './field-core-group-typeahead'
@@ -18,8 +19,10 @@ import FieldCountryDropdown from './field-country-dropdown'
 import FieldDatePicker from './field-date-picker'
 import FieldDropdown from './field-drop-down'
 import FieldFormsMultiselect from './field-forms-multiselect'
+import FieldFormsPropertyView from './field-forms-property-view'
 import FieldFormsTypeahead from './field-forms-typeahead'
 import FieldLanguageDropdown from './field-language-dropdown'
+import FieldNumberInput from './field-number-input'
 import FieldRadioButton from './field-radio-button'
 import FieldRichTextArea from './field-rich-text-area'
 import FieldStateProvinceDropdown from './field-state-province-dropdown'
@@ -39,7 +42,9 @@ const fieldList = {
   FieldDropdown,
   FieldFormsMultiselect,
   FieldFormsTypeahead,
+  FieldFormsPropertyView,
   FieldLanguageDropdown,
+  FieldNumberInput,
   FieldRadioButton,
   FieldRichTextArea,
   FieldStateProvinceDropdown,
@@ -85,7 +90,7 @@ export default class Form extends Context {
       ? this.returnTypes
       : [this.returnTypes]
     const children = filtered.map(field => {
-      const FieldContext = fieldMap[field.type]
+      const FieldContext = fieldMap[field.type] || Field
       if (
         myReturnTypes.includes(ALL) ||
         FieldContext.returnTypes === ALL ||

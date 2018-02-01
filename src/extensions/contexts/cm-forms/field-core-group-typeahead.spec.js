@@ -9,7 +9,6 @@
 import GroupTypeahead from './field-core-group-typeahead'
 import Category from '../../../data-dictionary/global-categories/category'
 import Role from '../../../data-dictionary/global-roles/role'
-import Group from '../../../data-dictionary/global-groups/group'
 
 describe('GroupTypeahead', () => {
   let field, data, ctx, parent, getFn, listFn
@@ -63,9 +62,9 @@ describe('GroupTypeahead', () => {
 
   describe('getChildren', () => {
     it('finds role children', async () => {
-      getFn.mockReturnValue({ roleSchemas: ['role1'] })
+      getFn.mockReturnValue({ roleSchemas: [{ id: 'role1' }] })
       listFn.mockReturnValue([])
-      const children = await field.getChildren()
+      const children = await field.getChildren({}, ['role'])
       expect(children.length).toBe(1)
       expect(children[0].type).toBe(Role.type)
     })
@@ -73,17 +72,14 @@ describe('GroupTypeahead', () => {
     it('finds category children', async () => {
       getFn.mockReturnValue({ parentId: 'p123', roleSchemas: [] })
       listFn.mockReturnValue([])
-      const children = await field.getChildren()
+      const children = await field.getChildren({}, ['role'])
       expect(children.length).toBe(1)
       expect(children[0].type).toBe(Category.type)
     })
 
-    it('finds group children', async () => {
-      getFn.mockReturnValue({ roleSchemas: [] })
-      listFn.mockReturnValue(['groupA'])
+    it('finds no children if not trying to match on role', async () => {
       const children = await field.getChildren()
-      expect(children.length).toBe(1)
-      expect(children[0].type).toBe(Group.type)
+      expect(children.length).toBe(0)
     })
   })
 

@@ -44,7 +44,7 @@ describe('Global Groups', () => {
         }
       }
       const group = new Group(null, ['a', 'b', 'c'], { categoryId: '123' }, ctx)
-      const newCat = await group.getGroupCategory()
+      const newCat = await group.getGroupCategory('123')
       expect(ctx.apis.categories.get).toHaveBeenCalledWith('123')
       expect(newCat.data).toEqual(catData)
       expect(newCat.ctx).toMatchObject(ctx)
@@ -61,17 +61,22 @@ describe('Global Groups', () => {
     })
 
     it('should call the groups get with parent id and return a group with the returned data and the same return types and context', async () => {
-      const groupData = { name: 'foo', id: 'baz' }
+      const catData = { name: 'category goodness', id: 'blah' }
+      const groupData = { name: 'foo', id: 'baz', categoryId: 'blah' }
       const ctx = {
         apis: {
+          categories: {
+            get: jest.fn().mockReturnValue(catData)
+          },
           groups: {
             get: jest.fn().mockReturnValue(groupData)
           }
         }
       }
-      const group = new Group(null, ['a', 'b', 'c'], { parentId: '123' }, ctx)
+      const group = new Group(null, ['a', 'b', 'c'], { parentId: '123' }, ctx, catData.name)
       const newGroup = await group.getGroupParent()
       expect(ctx.apis.groups.get).toHaveBeenCalledWith('123')
+      expect(ctx.apis.categories.get).toHaveBeenCalledWith('blah')
       expect(newGroup.data).toMatchObject(groupData)
       expect(newGroup.ctx).toMatchObject(ctx)
       expect(newGroup.returnTypes).toMatchObject(['a', 'b', 'c'])
@@ -128,5 +133,11 @@ describe('Global Groups', () => {
       const children = await group.getChildren()
       expect(children).toMatchObject([category, ...roles])
     })
+  })
+
+  it('should be able to getValue', async () => {
+    const group = new Group(null, null, { id: 'test' })
+    const value = await group.getValue()
+    expect(value).toHaveProperty('id', 'test')
   })
 })

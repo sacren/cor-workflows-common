@@ -44,4 +44,30 @@ export default class Category extends Context {
     valueList.push({ type, name, id: data.id, requiresParent: false })
     return valueList
   }
+
+  /**
+   * This function should account for the following scenarios:
+   * 1. The category is just a category and represents a classification
+   * 1b. The category is a parent of a role classification
+   * 2. The category is related to a group in which case it may represent a group
+   * @param {*} valueMap
+   */
+  async getValue (valueMap = {}) {
+    const { data, parent } = this
+    const parentValue = parent ? await parent.getValue(valueMap) : undefined
+
+    valueMap.category = { value: data }
+    // The category is related to a group in which case it may represent a group
+    if (parent && (parent.type === 'group' || parent.treatAsType === 'group')) {
+      if (parentValue.parentId) {
+        const group = await this.ctx.apis.groups.get(parentValue.parentId)
+        return { ...data, group }
+      }
+      return data
+    }
+
+    // The category is just a category and represents a classification
+    // The category is a parent of a role classification
+    return data
+  }
 }
