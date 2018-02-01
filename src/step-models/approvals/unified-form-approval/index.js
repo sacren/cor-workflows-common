@@ -12,9 +12,9 @@ import ctx
 import Context from '../../../data-dictionary/context'
 
 const i18n = {
-  MISSING_FORM: 'Unable to create a Form Approval step without a form',
-  MISSING_APPROVER: 'Unable to create a Form Approval step without an approver',
-  MISSING_VOTING: 'Unable to create a Form Approval step without voting rules'
+  MISSING_FORM: 'Unable to create an Approval step without a form',
+  MISSING_APPROVER: 'Unable to create an Approval step without an approver',
+  MISSING_VOTING: 'Unable to create an Approval step without voting rules'
 }
 
 /**
@@ -28,14 +28,15 @@ const i18n = {
  * }
  */
 export default class FormApprovalModel extends StepModel {
-  static displayName = 'Form Approval'
+  static displayName = 'Approval'
   static type = 'form-approval'
 
   constructor (data) {
     super(data)
     this.meta = {}
     if (data) {
-      const { form, approver, voting } = data
+      const { form, approver, name, voting } = data
+      this.name = name
       Object.assign(this.meta, { form, approver, voting })
     }
   }

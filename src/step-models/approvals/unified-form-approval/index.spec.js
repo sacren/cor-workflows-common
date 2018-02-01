@@ -32,7 +32,7 @@ describe('Unified Form Approval Model', () => {
         const model = new FormApproverModel({})
         expect(() => {
           model.validate()
-        }).toThrow('Unable to create a Form Approval step without a form')
+        }).toThrow('Unable to create an Approval step without a form')
       })
 
       it('should expect a form that inherits from Context', () => {

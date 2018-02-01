@@ -7,7 +7,6 @@
  */
 import { pick } from 'lodash'
 import StepModel from '../../index'
-import FlowAPI from '../../../api/flow'
 
 const i18n = {
   MISSING_CONDITIONS: 'Unable to create a Conditional step without routes'
@@ -29,7 +28,7 @@ const i18n = {
  * }
  */
 export default class ConditionalModel extends StepModel {
-  static displayName = 'Conditional'
+  static displayName = 'Branch'
   static type = 'conditional'
 
   constructor (data) {
@@ -37,24 +36,24 @@ export default class ConditionalModel extends StepModel {
     if (!data || !data.routes) {
       throw new Error(i18n.MISSING_CONDITIONS)
     }
+    this.name = data.name
     this.meta = {
       routes: data.routes
     }
   }
 
-  async createMissingFlows () {
+  async createMissingFlows (flowAPI) {
     this.meta.routes = await Promise.all(
       this.meta.routes.map(
         (route, index) =>
-          (route.flow
+          route.flow
             ? Promise.resolve(route)
-            : this.addFlowToRoute(route, index))
+            : this.addFlowToRoute(route, index, flowAPI)
       )
     )
   }
 
-  async addFlowToRoute (route, index) {
-    const flowAPI = new FlowAPI()
+  async addFlowToRoute (route, index, flowAPI) {
     const flow = await flowAPI.create({
       name: route.name || `Route ${index} Flow`,
       hidden: true

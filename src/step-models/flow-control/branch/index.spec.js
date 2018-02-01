@@ -7,6 +7,8 @@
  */
 
 import ConditionalModel from './'
+import FlowAPI from '../../../api/flow'
+const flowAPI = new FlowAPI()
 
 describe('Conditional Model', () => {
   const mockCreateFlow = () => {
@@ -110,7 +112,7 @@ describe('Conditional Model', () => {
         ]
       })
 
-      await model.createMissingFlows()
+      await model.createMissingFlows(flowAPI)
       expect(createMock).toHaveBeenCalledTimes(1)
       expect(createMock).toHaveBeenCalledWith({
         name: 'Route 1',
@@ -140,7 +142,7 @@ describe('Conditional Model', () => {
 
     it('should attempt to create a flow via the flow api', async () => {
       const route = { name: 'My Route' }
-      const addedRoute = await model.addFlowToRoute(route, 1)
+      const addedRoute = await model.addFlowToRoute(route, 1, flowAPI)
       expect(addedRoute).toMatchObject({
         name: route.name,
         flow: 'flow123'
@@ -153,7 +155,7 @@ describe('Conditional Model', () => {
 
     it('should default the route name to the flow if none is provided', async () => {
       const route = {}
-      const addedRoute = await model.addFlowToRoute(route, 0)
+      const addedRoute = await model.addFlowToRoute(route, 0, flowAPI)
       expect(addedRoute).toMatchObject({
         flow: 'flow123'
       })
