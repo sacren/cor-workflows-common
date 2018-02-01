@@ -14,7 +14,7 @@ const i18n = {
 }
 
 export default class FormfillModel extends StepModel {
-  static displayName = 'Form Submissionzz'
+  static displayName = 'Form Submission'
   static type = 'formfill'
 
   constructor (data) {
