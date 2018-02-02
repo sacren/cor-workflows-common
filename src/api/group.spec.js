@@ -16,13 +16,13 @@ describe('Group', () => {
   })
 
   test('list', async () => {
-    await group.list({ foo: 'bar' })
-    expect(group._get).toHaveBeenCalledWith(`${Group.GROUP_API}?foo=bar`)
+    await group.list('bar')
+    expect(group._get).toHaveBeenCalledWith(`${Group.GROUP_API}?limit=20&sort=name&q=bar`)
   })
 
   test('list with a query', async () => {
     await group.list()
-    expect(group._get).toHaveBeenCalledWith(`${Group.GROUP_API}?limit=2000`)
+    expect(group._get).toHaveBeenCalledWith(`${Group.GROUP_API}?limit=20&sort=name&q=`)
   })
 
   test('get', async () => {

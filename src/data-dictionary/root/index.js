@@ -40,8 +40,14 @@ export default class RootContext extends Context {
    * @override
    */
   getChildren (filter) {
-    const reduced =
+    let reduced =
       this.returnTypes === ALL ? this.contexts : this.reduceByReturnType()
+    if (filter) {
+      const regex = new RegExp(filter, 'ig')
+      reduced = this.contexts.filter(context =>
+        !context.type.displayName.search(regex)
+      )
+    }
     return reduced.map(context => {
       const { type: Context, data } = context
       return new Context(this, this.returnTypes, data, this.ctx)

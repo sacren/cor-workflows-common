@@ -12,8 +12,12 @@ export default class GroupAPI extends api {
   static API_KEY = 'groups'
   static GROUP_API = '/api/v1/groups'
 
-  async list (q = { limit: 2000 }) {
-    const query = qs.encode(q)
+  async list (q) {
+    const query = qs.encode({
+      limit: 20,
+      sort: 'name',
+      q
+    })
     return this._get(`${GroupAPI.GROUP_API}?${query}`)
   }
 

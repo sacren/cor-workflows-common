@@ -18,7 +18,7 @@ describe('User API', () => {
   test('getUsers with query', async () => {
     await user.getUsers('bar')
     expect(user._get).toHaveBeenCalledWith(
-      `${User.USER_API}?limit=15&sort=displayName&q=bar`,
+      `${User.USER_API}?limit=20&sort=displayName&q=bar`,
       []
     )
   })

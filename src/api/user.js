@@ -14,7 +14,7 @@ export default class UserAPI extends api {
 
   async getUsers (q) {
     const query = qs.encode({
-      limit: 15,
+      limit: 20,
       sort: 'displayName',
       q
     })

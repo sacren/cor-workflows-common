@@ -20,10 +20,10 @@ describe('Form API', () => {
       { _id: 123, lbl: 'label1', foo: 'bar' },
       { _id: 567, lbl: 'label2', foo: 'baz' }
     ])
-    const filter = { foo: 'bar' }
+    const filter = 'bar'
     const results = await form.list(filter)
     expect(form._get).toHaveBeenCalledWith(
-      `${Form.FORM_API}/form-containers/my?limit=10&foo=bar`
+      `${Form.FORM_API}/form-containers?limit=20&q=bar`
     )
     expect(results).toMatchObject([
       { _id: 123, lbl: 'label1' },

@@ -159,10 +159,10 @@ describe('Data Dictionary > Util', () => {
 
   test('can inflate a deflated value', async () => {
     mock
-      .onGet(/\/cor\/forms\/api\/v0\/forms\/\w+\/schema\?includeJsTypes=true/)
+      .onGet(/\/cor\/forms\/api\/v\d\/forms\/\w+\/schema\?includeJsTypes=true/)
       .reply(200, SIMPLE_FORM_RESPONSE)
     mock
-      .onGet(/\/cor\/forms\/api\/v0\/form-containers\/\w+/)
+      .onGet(/\/cor\/forms\/api\/v\d\/form-containers\/\w+/)
       .reply(200, FORMS_CONTAINER)
     const inflated = await ctx.inflate(DEFLATED_TEXT_FIELD)
     expect(inflated).toHaveProperty('name', 'My Text Input')
@@ -170,5 +170,15 @@ describe('Data Dictionary > Util', () => {
     expect(inflated.parent).toHaveProperty('name', 'Form One')
     expect(inflated.parent.parent).toHaveProperty('name', 'Forms')
     expect(inflated.parent.parent.parent).toHaveProperty('type', 'root')
+  })
+
+  test('can get a deflated context name', () => {
+    const fakeContext = [{ name: 'one' }, { name: 'two' }]
+    expect(ctx.getDeflatedContextName(fakeContext)).toEqual('two')
+  })
+
+  test('can get a deflated context type', () => {
+    const fakeContext = [{ type: 'one' }, { type: 'two' }]
+    expect(ctx.getDeflatedContextType(fakeContext)).toEqual('two')
   })
 })

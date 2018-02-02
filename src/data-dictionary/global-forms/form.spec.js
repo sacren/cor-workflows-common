@@ -104,7 +104,7 @@ describe('Form', () => {
     it('should filter out schemas that do not match a passed in filter', async () => {
       const ctx = buildContext({ schema: { checkSchema } })
       const form = new Form(null, ALL, data, ctx)
-      const children = await form.getChildren({ type: 'notchecks' })
+      const children = await form.getChildren('notchecks')
       expect(children).toHaveLength(0)
     })
 

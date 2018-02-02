@@ -5,14 +5,20 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
+import qs from 'querystring'
 import api from './api'
 
 export default class CategoryAPI extends api {
   static API_KEY = 'categories'
   static CATEGORY_API = '/api/v1/categories'
 
-  async list () {
-    return this._get(CategoryAPI.CATEGORY_API)
+  async list (q) {
+    const query = qs.encode({
+      limit: 20,
+      sort: 'displayName',
+      q
+    })
+    return this._get(`${CategoryAPI.CATEGORY_API}?${query}`)
   }
 
   async get (id) {

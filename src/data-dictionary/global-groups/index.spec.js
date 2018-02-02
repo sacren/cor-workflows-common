@@ -42,7 +42,7 @@ describe('Global groups contexts', () => {
   })
 
   test('can get group by return type', async () => {
-    mock.onGet('/api/v1/groups?limit=2000').reply(200, GROUPS_RESPONSE)
+    mock.onGet('/api/v1/groups?limit=20&sort=name&q=').reply(200, GROUPS_RESPONSE)
     const contexts = await ctx.getRoot().getChildren()
     const groups = contexts.find(
       ctx => ctx.constructor.type === GlobalGroups.type

@@ -7,7 +7,7 @@
  */
 import Context from '../context'
 import Promise from 'bluebird'
-import { compact, filter as _filter, get, isArray, keyBy, values } from 'lodash'
+import { compact, filter, get, isArray, keyBy, map, values } from 'lodash'
 import Field from './field'
 import FieldChecklist from './field-checklist'
 import FieldCoreGroupMultiselect from './field-core-group-multiselect'
@@ -82,14 +82,24 @@ export default class Form extends Context {
     this.name = data.lbl
   }
 
-  async getChildren (filter) {
+  async getChildren (match) {
     if (!this.data || !this.data._id) return []
     const form = await this.ctx.apis.forms.getSchema(this.data)
-    const filtered = _filter(values(form.schema), filter)
+
+    let fields
+    if (match) {
+      const regex = new RegExp(match, 'ig')
+      fields = filter(values(form.schema), field =>
+        !field.label.search(regex)
+      )
+    } else {
+      fields = map(form.schema, field => field)
+    }
+
     const myReturnTypes = isArray(this.returnTypes)
       ? this.returnTypes
       : [this.returnTypes]
-    const children = filtered.map(field => {
+    const children = fields.map(field => {
       const FieldContext = fieldMap[field.type] || Field
       if (
         myReturnTypes.includes(ALL) ||

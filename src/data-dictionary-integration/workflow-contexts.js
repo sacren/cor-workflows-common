@@ -25,11 +25,19 @@ export default class WorkflowContexts extends Context {
     const { ctx } = this
     const { ancestry, position } = this.data
 
-    const workflowCtxs = getWorkflowRelevantContexts(
+    let workflowCtxs = getWorkflowRelevantContexts(
       ancestry,
       position,
       this.returnTypes
     )
+
+    if (filter) {
+      const regex = new RegExp(filter, 'ig')
+      workflowCtxs = workflowCtxs.filter(({ context }) =>
+        !ctx.getDeflatedContextName(context).search(regex)
+      )
+    }
+
     return Promise.all(
       workflowCtxs.map(async workflowCtx => {
         const { context, step } = workflowCtx
