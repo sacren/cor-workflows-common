@@ -7,7 +7,6 @@
  */
 import { pick } from 'lodash'
 import StepModel from '../../index'
-import FlowAPI from '../../../api/flow'
 import Rule from '../../../rules/rule'
 
 const i18n = {
@@ -30,7 +29,7 @@ const i18n = {
  * }
  */
 export default class ConditionalModel extends StepModel {
-  static displayName = 'Conditional'
+  static displayName = 'Branch'
   static type = 'conditional'
 
   constructor (data) {
@@ -46,19 +45,18 @@ export default class ConditionalModel extends StepModel {
     this.meta = { routes }
   }
 
-  async createMissingFlows () {
+  async createMissingFlows (flowAPI) {
     this.meta.routes = await Promise.all(
       this.meta.routes.map(
         (route, index) =>
           route.flow
             ? Promise.resolve(route)
-            : this.addFlowToRoute(route, index)
+            : this.addFlowToRoute(route, index, flowAPI)
       )
     )
   }
 
-  async addFlowToRoute (route, index) {
-    const flowAPI = new FlowAPI()
+  async addFlowToRoute (route, index, flowAPI) {
     const flow = await flowAPI.create({
       name: route.name || `Route ${index} Flow`,
       hidden: true

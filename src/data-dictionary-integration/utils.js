@@ -17,6 +17,7 @@ const stepDefinitionMap = {
   conditional: {},
   formfill: { contexts: { [FORM]: 'meta.form' } },
   'form-approval': {},
+  'form-acknowledge': {},
   notification: {}
 }
 

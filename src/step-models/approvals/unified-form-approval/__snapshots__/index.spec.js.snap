@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Unified Form Approval Model Validation Approver should expect a form that inherits from Context 1`] = `"Unable to create a Form Approval step without an approver"`;
+exports[`Unified Form Approval Model Validation Approver should expect a form that inherits from Context 1`] = `"Unable to create an Approval step without an approver"`;
 
-exports[`Unified Form Approval Model Validation Approver should expect approver to be set 1`] = `"Unable to create a Form Approval step without an approver"`;
+exports[`Unified Form Approval Model Validation Approver should expect approver to be set 1`] = `"Unable to create an Approval step without an approver"`;
 
-exports[`Unified Form Approval Model Validation Forms should expect a form that inherits from Context 1`] = `"Unable to create a Form Approval step without a form"`;
+exports[`Unified Form Approval Model Validation Forms should expect a form that inherits from Context 1`] = `"Unable to create an Approval step without a form"`;
 
-exports[`Unified Form Approval Model Validation Voting should expect voting to be set 1`] = `"Unable to create a Form Approval step without voting rules"`;
+exports[`Unified Form Approval Model Validation Voting should expect voting to be set 1`] = `"Unable to create an Approval step without voting rules"`;
