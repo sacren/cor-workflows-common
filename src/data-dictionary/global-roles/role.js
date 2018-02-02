@@ -15,7 +15,7 @@ export default class Role extends Context {
   static matchTypes = [ROLE, TEXT]
 
   static async inflate (ctx, deflated, parent) {
-    const children = await parent.getChildren()
+    const children = await parent.getChildren({}, [ROLE])
     const role = children.find(
       child => child.type === Role.type && child.data.id === deflated.id
     )
