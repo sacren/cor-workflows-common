@@ -11,5 +11,5 @@
 * ancestry-utils
 
 ## Usage
-`const { api } = require('@kuali/cor-workflows-common'`)
+`const { api } = require('kuali-cor-workflows-common'`)
 
