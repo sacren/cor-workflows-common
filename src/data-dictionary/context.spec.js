@@ -15,7 +15,7 @@ describe('Data Dictionary > Context', () => {
   })
 
   it('should throw an error when inflate is called', async () => {
-    await expect(Context.inflate()).rejects.toThrowErrorMatchingSnapshot()
+    await expect(Context.inflate()).toThrowErrorMatchingSnapshot()
   })
 
   it('should set the its properties upon contruction', () => {
@@ -39,7 +39,7 @@ describe('Data Dictionary > Context', () => {
   })
 
   it('should throw an error for getChildren', async () => {
-    await expect(context.getChildren()).rejects.toThrowErrorMatchingSnapshot()
+    await expect(context.getChildren()).toThrowErrorMatchingSnapshot()
   })
 
   it('should return its data for getData()', async () => {

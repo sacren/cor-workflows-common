@@ -17,7 +17,7 @@ describe('Global Forms', () => {
   describe('getChildren', () => {
     it('should throw and error if there is no context', async () => {
       const forms = new GlobalForms()
-      await expect(forms.getChildren()).rejects.toThrowErrorMatchingSnapshot()
+      await expect(forms.getChildren()).toThrowErrorMatchingSnapshot()
     })
 
     it('should call the forms list call on apis of the context', async () => {

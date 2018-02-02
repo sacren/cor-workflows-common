@@ -41,7 +41,7 @@ export default function testField (
         const children = await field.getChildren()
         expect(children).toMatchObject([])
       } else {
-        await expect(field.getChildren()).rejects.toThrowErrorMatchingSnapshot()
+        await expect(field.getChildren()).toThrowErrorMatchingSnapshot()
       }
     })
   })

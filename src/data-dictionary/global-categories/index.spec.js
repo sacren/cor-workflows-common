@@ -18,7 +18,7 @@ describe('Global category contexts', () => {
   describe('getChildren', () => {
     it('should throw an error if no context is provided', async () => {
       const groups = new GlobalCategory()
-      await expect(groups.getChildren()).rejects.toThrowErrorMatchingSnapshot()
+      await expect(groups.getChildren()).toThrowErrorMatchingSnapshot()
     })
 
     it('should call the categories api and return a list of category objects', async () => {

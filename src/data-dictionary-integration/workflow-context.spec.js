@@ -118,7 +118,7 @@ describe('Workflow Context', () => {
     })
 
     it('should throw an error if its context tyep is not formfill', async () => {
-      await expect(wf.getValue()).rejects.toThrowErrorMatchingSnapshot()
+      await expect(wf.getValue()).toThrowErrorMatchingSnapshot()
     })
 
     it('should call the parent getValue if parent is available and get the formfill value', async () => {
