@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Acknowledge Model Validation Approver should expect a form that inherits from Context 1`] = `"Unable to create an Acknowledge step without an acknowledger"`;
+
+exports[`Acknowledge Model Validation Approver should expect acknowledger to be set 1`] = `"Unable to create an Acknowledge step without an acknowledger"`;
+
+exports[`Acknowledge Model Validation Forms should expect a form that inherits from Context 1`] = `"Unable to create an Acknowledge step without a form"`;
