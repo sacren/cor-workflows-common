@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Formfill Model Construction should require a form to be passed within data 1`] = `"Unable to create a Formfill step without a form"`;
+exports[`Formfill Model Construction should require a form to be passed within data 1`] = `"Unable to create a Form Submission step without a form"`;
 
-exports[`Formfill Model Construction should require data to be passed 1`] = `"Unable to create a Formfill step without a form"`;
+exports[`Formfill Model Construction should require data to be passed 1`] = `"Unable to create a Form Submission step without a form"`;

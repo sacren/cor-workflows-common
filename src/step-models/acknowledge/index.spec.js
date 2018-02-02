@@ -6,37 +6,36 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 
-import FormApproverModel from './'
-import Context from '../../../data-dictionary/context'
-import ContextUtils from '../../../data-dictionary/context-utils'
+import AcknowledgeModel from './'
+import Context from '../../data-dictionary/context'
+import ContextUtils from '../../data-dictionary/context-utils'
 
-describe('Unified Form Approval Model', () => {
+describe('Acknowledge Model', () => {
   it('should set up an empty meta if no data is provided', () => {
-    const model = new FormApproverModel()
+    const model = new AcknowledgeModel()
     expect(model.meta).toMatchObject({})
   })
 
-  it('should set up form, approver, and voting', () => {
+  it('should set up form and acknowledger', () => {
     const data = {
       form: 'a form',
-      approver: 'some approver',
-      voting: 'how do you vote'
+      acknowledger: 'some acknowledger'
     }
-    const model = new FormApproverModel(data)
+    const model = new AcknowledgeModel(data)
     expect(model.meta).toMatchObject(data)
   })
 
   describe('Validation', () => {
     describe('Forms', () => {
       it('should expect form to be set', () => {
-        const model = new FormApproverModel({})
+        const model = new AcknowledgeModel({})
         expect(() => {
           model.validate()
-        }).toThrow('Unable to create an Approval step without a form')
+        }).toThrow('Unable to create an Acknowledge step without a form')
       })
 
       it('should expect a form that inherits from Context', () => {
-        const model = new FormApproverModel({ form: {} })
+        const model = new AcknowledgeModel({ form: {} })
         expect(() => {
           model.validate()
         }).toThrowErrorMatchingSnapshot()
@@ -44,29 +43,17 @@ describe('Unified Form Approval Model', () => {
     })
 
     describe('Approver', () => {
-      it('should expect approver to be set', () => {
-        const model = new FormApproverModel({ form: new Context() })
+      it('should expect acknowledger to be set', () => {
+        const model = new AcknowledgeModel({ form: new Context() })
         expect(() => {
           model.validate()
         }).toThrowErrorMatchingSnapshot()
       })
 
       it('should expect a form that inherits from Context', () => {
-        const model = new FormApproverModel({
+        const model = new AcknowledgeModel({
           form: new Context(),
-          approver: {}
-        })
-        expect(() => {
-          model.validate()
-        }).toThrowErrorMatchingSnapshot()
-      })
-    })
-
-    describe('Voting', () => {
-      it('should expect voting to be set', () => {
-        const model = new FormApproverModel({
-          form: new Context(),
-          approver: new Context()
+          acknowledger: {}
         })
         expect(() => {
           model.validate()
@@ -75,10 +62,9 @@ describe('Unified Form Approval Model', () => {
     })
 
     it('should pass if all the proper values are present', () => {
-      const model = new FormApproverModel({
+      const model = new AcknowledgeModel({
         form: new Context(),
-        approver: new Context(),
-        voting: {}
+        acknowledger: new Context()
       })
       expect(() => {
         model.validate()
@@ -89,21 +75,19 @@ describe('Unified Form Approval Model', () => {
   describe('toJSON', () => {
     it('should format the object to json', () => {
       ContextUtils.deflate = jest.fn().mockImplementation(obj => obj.type)
-      const model = new FormApproverModel({
+      const model = new AcknowledgeModel({
         _id: '1234',
         name: 'ModelName',
         form: { type: 'aForm' },
-        approver: { type: 'anApprover' },
-        voting: { key: 'value' }
+        acknowledger: { type: 'anAcknowledger' }
       })
       expect(model.toJSON()).toMatchObject({
         _id: '1234',
         name: 'ModelName',
-        type: 'form-approval',
+        type: 'form-acknowledge',
         meta: {
           form: 'aForm',
-          approver: 'anApprover',
-          voting: { key: 'value' }
+          acknowledger: 'anAcknowledger'
         }
       })
     })

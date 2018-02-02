@@ -10,11 +10,11 @@ import StepModel from '../../index'
 import ctx from '../../../data-dictionary/context-utils'
 
 const i18n = {
-  MISSING_FORM: 'Unable to create a Formfill step without a form'
+  MISSING_FORM: 'Unable to create a Form Submission step without a form'
 }
 
 export default class FormfillModel extends StepModel {
-  static displayName = 'Formfill'
+  static displayName = 'Form Submission'
   static type = 'formfill'
 
   constructor (data) {
