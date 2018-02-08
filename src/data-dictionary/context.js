@@ -42,15 +42,15 @@ export default class Context {
   constructor (parent, returnTypes = DEFAULTS['returnTypes'], data, ctx) {
     const {
       type,
+      typeLabel,
       treatAsType,
       displayName,
-      matchTypes,
-      fieldType
+      matchTypes
     } = this.constructor
     this.type = type
     this.treatAsType = treatAsType
     this.name = displayName
-    this.secondaryName = fieldType
+    this.secondaryName = typeLabel
     this.match = matchTypes
     this.parent = parent
     this.returnTypes = returnTypes

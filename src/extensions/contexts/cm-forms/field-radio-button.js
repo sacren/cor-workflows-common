@@ -11,7 +11,7 @@ import RadioOption from './radio-option'
 import { NUMBER, TEXT } from '../../../data-dictionary/return-types'
 
 export default class FieldRadioButton extends CMField {
-  static fieldType = 'Radios'
+  static typeLabel = 'Radios'
   static type = 'cm-field-radio-button'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]

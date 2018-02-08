@@ -9,7 +9,7 @@ import Field from './field'
 import { FORM, TEXT } from '../return-types'
 
 export default class FieldFormsTypeahead extends Field {
-  static fieldType = 'Typeahead'
+  static typeLabel = 'Typeahead'
   static type = 'field-forms-typeahead'
   static returnTypes = [FORM, TEXT]
   static matchTypes = [FORM, TEXT]

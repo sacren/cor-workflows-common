@@ -27,7 +27,7 @@ const fieldList = {
   CMFieldCheckbox,
   CMFieldTextArea
 }
-const fieldMap = keyBy(fieldList, 'fieldType')
+const fieldMap = keyBy(fieldList, 'typeLabel')
 
 /**
  * Creates a Form Context
@@ -39,6 +39,7 @@ const fieldMap = keyBy(fieldList, 'fieldType')
 export default class Form extends Context {
   static global = false
   static type = 'cmformfill'
+  static typeLabel = 'CM Form'
   static matchTypes = CMFORM
 
   static async inflate (ctx, deflated) {

@@ -9,7 +9,7 @@ import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
 
 export default class FieldTextArea extends Field {
-  static fieldType = 'Textarea'
+  static typeLabel = 'Textarea'
   static type = 'field-text-area'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]

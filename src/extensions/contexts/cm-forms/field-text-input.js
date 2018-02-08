@@ -9,7 +9,7 @@ import CMField from './field'
 import { NUMBER, TEXT } from '../../../data-dictionary/return-types'
 
 export default class CMFieldTextInput extends CMField {
-  static fieldType = 'Text'
+  static typeLabel = 'Text'
   static type = 'cm-field-text-input'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]

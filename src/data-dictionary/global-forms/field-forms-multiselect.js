@@ -9,7 +9,7 @@ import Field from './field'
 import { FORM, TEXT } from '../return-types'
 
 export default class FieldFormsMultiselect extends Field {
-  static fieldType = 'Multiselect'
+  static typeLabel = 'Multiselect'
   static type = 'field-forms-multiselect'
   static returnTypes = [FORM, TEXT]
   static matchTypes = [FORM, TEXT]

@@ -51,7 +51,7 @@ const fieldList = {
   FieldTextArea,
   FieldTextInput
 }
-const fieldMap = keyBy(fieldList, 'fieldType')
+const fieldMap = keyBy(fieldList, 'typeLabel')
 
 /**
  * Creates a Form Context
@@ -63,6 +63,7 @@ const fieldMap = keyBy(fieldList, 'fieldType')
 export default class Form extends Context {
   static global = false
   static type = 'formfill'
+  static typeLabel = 'Form'
   static returnTypes = ALL
   static matchTypes = [FORM, TEXT]
 

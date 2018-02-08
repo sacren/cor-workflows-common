@@ -9,7 +9,7 @@ import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
 
 export default class FieldChecklist extends Field {
-  static fieldType = 'Checkboxes'
+  static typeLabel = 'Checkboxes'
   static type = 'field-checklist'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]

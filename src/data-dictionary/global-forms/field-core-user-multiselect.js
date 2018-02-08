@@ -9,7 +9,7 @@ import Field from './field'
 import { USER, TEXT } from '../return-types'
 
 export default class FieldCoreUserMultiselect extends Field {
-  static fieldType = 'UserMultiselect'
+  static typeLabel = 'UserMultiselect'
   static type = 'field-core-user-multiselect'
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]

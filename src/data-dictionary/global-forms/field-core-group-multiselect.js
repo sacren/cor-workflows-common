@@ -9,7 +9,7 @@ import Field from './field'
 import { GROUP, TEXT } from '../return-types'
 
 export default class FieldCoreGroupMultiselect extends Field {
-  static fieldType = 'GroupMultiselect'
+  static typeLabel = 'GroupMultiselect'
   static type = 'field-core-group-multiselect'
   static returnTypes = [GROUP, TEXT]
   static matchTypes = [GROUP, TEXT]

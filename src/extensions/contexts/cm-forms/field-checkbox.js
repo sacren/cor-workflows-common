@@ -9,7 +9,7 @@ import CMField from './field'
 import { BOOLEAN } from '../../../data-dictionary/return-types'
 
 export default class CMFieldCheckbox extends CMField {
-  static fieldType = 'Checkbox'
+  static typeLabel = 'Checkbox'
   static type = 'cm-field-checkbox'
   static returnTypes = [BOOLEAN]
   static matchTypes = [BOOLEAN]

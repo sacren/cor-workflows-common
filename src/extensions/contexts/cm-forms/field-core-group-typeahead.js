@@ -12,7 +12,7 @@ import Role from '../../../data-dictionary/global-roles/role'
 import { GROUP, ROLE, TEXT } from '../../../data-dictionary/return-types'
 
 export default class FieldCoreGroupTypeahead extends CMField {
-  static fieldType = 'GroupsTypeahead'
+  static typeLabel = 'GroupsTypeahead'
   static type = 'cm-field-core-group-typeahead'
   static treatAsType = GROUP
   static returnTypes = [GROUP, TEXT]

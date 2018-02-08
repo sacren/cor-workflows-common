@@ -9,7 +9,7 @@ import { isEqual } from 'lodash'
 import Context from '../context'
 
 export default class Field extends Context {
-  static fieldType = 'Unknown'
+  static typeLabel = 'Unknown'
   static type = 'field'
   static displayName = 'Field'
   static returnTypes = '*'

@@ -9,7 +9,7 @@ import Field from './field'
 import { TEXT } from '../return-types'
 
 export default class FieldCountryDropDown extends Field {
-  static fieldType = 'CountryDropdown'
+  static typeLabel = 'CountryDropdown'
   static type = 'field-country-dropdown'
   static returnTypes = [TEXT]
   static matchTypes = [TEXT]

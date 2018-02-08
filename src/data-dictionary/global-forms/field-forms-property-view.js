@@ -9,7 +9,7 @@ import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
 
 export default class FieldFormsPropertyView extends Field {
-  static fieldType = 'PropertyView'
+  static typeLabel = 'PropertyView'
   static type = 'field-forms-property-view'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]

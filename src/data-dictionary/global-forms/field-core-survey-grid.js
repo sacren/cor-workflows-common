@@ -9,7 +9,7 @@ import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
 
 export default class FieldCoreSurveyGrid extends Field {
-  static fieldType = 'SurveyGrid'
+  static typeLabel = 'SurveyGrid'
   static type = 'field-core-survey-grid'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]

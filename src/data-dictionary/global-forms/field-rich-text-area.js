@@ -9,7 +9,7 @@ import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
 
 export default class FieldRichTextArea extends Field {
-  static fieldType = 'RichText'
+  static typeLabel = 'RichText'
   static type = 'field-rich-text-area'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]

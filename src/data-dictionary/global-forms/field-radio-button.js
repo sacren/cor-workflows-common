@@ -9,7 +9,7 @@ import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
 
 export default class FieldRadioButton extends Field {
-  static fieldType = 'Radios'
+  static typeLabel = 'Radios'
   static type = 'field-radio-button'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]

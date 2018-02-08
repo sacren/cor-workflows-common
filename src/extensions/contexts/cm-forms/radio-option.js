@@ -10,7 +10,7 @@ import Context from '../../../data-dictionary/context'
 import { NUMBER, TEXT } from '../../../data-dictionary/return-types'
 
 export default class RadioOption extends Context {
-  static fieldType = 'radio-option'
+  static typeLabel = 'radio-option'
   static type = 'radio-option'
   static displayName = 'Radio Option'
   static returnTypes = [NUMBER, TEXT]

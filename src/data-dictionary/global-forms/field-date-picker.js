@@ -9,7 +9,7 @@ import Field from './field'
 import { DATE, TEXT } from '../return-types'
 
 export default class FieldDatePicker extends Field {
-  static fieldType = 'Date'
+  static typeLabel = 'Date'
   static type = 'field-date-picker'
   static returnTypes = [DATE, TEXT]
   static matchTypes = [DATE, TEXT]

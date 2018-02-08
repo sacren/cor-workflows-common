@@ -9,7 +9,7 @@ import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
 
 export default class FieldTextInput extends Field {
-  static fieldType = 'Text'
+  static typeLabel = 'Text'
   static type = 'field-text-input'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]

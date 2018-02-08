@@ -10,7 +10,7 @@ import User from '../../../data-dictionary/global-users/user'
 import { USER, TEXT } from '../../../data-dictionary/return-types'
 
 export default class FieldCoreUserTypeahead extends CMField {
-  static fieldType = 'UserTypeahead'
+  static typeLabel = 'UserTypeahead'
   static type = 'cm-field-core-user-typeahead'
   static treatAsType = User.type
   static returnTypes = [USER, TEXT]
