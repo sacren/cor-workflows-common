@@ -64,7 +64,10 @@ export default class FieldCoreGroupMultiselect extends CMField {
       valueMap.formKey = this.data.formKey
       const { formKey } = valueMap
       const id = parentData.item[formKey]
-      return this.ctx.apis.groups.get(id)
+      if (id) {
+        // will still need to handle multiple groups at some point
+        return this.ctx.apis.groups.get(id)
+      }
     }
   }
 }
