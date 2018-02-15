@@ -134,7 +134,8 @@ export default class WorkflowContext extends Context {
     if (instanceStep) return instanceStep
     return this.findInstanceStep(
       definitionStepId,
-      instances[instance.parent.instance]
+      instances[instance.parent.instance],
+      instances
     )
   }
 }
