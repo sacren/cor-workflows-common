@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { includes } from 'lodash'
+import { includes, isArray } from 'lodash'
 import CMField from './field'
 import Category from '../../../data-dictionary/global-categories/category'
 import Role from '../../../data-dictionary/global-roles/role'
@@ -63,9 +63,12 @@ export default class FieldCoreGroupMultiselect extends CMField {
       const parentData = await parent.getValue(valueMap)
       valueMap.formKey = this.data.formKey
       const { formKey } = valueMap
-      const id = parentData.item[formKey]
+      let id = parentData.item[formKey]
+      // will still need to handle multiple groups at some point
+      if (isArray(id)) {
+        id = id[0]
+      }
       if (id) {
-        // will still need to handle multiple groups at some point
         return this.ctx.apis.groups.get(id)
       }
     }
