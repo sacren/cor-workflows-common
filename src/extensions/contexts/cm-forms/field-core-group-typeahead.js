@@ -64,7 +64,9 @@ export default class FieldCoreGroupTypeahead extends CMField {
       valueMap.formKey = this.data.formKey
       const { formKey } = valueMap
       const id = parentData.item[formKey]
-      return this.ctx.apis.groups.get(id)
+      if (id) {
+        return this.ctx.apis.groups.get(id)
+      }
     }
   }
 }
