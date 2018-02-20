@@ -12,9 +12,13 @@ export default class ActionAPI extends api {
   static API_KEY = 'actions'
   static ACTION_API = '/api/v1/actions'
 
-  async getActions (q) {
+  async list (q) {
     const params = Object.assign({ limit: 20 }, q)
     const query = qs.encode(params)
     return this._get(`${ActionAPI.ACTION_API}?${query}`, [])
+  }
+
+  async update (action) {
+    return this._put(`${ActionAPI.ACTION_API}/${action.id}`, action)
   }
 }

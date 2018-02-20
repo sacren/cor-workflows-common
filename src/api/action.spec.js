@@ -13,13 +13,20 @@ describe('Action API', () => {
   beforeEach(() => {
     action = new Action()
     action._get = jest.fn()
+    action._put = jest.fn()
   })
 
-  test('getActions', async () => {
-    await action.getActions({ x: 1, y: 'a' })
+  test('list', async () => {
+    await action.list({ x: 1, y: 'a' })
     expect(action._get).toHaveBeenCalledWith(
       `${Action.ACTION_API}?limit=20&x=1&y=a`,
       []
     )
+  })
+
+  test('update', async () => {
+    const a = { id: 'abc123', x: 1, y: 'a' }
+    await action.update(a)
+    expect(action._put).toHaveBeenCalledWith(`${Action.ACTION_API}/abc123`, a)
   })
 })
