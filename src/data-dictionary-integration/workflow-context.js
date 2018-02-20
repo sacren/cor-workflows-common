@@ -47,6 +47,14 @@ export default class WorkflowContext extends Context {
     this.data = context.data
   }
 
+  get secondaryName () {
+    return this.context.secondaryName
+  }
+
+  set secondaryName (typeLabel) {
+    // throw it away
+  }
+
   async getChildren (filter) {
     const children = await this.context.getChildren(filter)
     children.forEach(child => {
