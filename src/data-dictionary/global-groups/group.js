@@ -74,14 +74,13 @@ export default class Group extends Context {
   }
 
   static async inflate (ctx, deflated) {
-    return deflated.data
+    return ctx.apis.groups.get(deflated.data.id)
   }
 
   deflate (valueList = []) {
     const { parent, type, name, data } = this
     if (parent) parent.deflate(valueList)
-    // TODO: Should probably actually deflate instead of saving all data
-    valueList.push({ type, name, data, requiresParent: true })
+    valueList.push({ type, name, data: { id: data.id }, requiresParent: true })
     return valueList
   }
 
