@@ -145,7 +145,6 @@ export default class Form extends Context {
   // --- Utility Functions ---
 
   validate (data) {
-    console.log('VALIDATE DATA', data)
     if (!data || !data.id) {
       throw new Error(
         'Cannot create a Form Context without propperly formatted form data'
