@@ -17,8 +17,8 @@ describe('Form API', () => {
 
   test('listForm', async () => {
     form._get.mockReturnValue([
-      { _id: 123, lbl: 'label1', foo: 'bar' },
-      { _id: 567, lbl: 'label2', foo: 'baz' }
+      { _id: 123, label: 'label1', foo: 'bar' },
+      { _id: 567, label: 'label2', foo: 'baz' }
     ])
     const filter = 'bar'
     const results = await form.list(filter)
@@ -43,7 +43,7 @@ describe('Form API', () => {
     const formData = { _id: 123 }
     await form.getSchema(formData)
     expect(form._get).toHaveBeenCalledWith(
-      `${Form.FORM_API}/forms/123/schema?includeJsTypes=true`
+      `${Form.FORM_API}/form-containers/123/forms/current/schema?includeJsTypes=true`
     )
   })
 
@@ -63,7 +63,7 @@ describe('Form API', () => {
     const formData = { _id: 777 }
     const loadedForm = await form.load(formData)
     expect(form._get).toHaveBeenCalledWith(
-      `${Form.FORM_API}/forms/777/schema?includeJsTypes=true`
+      `${Form.FORM_API}/form-containers/777/forms/current/schema?includeJsTypes=true`
     )
     expect(loadedForm).toMatchObject({
       schema: {

@@ -69,30 +69,28 @@ export default class Form extends Context {
 
   static async inflate (ctx, deflated) {
     const pieces = await Promise.all([
-      ctx.apis.forms.getForm({ _id: deflated._id }),
-      ctx.apis.forms.getSchema({ _id: deflated._id })
+      ctx.apis.forms.getForm({ _id: deflated.id }),
+      ctx.apis.forms.getSchema({ _id: deflated.id })
     ])
     const form = Object.assign({}, ...pieces)
-    form._id = form.metaId
+    form.id = form.formContainerId
     return form
   }
 
   constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
     this.validate(data)
-    this.name = data.lbl
+    this.name = data.label
   }
 
   async getChildren (match) {
-    if (!this.data || !this.data._id) return []
+    if (!this.data || !this.data.id) return []
     const form = await this.ctx.apis.forms.getSchema(this.data)
 
     let fields
     if (match) {
       const regex = new RegExp(match, 'ig')
-      fields = filter(values(form.schema), field =>
-        !field.label.search(regex)
-      )
+      fields = filter(values(form.schema), field => !field.label.search(regex))
     } else {
       fields = map(form.schema, field => field)
     }
@@ -120,7 +118,7 @@ export default class Form extends Context {
   deflate (valueList = []) {
     const { parent, type, name, data } = this
     if (parent) parent.deflate(valueList)
-    valueList.push({ type, name, _id: data._id, requiresParent: false })
+    valueList.push({ type, name, _id: data.id, requiresParent: false })
     return valueList
   }
 
@@ -133,21 +131,22 @@ export default class Form extends Context {
     if (parent) await parent.getValue(valueMap)
     const { forms: formsAPI } = this.ctx.apis
     const responses = await Promise.props({
-      container: formsAPI.getForm({ _id: data._id }),
-      schema: formsAPI.getSchema({ _id: data._id })
+      container: formsAPI.getForm({ _id: data.id }),
+      schema: formsAPI.getSchema({ _id: data.id })
     })
     valueMap.formfill = responses
     return responses
   }
 
   isEqual (ctx) {
-    return get(this, 'data._id') === get(ctx, 'data._id')
+    return get(this, 'data.id') === get(ctx, 'data.id')
   }
 
   // --- Utility Functions ---
 
   validate (data) {
-    if (!data || !data._id) {
+    console.log('VALIDATE DATA', data)
+    if (!data || !data.id) {
       throw new Error(
         'Cannot create a Form Context without propperly formatted form data'
       )

@@ -117,10 +117,6 @@ describe('Workflow Context', () => {
       wf = new WorkflowContext(null, null, wfData)
     })
 
-    it('should throw an error if its context tyep is not formfill', async () => {
-      await expect(wf.getValue()).toThrowErrorMatchingSnapshot()
-    })
-
     it('should call the parent getValue if parent is available and get the formfill value', async () => {
       let passedMap
       const parent = {
@@ -134,6 +130,10 @@ describe('Workflow Context', () => {
       await wf.getValue({})
       expect(passedMap).toMatchObject({})
       expect(wf.getFormfillValue).toHaveBeenCalledWith(wfData.context, {})
+    })
+
+    it('should throw an error if its context tyep is not formfill', async () => {
+      await expect(wf.getValue()).toThrowErrorMatchingSnapshot()
     })
   })
 
@@ -201,7 +201,7 @@ describe('Workflow Context', () => {
         .mockReturnValue({ step: definitionStep })
       wf.findInstanceStep = jest.fn().mockReturnValue(instanceStep)
 
-      const formContext = { data: { _id: '123' } }
+      const formContext = { data: { id: '123' } }
       const valueMap = {
         definition: {},
         instance: { name: 'instance' },

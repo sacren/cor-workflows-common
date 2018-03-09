@@ -7,7 +7,7 @@
  */
 export const GLOBAL_FORMS_RESPONSE = [
   {
-    _id: '591b0b7b60c49e12003e4322',
+    id: '591b0b7b60c49e12003e4322',
     updatedAt: '2017-05-31T17:32:20.463Z',
     createdAt: '2017-05-16T14:23:55.336Z',
     deleted: false,
@@ -37,10 +37,10 @@ export const GLOBAL_FORMS_RESPONSE = [
     ],
     tags: [],
     icon: '',
-    lbl: 'Form One'
+    label: 'Form One'
   },
   {
-    _id: '595d3c7d58d6230f00537b36',
+    id: '595d3c7d58d6230f00537b36',
     updatedAt: '2017-05-31T17:32:55.198Z',
     createdAt: '2017-05-31T17:32:55.198Z',
     deleted: false,
@@ -70,12 +70,12 @@ export const GLOBAL_FORMS_RESPONSE = [
     ],
     tags: [],
     icon: '',
-    lbl: 'Form 2'
+    label: 'Form 2'
   }
 ]
 
 export const FORMS_CONTAINER = {
-  _id: '591b0b7b60c49e12003e4322',
+  id: '591b0b7b60c49e12003e4322',
   updatedAt: '2017-05-31T17:32:20.463Z',
   createdAt: '2017-05-16T14:23:55.336Z',
   deleted: false,
@@ -105,12 +105,12 @@ export const FORMS_CONTAINER = {
   ],
   tags: [],
   icon: '',
-  lbl: 'Form One'
+  label: 'Form One'
 }
 
 export const SIMPLE_FORM_RESPONSE = {
-  _id: '591b0b7b60c49e12003e4327',
-  metaId: '591b0b7b60c49e12003e4322',
+  id: '591b0b7b60c49e12003e4327',
+  formContainerId: '591b0b7b60c49e12003e4322',
   schema: {
     myTextInput: {
       type: 'Text',
@@ -148,8 +148,8 @@ export const SIMPLE_FORM_RESPONSE = {
 export const CONTAINER__ALL_FIELDS = GLOBAL_FORMS_RESPONSE[1]
 
 export const SCHEMA__ALL_FIELDS = {
-  _id: '595d3c7d58d6230f00537b31',
-  metaId: '595d3c7d58d6230f00537b36',
+  id: '595d3c7d58d6230f00537b31',
+  formContainerId: '595d3c7d58d6230f00537b36',
   schema: {
     typeOfTextInput1: {
       type: 'Text',
@@ -353,10 +353,10 @@ export const SCHEMA__ALL_FIELDS = {
 }
 
 export const DOCUMENT__TRAVEL_REQUEST = {
-  _id: '5996036db85d5410001da91a',
+  id: '5996036db85d5410001da91a',
   updatedAt: '2017-08-17T20:59:06.789Z',
   createdAt: '2017-08-17T20:58:21.922Z',
-  metaId: '591b486db656091100d05e47',
+  formContainerId: '591b486db656091100d05e47',
   data: {
     employee: { id: '593191380a953b0001879822' },
     destination: 'Singapore',
@@ -371,10 +371,10 @@ export const DOCUMENT__TRAVEL_REQUEST = {
 }
 
 export const DOCUMENT__ALL_FIELDS = {
-  _id: '599606e5b85d5410001da91b',
+  id: '599606e5b85d5410001da91b',
   updatedAt: '2017-08-17T21:14:39.310Z',
   createdAt: '2017-08-17T21:13:09.646Z',
-  metaId: '595d3c7d58d6230f00537b36',
+  formContainerId: '595d3c7d58d6230f00537b36',
   data: {
     typeOfTextInput1: '2000',
     typeOfTextArea: 'value of text area',
