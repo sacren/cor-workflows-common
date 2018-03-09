@@ -20,9 +20,9 @@ describe('Form', () => {
         }
       }
     }
-    const form = await Form.inflate(ctx, { id: '123' })
-    expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({ _id: '123' })
-    expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({ _id: '123' })
+    const form = await Form.inflate(ctx, { _id: '123' })
+    expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({ id: '123' })
+    expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({ id: '123' })
     expect(form).toMatchObject({
       id: '555',
       formContainerId: '555',
@@ -156,8 +156,8 @@ describe('Form', () => {
       const form = new Form(null, null, data, ctx)
       const map = {}
       const value = await form.getValue(map)
-      expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({ _id: '123' })
-      expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({ _id: '123' })
+      expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({ id: '123' })
+      expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({ id: '123' })
       const response = {
         container: 'formdata',
         schema: 'schemadata'
