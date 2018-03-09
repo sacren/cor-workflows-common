@@ -35,15 +35,15 @@ export default class FormAPI extends api {
   }
 
   async getForm (form) {
-    const { _id } = form
-    return this._get(`${FormAPI.FORM_API}/form-containers/${_id}`)
+    const { id } = form
+    return this._get(`${FormAPI.FORM_API}/form-containers/${id}`)
   }
 
   async getSchema (form) {
-    const { _id } = form
+    const { id } = form
     const query = qs.encode({ includeJsTypes: true })
     return this._get(
-      `${FormAPI.FORM_API}/form-containers/${_id}/forms/current/schema?${query}`
+      `${FormAPI.FORM_API}/form-containers/${id}/forms/current/schema?${query}`
     )
   }
 
@@ -52,10 +52,10 @@ export default class FormAPI extends api {
   }
 
   async load (form) {
-    const { _id } = form
+    const { id } = form
     const query = qs.encode({ includeJsTypes: true })
     const response = await this._get(
-      `${FormAPI.FORM_API}/form-containers/${_id}/forms/current/schema?${query}`
+      `${FormAPI.FORM_API}/form-containers/${id}/forms/current/schema?${query}`
     )
     const { schema } = response
     forEach(schema, (field, key) => {

@@ -32,7 +32,7 @@ describe('Form API', () => {
   })
 
   test('getForm', async () => {
-    const formData = { _id: 123 }
+    const formData = { id: 123 }
     await form.getForm(formData)
     expect(form._get).toHaveBeenCalledWith(
       `${Form.FORM_API}/form-containers/123`
@@ -40,7 +40,7 @@ describe('Form API', () => {
   })
 
   test('getSchema', async () => {
-    const formData = { _id: 123 }
+    const formData = { id: 123 }
     await form.getSchema(formData)
     expect(form._get).toHaveBeenCalledWith(
       `${Form.FORM_API}/form-containers/123/forms/current/schema?includeJsTypes=true`
@@ -60,7 +60,7 @@ describe('Form API', () => {
       }
     }
     form._get.mockReturnValue(schema)
-    const formData = { _id: 777 }
+    const formData = { id: 777 }
     const loadedForm = await form.load(formData)
     expect(form._get).toHaveBeenCalledWith(
       `${Form.FORM_API}/form-containers/777/forms/current/schema?includeJsTypes=true`

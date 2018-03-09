@@ -209,7 +209,7 @@ describe('Workflow Context', () => {
       }
       const value = await wf.getFormfillValue(formContext, valueMap)
       expect(wf.findDefinitionStep).toHaveBeenCalledWith(
-        formContext.data._id,
+        formContext.data.id,
         valueMap.definition
       )
       expect(wf.findInstanceStep).toHaveBeenCalledWith(
@@ -218,10 +218,10 @@ describe('Workflow Context', () => {
         valueMap.instances
       )
       expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({
-        _id: formContext.data._id
+        id: formContext.data.id
       })
       expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({
-        _id: formContext.data._id
+        id: formContext.data.id
       })
       expect(ctx.apis.forms.getDocument).toHaveBeenCalledWith(
         instanceStep.meta.form._id

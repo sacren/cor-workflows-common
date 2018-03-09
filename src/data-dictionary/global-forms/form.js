@@ -69,8 +69,8 @@ export default class Form extends Context {
 
   static async inflate (ctx, deflated) {
     const pieces = await Promise.all([
-      ctx.apis.forms.getForm({ _id: deflated.id }),
-      ctx.apis.forms.getSchema({ _id: deflated.id })
+      ctx.apis.forms.getForm({ id: deflated._id }),
+      ctx.apis.forms.getSchema({ id: deflated._id })
     ])
     const form = Object.assign({}, ...pieces)
     form.id = form.formContainerId
@@ -131,8 +131,8 @@ export default class Form extends Context {
     if (parent) await parent.getValue(valueMap)
     const { forms: formsAPI } = this.ctx.apis
     const responses = await Promise.props({
-      container: formsAPI.getForm({ _id: data.id }),
-      schema: formsAPI.getSchema({ _id: data.id })
+      container: formsAPI.getForm({ id: data.id }),
+      schema: formsAPI.getSchema({ id: data.id })
     })
     valueMap.formfill = responses
     return responses
