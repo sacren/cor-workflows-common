@@ -16,21 +16,21 @@ const typeMap = {
 
 export default class FormAPI extends api {
   static API_KEY = 'forms'
-  static FORM_API = '/cor/forms/api/v1'
+  static FORM_API = '/cor/forms/api/v2'
 
   async list (_filter) {
     const filter = _filter
       ? isObject(_filter)
-        ? Object.assign({ limit: 20 }, _filter)
-        : { limit: 20, q: _filter }
+          ? Object.assign({ limit: 20 }, _filter)
+          : { limit: 20, q: _filter }
       : { limit: 20 }
     const query = qs.encode(filter)
     const response = await this._get(
       `${FormAPI.FORM_API}/form-containers?${query}`
     )
     return map(response, form => {
-      const { _id, lbl } = form
-      return { _id, lbl }
+      const { _id, label } = form
+      return { _id, lbl: label }
     })
   }
 
@@ -42,7 +42,9 @@ export default class FormAPI extends api {
   async getSchema (form) {
     const { _id } = form
     const query = qs.encode({ includeJsTypes: true })
-    return this._get(`${FormAPI.FORM_API}/forms/${_id}/schema?${query}`)
+    return this._get(
+      `${FormAPI.FORM_API}/form-containers/${_id}/forms/current/schema?${query}`
+    )
   }
 
   async getDocument (documentId) {
@@ -53,7 +55,7 @@ export default class FormAPI extends api {
     const { _id } = form
     const query = qs.encode({ includeJsTypes: true })
     const response = await this._get(
-      `${FormAPI.FORM_API}/forms/${_id}/schema?${query}`
+      `${FormAPI.FORM_API}/form-containers/${_id}/forms/current/schema?${query}`
     )
     const { schema } = response
     forEach(schema, (field, key) => {

@@ -65,10 +65,10 @@ export default class Form extends Context {
       if (
         FieldContext &&
         (myReturnTypes.includes(ALL) ||
-        FieldContext.returnTypes === ALL ||
-        FieldContext.returnTypes.some(type =>
-          this.returnTypes.includes(type)
-        ))
+          FieldContext.returnTypes === ALL ||
+          FieldContext.returnTypes.some(type =>
+            this.returnTypes.includes(type)
+          ))
       ) {
         return new FieldContext(
           this,
