@@ -17,8 +17,8 @@ describe('Form API', () => {
 
   test('listForm', async () => {
     form._get.mockReturnValue([
-      { _id: 123, label: 'label1', foo: 'bar' },
-      { _id: 567, label: 'label2', foo: 'baz' }
+      { id: 123, label: 'label1', foo: 'bar' },
+      { id: 567, label: 'label2', foo: 'baz' }
     ])
     const filter = 'bar'
     const results = await form.list(filter)
@@ -26,8 +26,8 @@ describe('Form API', () => {
       `${Form.FORM_API}/form-containers?limit=20&q=bar`
     )
     expect(results).toMatchObject([
-      { _id: 123, lbl: 'label1' },
-      { _id: 567, lbl: 'label2' }
+      { id: 123, label: 'label1' },
+      { id: 567, label: 'label2' }
     ])
   })
 

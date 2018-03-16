@@ -10,3 +10,4 @@
 /node_modules
 /style.css
 .vscode
+yarn-error.log

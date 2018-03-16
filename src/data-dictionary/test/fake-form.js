@@ -125,11 +125,11 @@ export const SIMPLE_FORM_RESPONSE = {
       details: {
         options: [
           {
-            lbl: 'Yes',
+            label: 'Yes',
             key: 'yes'
           },
           {
-            lbl: 'No',
+            label: 'No',
             key: 'no'
           }
         ]
@@ -179,11 +179,11 @@ export const SCHEMA__ALL_FIELDS = {
       details: {
         options: [
           {
-            lbl: 'Check List Item 1',
+            label: 'Check List Item 1',
             key: 'checkListItem1'
           },
           {
-            lbl: 'Check List Item 2',
+            label: 'Check List Item 2',
             key: 'checkListItem2'
           }
         ]
@@ -200,11 +200,11 @@ export const SCHEMA__ALL_FIELDS = {
       details: {
         options: [
           {
-            lbl: 'Radio Button One',
+            label: 'Radio Button One',
             key: 'radioButtonOne'
           },
           {
-            lbl: 'Radio Button Two',
+            label: 'Radio Button Two',
             key: 'radioButtonTwo'
           }
         ]
@@ -218,11 +218,11 @@ export const SCHEMA__ALL_FIELDS = {
       details: {
         options: [
           {
-            lbl: 'Drop Down One',
+            label: 'Drop Down One',
             key: 'dropDownOne'
           },
           {
-            lbl: 'Drop Down Two',
+            label: 'Drop Down Two',
             key: 'dropDownTwo'
           }
         ]
@@ -325,21 +325,21 @@ export const SCHEMA__ALL_FIELDS = {
       details: {
         questions: [
           {
-            lbl: 'How many feet do you have?',
+            label: 'How many feet do you have?',
             key: 'howManyFeetDoYouHave'
           },
           {
-            lbl: 'How many noses do you have?',
+            label: 'How many noses do you have?',
             key: 'howManyNosesDoYouHave'
           }
         ],
         labels: [
           {
-            lbl: 'Label One',
+            label: 'Label One',
             key: 'labelOne'
           },
           {
-            lbl: 'Label Two',
+            label: 'Label Two',
             key: 'labelTwo'
           }
         ]

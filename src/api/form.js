@@ -29,8 +29,8 @@ export default class FormAPI extends api {
       `${FormAPI.FORM_API}/form-containers?${query}`
     )
     return map(response, form => {
-      const { _id, label } = form
-      return { _id, lbl: label }
+      const { id, label } = form
+      return { id, label }
     })
   }
 
