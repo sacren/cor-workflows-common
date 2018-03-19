@@ -125,7 +125,7 @@ export default class WorkflowContext extends Context {
   findDefinitionStep (formId) {
     let match
     this.ancestry.forEachStep(({ flow, step }) => {
-      if (step.type === 'formfill' && last(step.meta.form)._id === formId) {
+      if (step.type === 'formfill' && last(step.meta.form).id === formId) {
         match = { flow, step }
       }
     })
