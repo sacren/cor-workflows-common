@@ -282,7 +282,7 @@ describe('Workflow Context', () => {
       const flowId = Math.floor(Math.random() * (10 - 0))
       return {
         flow: flowId,
-        step: { type, meta: { form: [{ _id: formId }] } }
+        step: { type, meta: { form: [{ id: formId }] } }
       }
     }
 

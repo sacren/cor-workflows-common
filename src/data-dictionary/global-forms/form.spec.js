@@ -15,18 +15,18 @@ describe('Form', () => {
     const ctx = {
       apis: {
         forms: {
-          getForm: jest.fn().mockReturnValue({ formContainerId: '555' }),
-          getSchema: jest.fn().mockReturnValue({ schemaKey: 'schemaValue' })
+          getForm: jest.fn().mockReturnValue({ id: 'abc111' }),
+          getSchema: jest.fn().mockReturnValue({ _id: 'abc123' })
         }
       }
     }
-    const form = await Form.inflate(ctx, { _id: '123' })
+    const form = await Form.inflate(ctx, { id: '123' })
     expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({ id: '123' })
     expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({ id: '123' })
     expect(form).toMatchObject({
-      id: '555',
-      formContainerId: '555',
-      schemaKey: 'schemaValue'
+      id: 'abc111',
+      _id: 'abc123',
+      schemaId: 'abc123'
     })
   })
 
@@ -205,9 +205,9 @@ describe('Form', () => {
   TestDeflation(
     parent => new Form(parent, null, { id: '123', label: 'My Label' }),
     {
+      id: '123',
       type: Form.type,
       name: 'My Label',
-      _id: '123',
       requiresParent: false
     }
   )
