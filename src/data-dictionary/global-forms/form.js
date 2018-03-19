@@ -69,11 +69,11 @@ export default class Form extends Context {
 
   static async inflate (ctx, deflated) {
     const pieces = await Promise.all([
-      ctx.apis.forms.getForm({ id: deflated._id }),
-      ctx.apis.forms.getSchema({ id: deflated._id })
+      ctx.apis.forms.getForm({ id: deflated.id }),
+      ctx.apis.forms.getSchema({ id: deflated.id })
     ])
     const form = Object.assign({}, ...pieces)
-    form.id = form.formContainerId
+    form.schemaId = form._id
     return form
   }
 
@@ -118,7 +118,7 @@ export default class Form extends Context {
   deflate (valueList = []) {
     const { parent, type, name, data } = this
     if (parent) parent.deflate(valueList)
-    valueList.push({ type, name, _id: data.id, requiresParent: false })
+    valueList.push({ type, name, id: data.id, requiresParent: false })
     return valueList
   }
 
