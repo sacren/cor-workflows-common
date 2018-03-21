@@ -50,7 +50,7 @@ export default class Form extends Context {
   constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
     this.validate(data)
-    this.name = data.lbl
+    this.name = data.label
   }
 
   async getChildren (noop) {
@@ -100,7 +100,7 @@ export default class Form extends Context {
       type,
       name,
       id: data.id,
-      lbl: data.lbl,
+      label: data.label,
       requiresParent: false
     })
     return valueList

@@ -30,7 +30,7 @@ describe('extensions/index', () => {
         findInstanceStep,
         ctx: { apis: { cm: { schema, getItem } } }
       }
-      const mockContext = { type: 'cmformfill', data: { _id: 'courses' } }
+      const mockContext = { type: 'cmformfill', data: { id: 'courses' } }
       const value = await getValue(mockWFContext, mockContext)
       expect(findDefinitionStep).toHaveBeenCalled()
       expect(findInstanceStep).toHaveBeenCalled()
