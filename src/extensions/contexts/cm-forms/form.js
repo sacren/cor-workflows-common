@@ -43,7 +43,7 @@ export default class Form extends Context {
   static matchTypes = CMFORM
 
   static async inflate (ctx, deflated) {
-    const schema = await ctx.apis.cm.schema(deflated._id)
+    const schema = await ctx.apis.cm.schema(deflated.id)
     return Object.assign({}, deflated, { schema })
   }
 
@@ -54,9 +54,9 @@ export default class Form extends Context {
   }
 
   async getChildren (noop) {
-    if (!this.data || !this.data._id) return []
+    if (!this.data || !this.data.id) return []
     const schema =
-      this.data.schema || (await this.ctx.apis.cm.schema(this.data._id))
+      this.data.schema || (await this.ctx.apis.cm.schema(this.data.id))
     const myReturnTypes = isArray(this.returnTypes)
       ? this.returnTypes
       : [this.returnTypes]
@@ -99,7 +99,7 @@ export default class Form extends Context {
     valueList.push({
       type,
       name,
-      _id: data._id,
+      id: data.id,
       lbl: data.lbl,
       requiresParent: false
     })
@@ -107,13 +107,13 @@ export default class Form extends Context {
   }
 
   isEqual (ctx) {
-    return get(this, 'data._id') === get(ctx, 'data._id')
+    return get(this, 'data.id') === get(ctx, 'data.id')
   }
 
   // --- Utility Functions ---
 
   validate (data) {
-    if (!data || !data._id) {
+    if (!data || !data.id) {
       throw new Error(
         'Cannot create a Form Context without propperly formatted form data'
       )
