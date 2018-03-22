@@ -68,13 +68,13 @@ export default class Form extends Context {
   static matchTypes = [FORM, TEXT]
 
   static async inflate (ctx, deflated) {
-    const pieces = await Promise.all([
+    const [form, schema] = await Promise.all([
       ctx.apis.forms.getForm({ id: deflated.id }),
       ctx.apis.forms.getSchema({ id: deflated.id })
     ])
-    const form = Object.assign({}, ...pieces)
-    form.schemaId = form._id
-    return form
+    const _form = Object.assign({}, schema, form)
+    _form.schemaId = schema.id
+    return _form
   }
 
   constructor (parent, returnTypes, data, ctx) {

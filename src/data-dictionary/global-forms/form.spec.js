@@ -16,7 +16,7 @@ describe('Form', () => {
       apis: {
         forms: {
           getForm: jest.fn().mockReturnValue({ id: 'abc111' }),
-          getSchema: jest.fn().mockReturnValue({ _id: 'abc123' })
+          getSchema: jest.fn().mockReturnValue({ id: 'abc123', schema: {} })
         }
       }
     }
@@ -25,7 +25,7 @@ describe('Form', () => {
     expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({ id: '123' })
     expect(form).toMatchObject({
       id: 'abc111',
-      _id: 'abc123',
+      schema: {},
       schemaId: 'abc123'
     })
   })
