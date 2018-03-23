@@ -18,7 +18,12 @@ export default class GlobalForms extends Context {
 
   async getChildren (filter) {
     if (!this.ctx) throw new Error('no ctx')
-    const forms = await this.ctx.apis.forms.list(filter)
+    let forms
+    if (filter && filter.id) {
+      forms = [await this.ctx.apis.forms.getForm(filter)]
+    } else {
+      forms = await this.ctx.apis.forms.list(filter)
+    }
     const formCtxs = forms.map(
       form => new Form(this, this.returnTypes, form, this.ctx)
     )
