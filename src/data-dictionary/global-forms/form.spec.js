@@ -15,23 +15,23 @@ describe('Form', () => {
     const ctx = {
       apis: {
         forms: {
-          getForm: jest.fn().mockReturnValue({ metaId: '555' }),
-          getSchema: jest.fn().mockReturnValue({ schemaKey: 'schemaValue' })
+          getForm: jest.fn().mockReturnValue({ id: 'abc111' }),
+          getSchema: jest.fn().mockReturnValue({ id: 'abc123', schema: {} })
         }
       }
     }
-    const form = await Form.inflate(ctx, { _id: '123' })
-    expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({ _id: '123' })
-    expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({ _id: '123' })
+    const form = await Form.inflate(ctx, { id: '123' })
+    expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({ id: '123' })
+    expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({ id: '123' })
     expect(form).toMatchObject({
-      _id: '555',
-      metaId: '555',
-      schemaKey: 'schemaValue'
+      id: 'abc111',
+      schema: {},
+      schemaId: 'abc123'
     })
   })
 
   it('should validate data passed in upon construction', () => {
-    const data = { _id: 'bar' }
+    const data = { id: 'bar' }
     const spy = jest.spyOn(Form.prototype, 'validate')
     const form = new Form(null, null, data)
     expect(form)
@@ -40,13 +40,13 @@ describe('Form', () => {
   })
 
   it('should never be a leaf node', () => {
-    const form = new Form(null, null, { _id: '123' })
+    const form = new Form(null, null, { id: '123' })
     expect(form.isLeaf()).toBeFalsy()
   })
 
   describe('getChildren', () => {
-    it('should return empty lists if data or data._id is missing', async () => {
-      const form = new Form(null, null, { _id: '123' })
+    it('should return empty lists if data or data.id is missing', async () => {
+      const form = new Form(null, null, { id: '123' })
       form.data = null
       expect(await form.getChildren()).toMatchObject([])
       form.data = {}
@@ -86,7 +86,7 @@ describe('Form', () => {
         jsType: 'string'
       }
 
-      data = { _id: '123' }
+      data = { id: '123' }
     })
 
     it('should create a form context for each form returned with matching return types', async () => {
@@ -128,7 +128,7 @@ describe('Form', () => {
   describe('getValue', () => {
     let data, ctx
     beforeEach(() => {
-      data = { _id: '123' }
+      data = { id: '123' }
       ctx = {
         apis: {
           forms: {
@@ -156,8 +156,8 @@ describe('Form', () => {
       const form = new Form(null, null, data, ctx)
       const map = {}
       const value = await form.getValue(map)
-      expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({ _id: '123' })
-      expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({ _id: '123' })
+      expect(ctx.apis.forms.getForm).toHaveBeenCalledWith({ id: '123' })
+      expect(ctx.apis.forms.getSchema).toHaveBeenCalledWith({ id: '123' })
       const response = {
         container: 'formdata',
         schema: 'schemadata'
@@ -168,46 +168,46 @@ describe('Form', () => {
   })
 
   describe('Equality', () => {
-    it('should return false if the data._id do not match', () => {
-      const form = new Form(null, null, { _id: '123' })
-      expect(form.isEqual({ _id: '567' })).toBeFalsy()
+    it('should return false if the data.id do not match', () => {
+      const form = new Form(null, null, { id: '123' })
+      expect(form.isEqual({ id: '567' })).toBeFalsy()
     })
 
-    it('should return true if the data._id match', () => {
-      const form = new Form(null, null, { _id: '123' })
-      expect(form.isEqual({ data: { _id: '123' } })).toBeTruthy()
+    it('should return true if the data.id match', () => {
+      const form = new Form(null, null, { id: '123' })
+      expect(form.isEqual({ data: { id: '123' } })).toBeTruthy()
     })
   })
 
   describe('Validation', () => {
     it('should throw and error if no data is provided', () => {
-      const form = new Form(null, null, { _id: '123' })
+      const form = new Form(null, null, { id: '123' })
       expect(() => {
         form.validate()
       }).toThrowErrorMatchingSnapshot()
     })
 
-    it('should throw and error data._id is missing', () => {
-      const form = new Form(null, null, { _id: '123' })
+    it('should throw and error data.id is missing', () => {
+      const form = new Form(null, null, { id: '123' })
       expect(() => {
         form.validate({})
       }).toThrowErrorMatchingSnapshot()
     })
 
-    it('should validate if data is provided with a key _id', () => {
-      const form = new Form(null, null, { _id: '123' })
+    it('should validate if data is provided with a key id', () => {
+      const form = new Form(null, null, { id: '123' })
       expect(() => {
-        form.validate({ _id: 10 })
+        form.validate({ id: 10 })
       }).not.toThrow()
     })
   })
 
   TestDeflation(
-    parent => new Form(parent, null, { _id: '123', lbl: 'My Label' }),
+    parent => new Form(parent, null, { id: '123', label: 'My Label' }),
     {
+      id: '123',
       type: Form.type,
       name: 'My Label',
-      _id: '123',
       requiresParent: false
     }
   )

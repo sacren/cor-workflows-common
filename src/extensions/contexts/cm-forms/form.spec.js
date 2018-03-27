@@ -17,10 +17,10 @@ describe('Form', () => {
     parent = { deflate: jest.fn() }
     ctx = { apis: { cm: { schema: schemaFn } } }
     data = {
-      _id: 'courses',
+      id: 'courses',
       type: 'foo',
       formKey: 'bar',
-      lbl: 'baz',
+      label: 'baz',
       categoryId: 'cat1'
     }
     form = new Form(parent, ['*'], data, ctx)
@@ -29,9 +29,9 @@ describe('Form', () => {
   it('inflates', async () => {
     const mockSchema = { key: 'value' }
     schemaFn.mockReturnValue(mockSchema)
-    const val = await Form.inflate(ctx, { _id: '123' })
+    const val = await Form.inflate(ctx, { id: '123' })
     expect(schemaFn).toHaveBeenCalledWith('123')
-    expect(val).toEqual({ _id: '123', schema: mockSchema })
+    expect(val).toEqual({ id: '123', schema: mockSchema })
   })
 
   it('deflates with no parent', () => {
@@ -41,9 +41,9 @@ describe('Form', () => {
     expect(valueList.length).toBe(1)
     expect(valueList[0]).toEqual({
       type: Form.type,
-      name: data.lbl,
-      _id: data._id,
-      lbl: data.lbl,
+      name: data.label,
+      id: data.id,
+      label: data.label,
       requiresParent: false
     })
   })
@@ -54,9 +54,9 @@ describe('Form', () => {
     expect(valueList.length).toBe(1)
     expect(valueList[0]).toEqual({
       type: Form.type,
-      name: data.lbl,
-      _id: data._id,
-      lbl: data.lbl,
+      name: data.label,
+      id: data.id,
+      label: data.label,
       requiresParent: false
     })
   })
@@ -146,13 +146,13 @@ describe('Form', () => {
 
   describe('Equality', () => {
     it('should return false if the data._id do not match', () => {
-      const form = new Form(null, null, { _id: '123' })
-      expect(form.isEqual({ _id: '567' })).toBeFalsy()
+      const form = new Form(null, null, { id: '123' })
+      expect(form.isEqual({ id: '567' })).toBeFalsy()
     })
 
     it('should return true if the data._id match', () => {
-      const form = new Form(null, null, { _id: '123' })
-      expect(form.isEqual({ data: { _id: '123' } })).toBeTruthy()
+      const form = new Form(null, null, { id: '123' })
+      expect(form.isEqual({ data: { id: '123' } })).toBeTruthy()
     })
   })
 

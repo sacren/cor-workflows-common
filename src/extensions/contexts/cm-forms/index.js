@@ -42,32 +42,32 @@ export default class CMForms extends Context {
   static extractFormOptionsFromSettings (institution, settings) {
     const formOptions = [
       {
-        _id: 'courses',
-        lbl: get(settings, 'uiTextReplacements.course') || 'Courses'
+        id: 'courses',
+        label: get(settings, 'uiTextReplacements.course') || 'Courses'
       },
       {
-        _id: 'programs',
-        lbl: get(settings, 'uiTextReplacements.program') || 'Programs'
+        id: 'programs',
+        label: get(settings, 'uiTextReplacements.program') || 'Programs'
       }
     ]
     if (get(institution, 'flags.experienceItem')) {
       formOptions.push({
-        _id: 'experiences',
-        lbl: get(settings, 'uiTextReplacements.experience') || 'Experiences'
+        id: 'experiences',
+        label: get(settings, 'uiTextReplacements.experience') || 'Experiences'
       })
     }
     if (get(institution, 'flags.specializationItem')) {
       formOptions.push({
-        _id: 'specializations',
-        lbl:
+        id: 'specializations',
+        label:
         get(settings, 'uiTextReplacements.specialization') ||
         'Specializations'
       })
     }
     if (get(institution, 'flags.policies')) {
       formOptions.push({
-        _id: 'policies',
-        lbl: get(settings, 'uiTextReplacements.policie') || 'Policies'
+        id: 'policies',
+        label: get(settings, 'uiTextReplacements.policie') || 'Policies'
       })
     }
     return formOptions

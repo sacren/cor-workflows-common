@@ -51,7 +51,7 @@ export async function getValue (wfContext, context, valueMap = {}) {
 
 async function getCMFormfillValue (wfContext, formContext, valueMap) {
   const { definition, instance, instances } = valueMap
-  const formId = formContext.data._id
+  const formId = formContext.data.id
   const { step: definitionStep } = wfContext.findDefinitionStep(formId, definition)
   const instanceStep = wfContext.findInstanceStep(
     definitionStep._id.toString(),
@@ -60,7 +60,7 @@ async function getCMFormfillValue (wfContext, formContext, valueMap) {
   )
   const responses = await Promise.props({
     schema: wfContext.ctx.apis.cm.schema(formId),
-    item: wfContext.ctx.apis.cm.getItem(formId, instanceStep.meta.form._id)
+    item: wfContext.ctx.apis.cm.getItem(formId, instanceStep.meta.form.itemId)
   })
   return {
     ...responses,

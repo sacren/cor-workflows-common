@@ -21,7 +21,7 @@ describe('Global Forms', () => {
     })
 
     it('should call the forms list call on apis of the context', async () => {
-      const formData = [{ _id: 'form1' }, { _id: 'form2' }]
+      const formData = [{ id: 'form1' }, { id: 'form2' }]
       const ctx = {
         apis: {
           forms: {

@@ -13,8 +13,7 @@ import Ancestry from '../ancestry-util'
 import { getValue as getValueFromExt } from '../extensions'
 
 const i18n = {
-  MISSING_DATA:
-    'Workflow Context expects data to have ancestry, stepId & context'
+  MISSING_DATA: 'Workflow Context expects data to have ancestry, stepId & context'
 }
 
 export default class WorkflowContext extends Context {
@@ -99,7 +98,7 @@ export default class WorkflowContext extends Context {
 
   async getFormfillValue (formContext, valueMap) {
     const { definition, instance, instances } = valueMap
-    const formId = formContext.data._id
+    const formId = formContext.data.id
     const { step: definitionStep } = this.findDefinitionStep(formId, definition)
     const instanceStep = this.findInstanceStep(
       definitionStep._id.toString(),
@@ -108,16 +107,15 @@ export default class WorkflowContext extends Context {
     )
     const { forms: formsAPI } = this.ctx.apis
     const responses = await Promise.props({
-      container: formsAPI.getForm({ _id: formId }),
-      schema: formsAPI.getSchema({ _id: formId }),
+      container: formsAPI.getForm({ id: formId }),
+      schema: formsAPI.getSchema({ id: formId }),
       document: formsAPI.getDocument(instanceStep.meta.form._id)
     })
     const data = {
       ...responses,
       definitionStep,
       instanceStep,
-      formUrl: `/cor/forms/#/i/${responses.container._id}/view/${responses
-        .document._id}`,
+      formUrl: `/cor/forms/#/i/${responses.container.id}/view/${responses.document.id}`,
       handlerUrl: '/cor/appbuilder/#/run/{{ID}}'
     }
     valueMap.formfill = data
@@ -127,7 +125,7 @@ export default class WorkflowContext extends Context {
   findDefinitionStep (formId) {
     let match
     this.ancestry.forEachStep(({ flow, step }) => {
-      if (step.type === 'formfill' && last(step.meta.form)._id === formId) {
+      if (step.type === 'formfill' && last(step.meta.form).id === formId) {
         match = { flow, step }
       }
     })

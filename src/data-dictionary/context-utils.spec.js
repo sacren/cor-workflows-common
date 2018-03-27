@@ -159,7 +159,7 @@ describe('Data Dictionary > Util', () => {
 
   test('can inflate a deflated value', async () => {
     mock
-      .onGet(/\/cor\/forms\/api\/v\d\/forms\/\w+\/schema\?includeJsTypes=true/)
+      .onGet(/\/cor\/forms\/api\/v\d\/form-containers\/\w+\/forms\/current\/schema\?includeJsTypes=true/)
       .reply(200, SIMPLE_FORM_RESPONSE)
     mock
       .onGet(/\/cor\/forms\/api\/v\d\/form-containers\/\w+/)
