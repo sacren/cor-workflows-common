@@ -135,6 +135,18 @@ describe('Global Groups', () => {
     })
   })
 
+  describe('deflate', () => {
+    it('should deflate data', () => {
+      const data = { id: '123', name: 'Test', garbage: 'garbage' }
+      const group = new Group(null, null, data)
+      const deflated = group.deflate()
+      expect(deflated[0].name).toBe('Test')
+      expect(deflated[0].data.id).toBe('123')
+      expect(deflated[0].garbage).toBeUndefined()
+      expect(deflated[0].type).toBe('group')
+    })
+  })
+
   it('should be able to getValue', async () => {
     const group = new Group(null, null, { id: 'test' })
     const value = await group.getValue()
