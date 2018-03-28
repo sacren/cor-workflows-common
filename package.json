@@ -14,9 +14,10 @@
   "scripts": {
     "clean": "gulp clean",
     "build": "gulp",
-    "prepublish": "npm test && npm run build",
+    "prepublish": "npm run onlymaster && npm test && npm run build",
     "test": "standard && jest",
     "test:jest:watch": "jest --watch",
+    "onlymaster": "[[ \"$(git rev-parse --abbrev-ref HEAD)\" == \"master\" ]] || (echo 'You can only publish from the master branch. You should also be a core team member' && exit 1)",
     "watch": "gulp watch"
   },
   "repository": {
