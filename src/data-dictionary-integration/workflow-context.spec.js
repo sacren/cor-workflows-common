@@ -224,7 +224,7 @@ describe('Workflow Context', () => {
         id: formContext.data.id
       })
       expect(ctx.apis.forms.getDocument).toHaveBeenCalledWith(
-        instanceStep.meta.form._id
+        instanceStep.meta.form.id
       )
       const data = {
         container: formResponse,
