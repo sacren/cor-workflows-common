@@ -109,7 +109,7 @@ export default class WorkflowContext extends Context {
     const responses = await Promise.props({
       container: formsAPI.getForm({ id: formId }),
       schema: formsAPI.getSchema({ id: formId }),
-      document: formsAPI.getDocument(instanceStep.meta.form._id)
+      document: formsAPI.getDocument(instanceStep.meta.form.id)
     })
     const data = {
       ...responses,
