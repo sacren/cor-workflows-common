@@ -11,3 +11,32 @@ import { NUMBER, TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
 FieldTest(FieldDropdown, [NUMBER, TEXT], [NUMBER, TEXT], true)
+
+describe('FieldDropdown', () => {
+  it('should return the appropriate value', async () => {
+    const parent = {
+      getValue: jest.fn(valueMap => {
+        valueMap.formfill = {
+          document: {
+            data: {
+              bar: 'a2'
+            }
+          },
+          schema: {
+            schema: {
+              bar: {
+                details: {
+                  options: [{ key: 'a1', lbl: 'one' }, { key: 'a2', lbl: 'two' }]
+                }
+              }
+            }
+          }
+        }
+      })
+    }
+    const data = { type: 'foo', formKey: 'bar', label: 'baz', jsType: 'boom' }
+    const field = new FieldDropdown(parent, null, data)
+    const value = await field.getValue()
+    expect(value).toEqual('two')
+  })
+})
