@@ -71,6 +71,48 @@ describe('Category', () => {
     })
   })
 
+  describe('getValue', () => {
+    it('should return an empty list if no category or roleSchema', async () => {
+      const category = new Category(null, null, {})
+      const value = await category.getValue()
+      expect(value).toEqual({})
+    })
+
+    it('should return value with a parent of type group', async () => {
+      const parent = {
+        type: 'group',
+        getValue: jest.fn(valueMap => ({ parentId: 'pid' }))
+      }
+      const ctx = { apis: { groups: { get: jest.fn() } } }
+      ctx.apis.groups.get.mockReturnValue({
+        id: 'abc123',
+        type: 'group'
+      })
+      const category = new Category(parent, null, { id: 'abc123' }, ctx)
+      const value = await category.getValue()
+      expect(value).toEqual({
+        id: 'abc123',
+        group: { id: 'abc123', type: 'group' }
+      })
+    })
+
+    it('should the value with a parent treated like a group', async () => {
+      const parent = {
+        type: 'somethingThatIsNotAGroup',
+        treatAsType: 'group',
+        getValue: jest.fn(valueMap => ({}))
+      }
+      const ctx = { apis: { groups: { get: jest.fn() } } }
+      ctx.apis.groups.get.mockReturnValue({
+        id: 'abc123',
+        type: 'group'
+      })
+      const category = new Category(parent, null, { id: 'abc123' }, ctx)
+      const value = await category.getValue()
+      expect(value).toEqual({ id: 'abc123' })
+    })
+  })
+
   TestDeflation(
     parent => new Category(parent, null, { name: 'cate', id: '123' }),
     {

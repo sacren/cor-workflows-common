@@ -21,8 +21,8 @@ export default class FormAPI extends api {
   async list (_filter) {
     const filter = _filter
       ? isObject(_filter)
-          ? Object.assign({ limit: 20 }, _filter)
-          : { limit: 20, q: _filter }
+        ? Object.assign({ limit: 20 }, _filter)
+        : { limit: 20, q: _filter }
       : { limit: 20 }
     const query = qs.encode(filter)
     const response = await this._get(
