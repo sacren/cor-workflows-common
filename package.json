@@ -1,6 +1,6 @@
 {
   "name": "kuali-cor-workflows-common",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "Workflows code common to both client and server",
   "author": "Kuali Core Team",
   "license": "SEE LICENSE IN LICENSE",
@@ -52,30 +52,29 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 92,
-        "branches": 88,
+        "statements": 93,
+        "branches": 85,
         "lines": 93,
-        "functions": 90
+        "functions": 94
       }
     },
-    "mapCoverage": true,
     "rootDir": "src",
     "verbose": true
   },
   "dependencies": {
-    "axios": "0.17.1",
+    "axios": "0.18.0",
     "bluebird": "3.5.1",
-    "lodash": "4.17.4",
+    "lodash": "4.17.5",
     "querystring": "0.2.0",
     "shorthash": "0.0.2"
   },
   "devDependencies": {
-    "autoprefixer": "7.2.5",
-    "axios-mock-adapter": "1.12.0",
+    "autoprefixer": "8.2.0",
+    "axios-mock-adapter": "1.14.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
-    "babel-eslint": "8.0.3",
-    "babel-jest": "22.1.0",
+    "babel-eslint": "8.2.2",
+    "babel-jest": "22.4.3",
     "babel-polyfill": "6.26.0",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "6.24.1",
@@ -84,11 +83,11 @@
     "gulp-babel": "7.0.1",
     "gulp-concat": "2.6.1",
     "gulp-postcss": "7.0.1",
-    "jest": "22.1.4",
-    "jest-cli": "22.1.4",
-    "postcss-cli": "4.1.1",
+    "jest": "22.4.3",
+    "jest-cli": "22.4.3",
+    "postcss-cli": "5.0.0",
     "postcss-modules": "1.1.0",
     "rimraf": "2.6.2",
-    "standard": "10.0.3"
+    "standard": "11.0.1"
   }
 }
