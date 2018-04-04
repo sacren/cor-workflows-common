@@ -10,7 +10,7 @@ import api from './api'
 
 export default class ActionAPI extends api {
   static API_KEY = 'actions'
-  static ACTION_API = '/api/v1/actions'
+  static ACTION_API = '/cor/actions/api/v1/actions'
 
   async list (q) {
     const params = Object.assign({ limit: 20 }, q)
