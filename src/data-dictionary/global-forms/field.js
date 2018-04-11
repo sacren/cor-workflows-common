@@ -20,12 +20,6 @@ export default class Field extends Context {
 
   constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
-    console.log({
-      constructor: Field.constructor.name,
-      parent,
-      returnTypes,
-      data
-    })
     this.validate(data)
     this.name = data.label
   }
