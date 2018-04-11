@@ -34,7 +34,7 @@ describe('FieldRadioButton', () => {
         }
       })
     }
-    const data = { type: 'foo', formKey: 'bar', label: 'baz', jsType: 'boom' }
+    const data = { type: 'foo', formKey: 'bar', label: 'baz' }
     const field = new FieldRadioButton(parent, null, data)
     const value = await field.getValue()
     expect(value).toEqual('two')

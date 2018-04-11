@@ -115,8 +115,7 @@ export const SIMPLE_FORM_RESPONSE = {
     myTextInput: {
       type: 'Text',
       formKey: 'myTextInput',
-      label: 'My Text Input',
-      jsType: 'string'
+      label: 'My Text Input'
     },
     radio: {
       type: 'Radios',
@@ -133,14 +132,12 @@ export const SIMPLE_FORM_RESPONSE = {
             key: 'no'
           }
         ]
-      },
-      jsType: 'string'
+      }
     },
     user: {
       type: 'UserTypeahead',
       formKey: 'user',
-      label: 'User',
-      jsType: { id: 'UserId' }
+      label: 'User'
     }
   }
 }
@@ -157,20 +154,17 @@ export const SCHEMA__ALL_FIELDS = {
         placeholder: ''
       },
       formKey: 'typeOfTextInput1',
-      label: 'Type of Text Input',
-      jsType: 'string'
+      label: 'Type of Text Input'
     },
     typeOfTextArea: {
       type: 'Textarea',
       formKey: 'typeOfTextArea',
-      label: 'Type of Text Area',
-      jsType: 'string'
+      label: 'Type of Text Area'
     },
     typeOfRichTextArea: {
       type: 'RichText',
       formKey: 'typeOfRichTextArea',
-      label: 'Type of Rich Text Area',
-      jsType: 'string'
+      label: 'Type of Rich Text Area'
     },
     typeOfCheckList: {
       type: 'Checkboxes',
@@ -187,10 +181,6 @@ export const SCHEMA__ALL_FIELDS = {
             key: 'checkListItem2'
           }
         ]
-      },
-      jsType: {
-        checkListItem1: 'boolean',
-        checkListItem2: 'boolean'
       }
     },
     typeOfRadioButton: {
@@ -208,8 +198,7 @@ export const SCHEMA__ALL_FIELDS = {
             key: 'radioButtonTwo'
           }
         ]
-      },
-      jsType: 'string'
+      }
     },
     typeOfDropDown: {
       type: 'Dropdown',
@@ -226,70 +215,47 @@ export const SCHEMA__ALL_FIELDS = {
             key: 'dropDownTwo'
           }
         ]
-      },
-      jsType: 'string'
+      }
     },
     typeOfDatePicker: {
       type: 'Date',
       formKey: 'typeOfDatePicker',
-      label: 'Type of Date Picker',
-      jsType: 'string'
+      label: 'Type of Date Picker'
     },
     typeOfCountryDropDown: {
       type: 'CountryDropdown',
       formKey: 'typeOfCountryDropDown',
-      label: 'Type of Country Drop Down',
-      jsType: 'string'
+      label: 'Type of Country Drop Down'
     },
     typeOfLanguageDropDown: {
       type: 'LanguagesDropdown',
       formKey: 'typeOfLanguageDropDown',
-      label: 'Type of Language Drop Down',
-      jsType: 'string'
+      label: 'Type of Language Drop Down'
     },
     typeOfStateProvinceDropDown: {
       type: 'StateDropdown',
       formKey: 'typeOfStateProvinceDropDown',
-      label: 'Type of State/Province Drop Down',
-      jsType: 'string'
+      label: 'Type of State/Province Drop Down'
     },
     typeOfFormsTypeahead: {
       type: 'Typeahead',
       formKey: 'typeOfFormsTypeahead',
-      label: 'Type of Forms Typeahead',
-      jsType: {
-        id: 'FormItemId'
-      }
+      label: 'Type of Forms Typeahead'
     },
     typeOfFormsMultiselect: {
       type: 'Multiselect',
       formKey: 'typeOfFormsMultiselect',
-      label: 'Type of Forms Multiselect',
-      jsType: {
-        type: 'arrayOf',
-        types: {
-          id: 'FormItemId'
-        }
-      }
+      label: 'Type of Forms Multiselect'
     },
     typeOfCoreUserTypeahead: {
       type: 'UserTypeahead',
       formKey: 'typeOfCoreUserTypeahead',
-      label: 'Type of Core User Typeahead',
-      jsType: {
-        id: 'UserId'
-      }
+      label: 'Type of Core User Typeahead'
     },
     typeOfCoreUserMultiselect: {
       type: 'UserMultiselect',
       formKey: 'typeOfCoreUserMultiselect',
-      label: 'Type of Core User Multiselect',
-      jsType: {
-        type: 'arrayOf',
-        types: {
-          id: 'UserId'
-        }
-      }
+      label: 'Type of Core User Multiselect'
     },
     typeOfCoreGroupTypeahead: {
       type: 'GroupTypeahead',
@@ -297,10 +263,6 @@ export const SCHEMA__ALL_FIELDS = {
       label: 'Type of Core Group Typeahead',
       details: {
         categoryId: '57ead27f15d7e701006d9b9e'
-      },
-      jsType: {
-        id: 'GroupId',
-        versionId: 'GroupVersionId'
       }
     },
     typeOfCoreGroupMultiselect: {
@@ -309,13 +271,6 @@ export const SCHEMA__ALL_FIELDS = {
       label: 'Type of Core Group Multiselect',
       details: {
         categoryId: '57ead27f15d7e701006d9b9e'
-      },
-      jsType: {
-        type: 'arrayOf',
-        types: {
-          id: 'GroupId',
-          versionId: 'GroupVersionId'
-        }
       }
     },
     typeOfCoreSurveyGrid: {
@@ -343,10 +298,6 @@ export const SCHEMA__ALL_FIELDS = {
             key: 'labelTwo'
           }
         ]
-      },
-      jsType: {
-        howManyFeetDoYouHave: 'string',
-        howManyNosesDoYouHave: 'string'
       }
     }
   }

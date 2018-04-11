@@ -7,7 +7,7 @@
  */
 
 export function mockFieldData () {
-  return { type: 'foo', formKey: 'bar', label: 'baz', jsType: 'boom' }
+  return { type: 'foo', formKey: 'bar', label: 'baz' }
 }
 
 export default function testField (

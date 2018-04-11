@@ -41,9 +41,8 @@ export default class FormAPI extends api {
 
   async getSchema (form) {
     const { id } = form
-    const query = qs.encode({ includeJsTypes: true })
     return this._get(
-      `${FormAPI.FORM_API}/form-containers/${id}/forms/current/schema?${query}`
+      `${FormAPI.FORM_API}/form-containers/${id}/forms/current/schema`
     )
   }
 
