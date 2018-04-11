@@ -68,22 +68,19 @@ describe('Form', () => {
       checkSchema = {
         type: 'Checkboxes',
         formKey: 'checkKey',
-        label: 'Check',
-        jsType: 'string'
+        label: 'Check'
       }
 
       groupSchama = {
         type: 'GroupMultiselect',
         formKey: 'groupKey',
-        label: 'Group',
-        jsType: 'string'
+        label: 'Group'
       }
 
       userSchema = {
         type: 'UserMultiselect',
         formKey: 'userKey',
-        label: 'User',
-        jsType: 'string'
+        label: 'User'
       }
 
       data = { id: '123' }

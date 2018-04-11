@@ -43,7 +43,7 @@ describe('Form API', () => {
     const formData = { id: 123 }
     await form.getSchema(formData)
     expect(form._get).toHaveBeenCalledWith(
-      `${Form.FORM_API}/form-containers/123/forms/current/schema?includeJsTypes=true`
+      `${Form.FORM_API}/form-containers/123/forms/current/schema`
     )
   })
 

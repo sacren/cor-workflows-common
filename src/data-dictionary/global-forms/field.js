@@ -20,6 +20,12 @@ export default class Field extends Context {
 
   constructor (parent, returnTypes, data, ctx) {
     super(parent, returnTypes, data, ctx)
+    console.log({
+      constructor: Field.constructor.name,
+      parent,
+      returnTypes,
+      data
+    })
     this.validate(data)
     this.name = data.label
   }
@@ -64,7 +70,7 @@ export default class Field extends Context {
   // --- Utility Functions ---
 
   validate (data) {
-    if (!data || !data.type || !data.formKey || !data.label || !data.jsType) {
+    if (!data || !data.type || !data.formKey || !data.label) {
       throw new Error(
         'Cannot create a Field Context without propperly formatted form data'
       )

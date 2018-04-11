@@ -6,6 +6,4 @@ exports[`Field Validation should throw an error if data keys are missing 2`] = `
 
 exports[`Field Validation should throw an error if data keys are missing 3`] = `"Cannot create a Field Context without propperly formatted form data"`;
 
-exports[`Field Validation should throw an error if data keys are missing 4`] = `"Cannot create a Field Context without propperly formatted form data"`;
-
 exports[`Field Validation should throw an error if no data is provided 1`] = `"Cannot create a Field Context without propperly formatted form data"`;

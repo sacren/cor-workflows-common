@@ -12,7 +12,7 @@ import TestDeflation from '../../test/utils/deflation'
 describe('Field', () => {
   let data, field
   beforeEach(() => {
-    data = { type: 'foo', formKey: 'bar', label: 'baz', jsType: 'boom' }
+    data = { type: 'foo', formKey: 'bar', label: 'baz' }
     field = new Field(null, null, data)
   })
 
@@ -77,7 +77,6 @@ describe('Field', () => {
       testValidateWithKeys([])
       testValidateWithKeys(['type'])
       testValidateWithKeys(['type', 'formKey'])
-      testValidateWithKeys(['type', 'formKey', 'label'])
     })
 
     it('should validate if all data is present', () => {
@@ -86,8 +85,7 @@ describe('Field', () => {
           .validate({
             type: 'foo',
             formKey: 'bar',
-            label: 'baz',
-            jsType: 'moo'
+            label: 'baz'
           })
           .not.toThrow()
       })
