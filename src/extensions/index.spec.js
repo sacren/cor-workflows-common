@@ -40,8 +40,7 @@ describe('extensions/index', () => {
         schema: 'some schema object',
         item,
         definitionStep: { _id: 'step123' },
-        instanceStep,
-        handlerUrl: '/cm/#/courses/view/item123'
+        instanceStep
       })
     })
   })
