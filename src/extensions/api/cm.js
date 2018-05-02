@@ -26,4 +26,8 @@ export default class CmAPI extends api {
   async getItem (itemType, itemId) {
     return this._get(`${CmAPI.CM_API}/${itemType}/${itemId}`)
   }
+
+  async getOption (optionId) {
+    return this._get(`${CmAPI.CM_API}/options/${optionId}`)
+  }
 }

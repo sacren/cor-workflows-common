@@ -6,9 +6,9 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 
-import UserTypeahead from './field-core-user-typeahead'
+import FieldOptionsTypeahead from './field-options-typeahead'
 
-describe('Data Dictionary: Field: Core User Typeahead', () => {
+describe('Data Dictionary: Field: OptionsTypeahead', () => {
   let field, data, ctx, parent
   beforeEach(() => {
     parent = {
@@ -17,35 +17,34 @@ describe('Data Dictionary: Field: Core User Typeahead', () => {
     }
     ctx = {
       apis: {
-        users: {
-          getUser: jest.fn().mockReturnValue({ username: 'x' })
+        cm: {
+          getOption: jest.fn().mockReturnValue('Some Value')
         }
       }
     }
     data = { type: 'foo', formKey: 'bar', label: 'baz' }
-    field = new UserTypeahead(parent, '*', data, ctx)
+    field = new FieldOptionsTypeahead(parent, '*', data, ctx)
   })
 
   it('fails gracefully if there is no parent', async () => {
-    field = new UserTypeahead(undefined, '*', data, ctx)
-    const user = await field.getValue()
-    expect(ctx.apis.users.getUser).not.toHaveBeenCalled()
-    expect(user).toBeUndefined()
+    field = new FieldOptionsTypeahead(undefined, '*', data, ctx)
+    const option = await field.getValue()
+    expect(ctx.apis.cm.getOption).not.toHaveBeenCalled()
+    expect(option).toBeUndefined()
   })
-
   it('appropriately runs getValue', async () => {
     const valueMap = {}
-    const user = await field.getValue(valueMap)
-    expect(ctx.apis.users.getUser).toHaveBeenCalled()
+    const option = await field.getValue(valueMap)
+    expect(ctx.apis.cm.getOption).toHaveBeenCalled()
     expect(valueMap.formKey).toBe('bar')
-    expect(user.toString()).toEqual('x')
+    expect(option).toEqual('Some Value')
   })
 
-  it('handles empty userId value in form', async () => {
+  it('handles empty optionId value in form', async () => {
     data = { type: 'foo', formKey: 'missing', label: 'missing' }
-    field = new UserTypeahead(parent, '*', data, ctx)
-    const user = await field.getValue({})
-    expect(ctx.apis.users.getUser).not.toHaveBeenCalled()
-    expect(user.toString()).toBeUndefined()
+    field = new FieldOptionsTypeahead(parent, '*', data, ctx)
+    const option = await field.getValue({})
+    expect(ctx.apis.cm.getOption).not.toHaveBeenCalled()
+    expect(option).toBe('')
   })
 })

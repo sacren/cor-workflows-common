@@ -16,6 +16,8 @@ export const ROLE = 'role'
 export const SUBFLOW = 'subflow'
 export const TEXT = 'text'
 export const USER = 'user'
+export const OBJECT = 'object'
+export const ARRAY = 'array'
 export const ALL = '*'
 
 export const ALLFORMS = [FORM].concat(returnTypes.forms)
