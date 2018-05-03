@@ -16,7 +16,11 @@ import CMFieldCoreGroupMultiselect from './field-core-group-multiselect'
 import CMFieldUserTypeahead from './field-core-user-typeahead'
 import CMFieldRadioButton from './field-radio-button'
 import CMFieldCheckbox from './field-checkbox'
+import CMFieldCheckboxes from './field-checkboxes'
 import CMFieldTextArea from './field-text-area'
+import CMFieldOptionsTypeahead from './field-options-typeahead'
+import CMFieldOptionsMultiselect from './field-options-multiselect'
+import CMFieldProposalType from './field-proposal-type'
 
 const fieldList = {
   CMFieldTextInput,
@@ -25,7 +29,10 @@ const fieldList = {
   CMFieldUserTypeahead,
   CMFieldRadioButton,
   CMFieldCheckbox,
-  CMFieldTextArea
+  CMFieldCheckboxes,
+  CMFieldTextArea,
+  CMFieldOptionsTypeahead,
+  CMFieldOptionsMultiselect
 }
 const fieldMap = keyBy(fieldList, 'typeLabel')
 
@@ -61,7 +68,9 @@ export default class Form extends Context {
       ? this.returnTypes
       : [this.returnTypes]
     const children = map(schema, (field, formKey) => {
-      const FieldContext = fieldMap[field.type]
+      const FieldContext = formKey === 'meta.proposalType'
+        ? CMFieldProposalType
+        : fieldMap[field.type]
       if (
         FieldContext &&
         (myReturnTypes.includes(ALL) ||

@@ -65,7 +65,6 @@ async function getCMFormfillValue (wfContext, formContext, valueMap) {
   return {
     ...responses,
     definitionStep,
-    instanceStep,
-    handlerUrl: `/cm/#/${formId}/view/${responses.item.id}`
+    instanceStep
   }
 }
