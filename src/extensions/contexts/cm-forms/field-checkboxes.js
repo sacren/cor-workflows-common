@@ -6,11 +6,11 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 import CMField from './field'
-import { OBJECT } from '../../../data-dictionary/return-types'
+import { OPTIONS } from '../../../data-dictionary/return-types'
 
 export default class CMFieldCheckboxes extends CMField {
   static typeLabel = 'Checkboxes'
   static type = 'cm-field-checkboxes'
-  static returnTypes = [OBJECT]
-  static matchTypes = [OBJECT]
+  static returnTypes = [OPTIONS]
+  static matchTypes = [OPTIONS]
 }

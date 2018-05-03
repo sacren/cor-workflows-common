@@ -8,13 +8,13 @@
 import { compact, isArray } from 'lodash'
 import Promise from 'bluebird'
 import CMField from './field'
-import { ARRAY } from '../../../data-dictionary/return-types'
+import { OPTIONS } from '../../../data-dictionary/return-types'
 
 export default class FieldOptionsMultiselect extends CMField {
   static typeLabel = 'OptionsMultiselect'
   static type = 'cm-field-options-multiselect'
-  static returnTypes = [ARRAY]
-  static matchTypes = [ARRAY]
+  static returnTypes = [OPTIONS]
+  static matchTypes = [OPTIONS]
 
   async getValue (valueMap = {}) {
     const { data, parent } = this

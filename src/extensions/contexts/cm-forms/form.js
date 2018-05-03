@@ -20,7 +20,6 @@ import CMFieldCheckboxes from './field-checkboxes'
 import CMFieldTextArea from './field-text-area'
 import CMFieldOptionsTypeahead from './field-options-typeahead'
 import CMFieldOptionsMultiselect from './field-options-multiselect'
-import CMFieldActivities from './field-activities'
 import CMFieldProposalType from './field-proposal-type'
 
 const fieldList = {
@@ -33,8 +32,7 @@ const fieldList = {
   CMFieldCheckboxes,
   CMFieldTextArea,
   CMFieldOptionsTypeahead,
-  CMFieldOptionsMultiselect,
-  CMFieldActivities
+  CMFieldOptionsMultiselect
 }
 const fieldMap = keyBy(fieldList, 'typeLabel')
 
