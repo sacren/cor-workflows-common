@@ -10,6 +10,7 @@ import CMField from './field'
 import Category from '../../../data-dictionary/global-categories/category'
 import Role from '../../../data-dictionary/global-roles/role'
 import { GROUP, ROLE, TEXT } from '../../../data-dictionary/return-types'
+import { IS, IS_ONE_OF } from '../../../data-dictionary/operators'
 
 export default class FieldCoreGroupTypeahead extends CMField {
   static typeLabel = 'GroupsTypeahead'
@@ -17,6 +18,7 @@ export default class FieldCoreGroupTypeahead extends CMField {
   static treatAsType = GROUP
   static returnTypes = [GROUP, TEXT]
   static matchTypes = [GROUP, TEXT]
+  static operators = [IS, IS_ONE_OF]
 
   static async inflate (ctx, deflated, parent) {
     return deflated.data

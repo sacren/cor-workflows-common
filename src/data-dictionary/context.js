@@ -7,6 +7,7 @@
  */
 import { isArray, isEqual } from 'lodash'
 import { ALL } from './return-types'
+import { IS, IS_NOT, IS_EMPTY, IS_NOT_EMPTY } from './operators'
 import hash from 'shorthash'
 
 const DEFAULTS = {
@@ -24,6 +25,7 @@ export default class Context {
   static displayName = 'Data Source'
   static returnTypes = ALL
   static matchTypes = false
+  static operators = [ IS, IS_NOT, IS_EMPTY, IS_NOT_EMPTY ]
 
   /**
    * Not yet implemented
@@ -45,13 +47,15 @@ export default class Context {
       typeLabel,
       treatAsType,
       displayName,
-      matchTypes
+      matchTypes,
+      operators
     } = this.constructor
     this.type = type
     this.treatAsType = treatAsType
     this.name = displayName
     this.secondaryName = typeLabel
     this.match = matchTypes
+    this.operators = operators
     this.parent = parent
     this.returnTypes = returnTypes
     this.data = data

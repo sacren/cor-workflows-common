@@ -8,12 +8,14 @@
 import { find } from 'lodash'
 import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
+import { IS, IS_NOT } from '../operators'
 
 export default class FieldRadioButton extends Field {
   static typeLabel = 'Radios'
   static type = 'field-radio-button'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
+  static operators = [IS, IS_NOT]
 
   getChildren = async filter => []
 
@@ -26,7 +28,9 @@ export default class FieldRadioButton extends Field {
       !valueMap.formfill ||
       !valueMap.formfill.document ||
       !valueMap.formfill.schema
-    ) { return }
+    ) {
+      return
+    }
     const { document, schema } = valueMap.formfill
     const optionKey = document.data[data.formKey]
     const option = find(schema.schema[data.formKey].details.options, option => {

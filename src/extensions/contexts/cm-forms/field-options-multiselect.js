@@ -9,12 +9,14 @@ import { compact, isArray } from 'lodash'
 import Promise from 'bluebird'
 import CMField from './field'
 import { OPTIONS } from '../../../data-dictionary/return-types'
+import { IS_EMPTY, IS_NOT_EMPTY } from '../../../data-dictionary/operators'
 
 export default class FieldOptionsMultiselect extends CMField {
   static typeLabel = 'OptionsMultiselect'
   static type = 'cm-field-options-multiselect'
   static returnTypes = [OPTIONS]
   static matchTypes = [OPTIONS]
+  static operators = [IS_NOT_EMPTY, IS_EMPTY]
 
   async getValue (valueMap = {}) {
     const { data, parent } = this
