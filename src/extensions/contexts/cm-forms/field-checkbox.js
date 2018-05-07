@@ -7,10 +7,12 @@
  */
 import CMField from './field'
 import { BOOLEAN } from '../../../data-dictionary/return-types'
+import { IS_FALSE, IS_TRUE } from '../../../data-dictionary/operators'
 
 export default class CMFieldCheckbox extends CMField {
   static typeLabel = 'Checkbox'
   static type = 'cm-field-checkbox'
   static returnTypes = [BOOLEAN]
   static matchTypes = [BOOLEAN]
+  static operators = [IS_TRUE, IS_FALSE]
 }

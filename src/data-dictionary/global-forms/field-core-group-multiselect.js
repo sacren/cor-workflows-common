@@ -7,12 +7,14 @@
  */
 import Field from './field'
 import { GROUP, TEXT } from '../return-types'
+import { IS_EMPTY, IS_NOT_EMPTY } from '../operators'
 
 export default class FieldCoreGroupMultiselect extends Field {
   static typeLabel = 'GroupMultiselect'
   static type = 'field-core-group-multiselect'
   static returnTypes = [GROUP, TEXT]
   static matchTypes = [GROUP, TEXT]
+  static operators = [ IS_EMPTY, IS_NOT_EMPTY ]
 
   getChildren = async filter => {
     // TODO: return children
