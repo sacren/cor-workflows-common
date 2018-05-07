@@ -7,8 +7,19 @@
  */
 import { isArray, isEqual } from 'lodash'
 import { ALL } from './return-types'
-import { IS, IS_NOT, IS_EMPTY, IS_NOT_EMPTY } from './operators'
 import hash from 'shorthash'
+import {
+  CONTAINS,
+  DOES_NOT_CONTAIN,
+  IS,
+  IS_NOT,
+  BEGINS_WITH,
+  ENDS_WITH,
+  DOES_NOT_BEGIN_WITH,
+  DOES_NOT_END_WITH,
+  IS_EMPTY,
+  IS_NOT_EMPTY
+} from './operators'
 
 const DEFAULTS = {
   returnTypes: '*',
@@ -25,7 +36,18 @@ export default class Context {
   static displayName = 'Data Source'
   static returnTypes = ALL
   static matchTypes = false
-  static operators = [ IS, IS_NOT, IS_EMPTY, IS_NOT_EMPTY ]
+  static operators = [
+    CONTAINS,
+    DOES_NOT_CONTAIN,
+    IS,
+    IS_NOT,
+    BEGINS_WITH,
+    ENDS_WITH,
+    DOES_NOT_BEGIN_WITH,
+    DOES_NOT_END_WITH,
+    IS_EMPTY,
+    IS_NOT_EMPTY
+  ]
 
   /**
    * Not yet implemented
