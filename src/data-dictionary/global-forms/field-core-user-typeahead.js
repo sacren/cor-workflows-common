@@ -8,6 +8,7 @@
 import { get } from 'lodash'
 import Field from './field'
 import { USER, TEXT } from '../return-types'
+import { IS } from '../operators'
 
 export default class FieldCoreUserTypeahead extends Field {
   static typeLabel = 'UserTypeahead'
@@ -15,6 +16,7 @@ export default class FieldCoreUserTypeahead extends Field {
   static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
+  static operators = [IS]
 
   getChildren = async filter => []
 

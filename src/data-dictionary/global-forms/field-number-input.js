@@ -7,10 +7,12 @@
  */
 import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
+import { IS, IS_GREATER_THAN, IS_LESS_THAN } from '../operators'
 
 export default class FieldNumberInput extends Field {
   static typeLabel = 'Number'
   static type = 'field-number-input'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
+  static operators = [IS, IS_GREATER_THAN, IS_LESS_THAN]
 }

@@ -7,34 +7,10 @@
  */
 import CMField from './field'
 import { NUMBER, TEXT } from '../../../data-dictionary/return-types'
-import {
-  CONTAINS,
-  DOES_NOT_CONTAIN,
-  IS,
-  IS_NOT,
-  BEGINS_WITH,
-  ENDS_WITH,
-  DOES_NOT_BEGIN_WITH,
-  DOES_NOT_END_WITH,
-  IS_EMPTY,
-  IS_NOT_EMPTY
-} from '../../../data-dictionary/operators'
 
 export default class CMFieldTextInput extends CMField {
   static typeLabel = 'Text'
   static type = 'cm-field-text-input'
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
-  static operators = [
-    CONTAINS,
-    DOES_NOT_CONTAIN,
-    IS,
-    IS_NOT,
-    BEGINS_WITH,
-    ENDS_WITH,
-    DOES_NOT_BEGIN_WITH,
-    DOES_NOT_END_WITH,
-    IS_EMPTY,
-    IS_NOT_EMPTY
-  ]
 }
