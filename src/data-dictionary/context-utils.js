@@ -45,6 +45,7 @@ import flowInstanceAPI from '../api/flow-insts'
 import flowAPI from '../api/flow'
 import formAPI from '../api/form'
 import groupAPI from '../api/group'
+import roleAPI from '../api/role'
 import userAPI from '../api/user'
 import { ALL } from './return-types'
 import { contexts as additionalContexts, apis as additionalApis } from '../extensions'
@@ -91,7 +92,8 @@ export const apis = [
   flowAPI,
   formAPI,
   groupAPI,
-  userAPI
+  userAPI,
+  roleAPI
 ].concat(additionalApis)
 
 export const DEFAULT_SCOPE = {
