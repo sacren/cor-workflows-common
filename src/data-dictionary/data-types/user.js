@@ -11,12 +11,13 @@ import {
 } from '../operators'
 
 export const CAN_COERCE_TO = [USER, TEXT]
-export const RETURN_TYPE = USER
 
 export const COERCIONS = {
   [USER]: _.identity,
   [TEXT]: user => user.displayName || user.name
 }
+
+export const RETURN_TYPE = USER
 
 export const VALID_OPERATORS = {
   [IS]: [USER, TEXT],
