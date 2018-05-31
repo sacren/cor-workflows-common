@@ -41,9 +41,9 @@ function coerceToText (value) {
 
 export const VALID_OPERATORS = {
   [IS]: [BOOLEAN, TEXT],
-  [IS_NOT]: [BOOLEAN],
-  [IS_TRUE]: [BOOLEAN],
-  [IS_FALSE]: [BOOLEAN],
+  [IS_NOT]: [BOOLEAN, TEXT],
+  [IS_TRUE]: [], // Unary ???
+  [IS_FALSE]: [], // Unary ???
   [CONTAINS]: [TEXT],
   [DOES_NOT_CONTAIN]: [TEXT],
   [BEGINS_WITH]: [TEXT],
