@@ -17,9 +17,7 @@ export const COERCIONS = {
   [TEXT]: user => user.displayName || user.name
 }
 
-export const RETURN_TYPE = USER
-
-export const VALID_OPERATORS = {
+export const OPERATORS = {
   [IS]: [USER, TEXT],
   [CONTAINS]: [TEXT],
   [DOES_NOT_CONTAIN]: [TEXT],
@@ -28,3 +26,5 @@ export const VALID_OPERATORS = {
   [DOES_NOT_BEGIN_WITH]: [TEXT],
   [DOES_NOT_END_WITH]: [TEXT]
 }
+
+export const RETURN_TYPE = USER
