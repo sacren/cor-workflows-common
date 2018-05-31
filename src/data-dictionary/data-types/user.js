@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { USER, TEXT } from '../return-types'
 import {
   IS,
@@ -9,25 +10,12 @@ import {
   DOES_NOT_END_WITH
 } from '../operators'
 
-export function coerce (type, user) {
-  switch (type) {
-    case USER:
-      return coerceToUser(user)
-    case TEXT:
-      return coerceToText(user)
-    default:
-      throw new Error('Unsupported coersition')
-  }
-}
-
 export const CAN_COERCE_TO = [USER, TEXT]
+export const RETURN_TYPE = USER
 
-function coerceToUser (user) {
-  return user
-}
-
-function coerceToText (user) {
-  return user.displayName || user.name
+export const COERCIONS = {
+  [USER]: _.identity,
+  [TEXT]: user => user.displayName || user.name
 }
 
 export const VALID_OPERATORS = {

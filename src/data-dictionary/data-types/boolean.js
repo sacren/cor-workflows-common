@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { BOOLEAN, NUMBER, TEXT } from '../return-types'
 import {
   IS,
@@ -12,31 +13,13 @@ import {
   DOES_NOT_END_WITH
 } from '../operators'
 
-export function coerce (type, value) {
-  switch (type) {
-    case BOOLEAN:
-      return coerceToBoolean(value)
-    case NUMBER:
-      return coerceToNumber(value)
-    case TEXT:
-      return coerceToText(value)
-    default:
-      throw new Error('Unsupported coersition')
-  }
-}
-
 export const CAN_COERCE_TO = [BOOLEAN, NUMBER, TEXT]
+export const RETURN_TYPE = BOOLEAN
 
-function coerceToBoolean (value) {
-  return value
-}
-
-function coerceToNumber (value) {
-  return value ? 1 : 0
-}
-
-function coerceToText (value) {
-  return value ? 'true' : 'false'
+export const COERCIONS = {
+  [BOOLEAN]: _.identity,
+  [NUMBER]: value => (value ? 1 : 0),
+  [TEXT]: value => (value ? 'true' : 'false')
 }
 
 export const VALID_OPERATORS = {
