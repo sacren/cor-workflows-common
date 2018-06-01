@@ -39,4 +39,29 @@ describe('FieldDropdown', () => {
     const value = await field.getValue()
     expect(value).toEqual('two')
   })
+
+  it('returns a default value if none is selected', async () => {
+    const parent = {
+      getValue: jest.fn(valueMap => {
+        valueMap.formfill = {
+          document: {
+            data: {}
+          },
+          schema: {
+            schema: {
+              bar: {
+                details: {
+                  options: [{ key: 'a1', lbl: 'one' }, { key: 'a2', lbl: 'two' }]
+                }
+              }
+            }
+          }
+        }
+      })
+    }
+    const data = { type: 'foo', formKey: 'bar', label: 'baz' }
+    const field = new FieldDropdown(parent, null, data)
+    const value = await field.getValue()
+    expect(value).toEqual('?')
+  })
 })
