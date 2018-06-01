@@ -22,21 +22,7 @@ export const VALID_OPERATORS = {
   [DOES_NOT_END_WITH]: [TEXT]
 }
 
-export function coerce (type, user) {
-  switch (type) {
-    case USER:
-      return coerceToUser(user)
-    case TEXT:
-      return coerceToText(user)
-    default:
-      throw new Error('Unsupported coersition')
-  }
-}
-
-function coerceToUser (user) {
-  return user
-}
-
-function coerceToText (user) {
-  return user.displayName || user.name
+export const COERCIONS = {
+  [USER]: _.identity,
+  [TEXT]: user => user.displayName || user.name
 }
