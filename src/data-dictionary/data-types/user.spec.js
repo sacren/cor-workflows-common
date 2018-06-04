@@ -1,11 +1,11 @@
 import { TEXT, USER } from '../return-types'
-import { CAN_COERCE_TO, COERCIONS, OPERATORS, RETURN_TYPE } from './user'
+import { CAN_COERCE_TO, COERCIONS, TYPE, VALID_OPERATORS } from './user'
 import * as operators from '../operators'
 
 describe('User Data Type', () => {
-  describe('RETURN_TYPE', () => {
+  describe('TYPE', () => {
     it('is USER', () => {
-      expect(RETURN_TYPE).toBe(USER)
+      expect(TYPE).toBe(USER)
     })
   })
 
@@ -43,33 +43,33 @@ describe('User Data Type', () => {
     })
   })
 
-  describe('OPERATORS', () => {
+  describe('VALID_OPERATORS', () => {
     it('allows IS operations against USER and TEXT data types', () => {
-      expect(OPERATORS[operators.IS]).toEqual([USER, TEXT])
+      expect(VALID_OPERATORS[operators.IS]).toEqual([USER, TEXT])
     })
 
     it('allows CONTAINS opertions against TEXT data types', () => {
-      expect(OPERATORS[operators.CONTAINS]).toEqual([TEXT])
+      expect(VALID_OPERATORS[operators.CONTAINS]).toEqual([TEXT])
     })
 
     it('allows DOES_NOT_CONTAIN opertions against TEXT data types', () => {
-      expect(OPERATORS[operators.DOES_NOT_CONTAIN]).toEqual([TEXT])
+      expect(VALID_OPERATORS[operators.DOES_NOT_CONTAIN]).toEqual([TEXT])
     })
 
     it('allows BEGINS_WITH opertions against TEXT data types', () => {
-      expect(OPERATORS[operators.BEGINS_WITH]).toEqual([TEXT])
+      expect(VALID_OPERATORS[operators.BEGINS_WITH]).toEqual([TEXT])
     })
 
     it('allows ENDS_WITH opertions against TEXT data types', () => {
-      expect(OPERATORS[operators.ENDS_WITH]).toEqual([TEXT])
+      expect(VALID_OPERATORS[operators.ENDS_WITH]).toEqual([TEXT])
     })
 
     it('allows DOES_NOT_BEGIN_WITH opertions against TEXT data types', () => {
-      expect(OPERATORS[operators.DOES_NOT_BEGIN_WITH]).toEqual([TEXT])
+      expect(VALID_OPERATORS[operators.DOES_NOT_BEGIN_WITH]).toEqual([TEXT])
     })
 
     it('allows DOES_NOT_END_WITH opertions against TEXT data types', () => {
-      expect(OPERATORS[operators.DOES_NOT_END_WITH]).toEqual([TEXT])
+      expect(VALID_OPERATORS[operators.DOES_NOT_END_WITH]).toEqual([TEXT])
     })
   })
 })
