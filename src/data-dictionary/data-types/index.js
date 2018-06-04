@@ -20,6 +20,7 @@ import * as user from './user'
 export default {
   [BOOLEAN]: boolean,
   [CATEGORY]: category,
+  [GROUP]: group,
   [FORM]: form,
   [USER]: user,
   [TEXT]: text
