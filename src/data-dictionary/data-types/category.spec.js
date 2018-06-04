@@ -1,19 +1,19 @@
-import { TEXT, USER } from '../return-types'
-import { CAN_COERCE_TO, COERCIONS, TYPE, VALID_OPERATORS } from './user'
+import { TEXT, CATEGORY } from '../return-types'
+import { CAN_COERCE_TO, COERCIONS, TYPE, VALID_OPERATORS } from './category'
 import * as operators from '../operators'
 
-describe('User Data Type', () => {
+describe('Category Data Type', () => {
   describe('TYPE', () => {
-    it('is USER', () => {
-      expect(TYPE).toBe(USER)
+    it('is CATEGORY', () => {
+      expect(TYPE).toBe(CATEGORY)
     })
   })
 
   describe('CAN_COERCE_TO', () => {
-    it('can coerce to USER', () => {
-      expect(CAN_COERCE_TO).toContain(USER)
-      expect(COERCIONS).toHaveProperty(USER)
-      expect(COERCIONS[USER].length).toBe(1)
+    it('can coerce to CATEGORY', () => {
+      expect(CAN_COERCE_TO).toContain(CATEGORY)
+      expect(COERCIONS).toHaveProperty(CATEGORY)
+      expect(COERCIONS[CATEGORY].length).toBe(1)
     })
 
     it('can coerce to TEXT', () => {
@@ -24,28 +24,28 @@ describe('User Data Type', () => {
   })
 
   describe('COERCIONS', () => {
-    it('coerces user -> user (e.g. identity)', () => {
-      const user = { displayName: 'Bob' }
-      const coercedUser = COERCIONS[USER](user)
-      expect(coercedUser).toBe(user)
+    it('coerces category -> category (e.g. identity)', () => {
+      const category = { displayName: 'Bob' }
+      const coercedCategory = COERCIONS[CATEGORY](category)
+      expect(coercedCategory).toBe(category)
     })
 
-    it("coerces user -> text using the user's displayName", () => {
-      const user = { displayName: 'Bobby', name: 'Robert' }
-      const coercedUser = COERCIONS[TEXT](user)
-      expect(coercedUser).toBe(user.displayName)
+    it("coerces category -> text using the category's displayName", () => {
+      const category = { displayName: 'Bobby', name: 'Robert' }
+      const coercedCategory = COERCIONS[TEXT](category)
+      expect(coercedCategory).toBe(category.displayName)
     })
 
-    it("coerces user -> text using the user's name when the displayName is not present", () => {
-      const user = { displayName: undefined, name: 'Robert' }
-      const coercedUser = COERCIONS[TEXT](user)
-      expect(coercedUser).toBe(user.name)
+    it("coerces category -> text using the category's name when the displayName is not present", () => {
+      const category = { displayName: undefined, name: 'Robert' }
+      const coercedCategory = COERCIONS[TEXT](category)
+      expect(coercedCategory).toBe(category.name)
     })
   })
 
   describe('VALID_OPERATORS', () => {
-    it('allows IS operations against USER and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS]).toEqual([USER, TEXT])
+    it('allows IS operations against CATEGORY and TEXT data types', () => {
+      expect(VALID_OPERATORS[operators.IS]).toEqual([CATEGORY, TEXT])
     })
 
     it('allows CONTAINS opertions against TEXT data types', () => {

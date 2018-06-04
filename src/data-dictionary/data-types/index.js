@@ -17,6 +17,7 @@ import * as user from './user'
 
 export default {
   [BOOLEAN]: boolean,
-  [TEXT]: text,
+  [CATEGORY]: category,
+  [FORM]: form,
   [USER]: user
 }

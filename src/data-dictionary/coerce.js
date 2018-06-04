@@ -9,7 +9,7 @@ const DATA_TYPES = [booleanDataType, userDataType]
 export const COERCIONS = _.reduce(
   DATA_TYPES,
   (accumulator, dataType) =>
-    _.set(accumulator, dataType.RETURN_TYPE, dataType.COERCIONS),
+    _.set(accumulator, dataType.TYPE, dataType.COERCIONS),
   {}
 )
 

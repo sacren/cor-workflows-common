@@ -13,8 +13,8 @@ import {
   DOES_NOT_END_WITH
 } from '../operators'
 
+export const TYPE = BOOLEAN
 export const CAN_COERCE_TO = [BOOLEAN, NUMBER, TEXT]
-export const RETURN_TYPE = BOOLEAN
 export const UNARY = 'unary'
 
 export const COERCIONS = {

@@ -1,4 +1,5 @@
-import { USER, TEXT } from '../return-types'
+import _ from 'lodash'
+import { CATEGORY, TEXT } from '../return-types'
 import {
   IS,
   CONTAINS,
@@ -9,10 +10,10 @@ import {
   DOES_NOT_END_WITH
 } from '../operators'
 
-export const TYPE = USER
-export const CAN_COERCE_TO = [USER, TEXT]
+export const TYPE = CATEGORY
+export const CAN_COERCE_TO = [CATEGORY, TEXT]
 export const VALID_OPERATORS = {
-  [IS]: [USER, TEXT],
+  [IS]: [CATEGORY, TEXT],
   [CONTAINS]: [TEXT],
   [DOES_NOT_CONTAIN]: [TEXT],
   [BEGINS_WITH]: [TEXT],
@@ -22,6 +23,6 @@ export const VALID_OPERATORS = {
 }
 
 export const COERCIONS = {
-  [USER]: _.identity,
-  [TEXT]: user => user.displayName || user.name
+  [CATEGORY]: _.identity,
+  [TEXT]: category => category.displayName || category.name
 }
