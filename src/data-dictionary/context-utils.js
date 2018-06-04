@@ -30,8 +30,10 @@ import FieldCountryDropDown from './global-forms/field-country-dropdown'
 import FieldDatePicker from './global-forms/field-date-picker'
 import FieldDropDown from './global-forms/field-drop-down'
 import FieldFormsMultiselect from './global-forms/field-forms-multiselect'
+import FieldFormsPropertyView from './global-forms/field-forms-property-view'
 import FieldFormsTypeahead from './global-forms/field-forms-typeahead'
 import FieldLanguageDropDown from './global-forms/field-language-dropdown'
+import FieldNumberInput from './global-forms/field-number-input'
 import FieldRadioButton from './global-forms/field-radio-button'
 import FieldRichTextArea from './global-forms/field-rich-text-area'
 import FieldStateProvinceDropDown
@@ -75,8 +77,10 @@ export const contexts = [
   FieldDatePicker,
   FieldDropDown,
   FieldFormsMultiselect,
+  FieldFormsPropertyView,
   FieldFormsTypeahead,
   FieldLanguageDropDown,
+  FieldNumberInput,
   FieldRadioButton,
   FieldRichTextArea,
   FieldStateProvinceDropDown,
