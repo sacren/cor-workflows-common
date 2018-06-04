@@ -11,6 +11,7 @@ import { TEXT } from '../return-types'
 export default class FieldCountryDropDown extends Field {
   static typeLabel = 'CountryDropdown'
   static type = 'field-country-dropdown'
+  static treatAsType = TEXT
   static returnTypes = [TEXT]
   static matchTypes = [TEXT]
 

@@ -13,6 +13,7 @@ export default class GlobalCategories extends Context {
   static global = true
   static type = 'global-categories'
   static displayName = 'Categories'
+  static treatAsType = undefined
   static returnTypes = [CATEGORY, GROUP, ROLE, TEXT, USER]
 
   static async inflate () {}

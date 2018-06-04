@@ -12,8 +12,9 @@ import { NUMBER, TEXT } from '../return-types'
 export default class FieldDropDown extends Field {
   static typeLabel = 'Dropdown'
   static type = 'field-dropdown'
-  static returnTypes = [NUMBER, TEXT]
-  static matchTypes = [NUMBER, TEXT]
+  static treatAsType = TEXT
+  static returnTypes = [TEXT, NUMBER]
+  static matchTypes = [TEXT, NUMBER]
 
   getChildren = async filter => []
 

@@ -18,12 +18,12 @@ export default function evaluate (
   rightDataType,
   rightValue
 ) {
-  fnMap[leftDataType.TYPE][rightDataType.TYPE](leftValue, rightValue)
+  return fnMap[leftDataType.TYPE][rightDataType.TYPE](leftValue, rightValue)
 }
 
 const fnMap = {
   [TEXT]: {
-    [TEXT]: (left, right) => left.id === right.id
+    [TEXT]: (left, right) => left === right
   },
   [USER]: {
     [USER]: (left, right) => left.id === right.id

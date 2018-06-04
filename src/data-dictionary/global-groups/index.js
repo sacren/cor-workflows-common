@@ -14,6 +14,7 @@ export default class GlobalGroups extends Context {
   static global = true
   static type = 'global-groups'
   static displayName = 'Groups'
+  static treatAsType = undefined
   static returnTypes = [CATEGORY, GROUP, ROLE, TEXT, USER]
 
   static async inflate () {}

@@ -18,6 +18,7 @@ export default class GlobalNumericInput extends Context {
   static global = true
   static type = 'numeric-input'
   static displayName = 'Numeric Input'
+  static treatAsType = NUMBER
   static returnTypes = [NUMBER]
   static inputType = NUMBER
 

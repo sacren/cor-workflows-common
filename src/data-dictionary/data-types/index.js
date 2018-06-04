@@ -11,10 +11,12 @@ import {
   OPTIONS,
   ALL
 } from '../return-types'
-import boolean from './boolean'
-import user from './user'
+import * as boolean from './boolean'
+import * as text from './text'
+import * as user from './user'
 
 export default {
   [BOOLEAN]: boolean,
+  [TEXT]: text,
   [USER]: user
 }

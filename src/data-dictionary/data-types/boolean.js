@@ -15,6 +15,7 @@ import {
 
 export const CAN_COERCE_TO = [BOOLEAN, NUMBER, TEXT]
 export const RETURN_TYPE = BOOLEAN
+export const UNARY = 'unary'
 
 export const COERCIONS = {
   [BOOLEAN]: _.identity,
@@ -25,8 +26,8 @@ export const COERCIONS = {
 export const VALID_OPERATORS = {
   [IS]: [BOOLEAN, TEXT],
   [IS_NOT]: [BOOLEAN, TEXT],
-  [IS_TRUE]: [], // Unary ???
-  [IS_FALSE]: [], // Unary ???
+  [IS_TRUE]: UNARY,
+  [IS_FALSE]: UNARY,
   [CONTAINS]: [TEXT],
   [DOES_NOT_CONTAIN]: [TEXT],
   [BEGINS_WITH]: [TEXT],

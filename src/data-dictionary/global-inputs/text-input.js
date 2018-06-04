@@ -13,6 +13,7 @@ export default class GlobalTextInput extends Context {
   static global = true
   static type = 'text-input'
   static displayName = 'Text Input'
+  static treatAsType = TEXT
   static returnTypes = [TEXT]
   static inputType = TEXT
 

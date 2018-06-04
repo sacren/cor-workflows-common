@@ -12,6 +12,7 @@ import { IS_EMPTY, IS_NOT_EMPTY } from '../operators'
 export default class FieldCoreGroupMultiselect extends Field {
   static typeLabel = 'GroupMultiselect'
   static type = 'field-core-group-multiselect'
+  static treatAsType = GROUP
   static returnTypes = [GROUP, TEXT]
   static matchTypes = [GROUP, TEXT]
   static operators = [ IS_EMPTY, IS_NOT_EMPTY ]

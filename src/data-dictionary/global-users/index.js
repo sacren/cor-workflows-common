@@ -13,7 +13,8 @@ export default class GlobalUsers extends Context {
   static global = true
   static type = 'global-users'
   static displayName = 'Users'
-  static returnTypes = [TEXT, USER]
+  static treatAsType = undefined
+  static returnTypes = [USER, TEXT]
 
   static async inflate () {}
 

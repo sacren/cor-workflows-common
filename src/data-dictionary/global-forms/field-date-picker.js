@@ -11,6 +11,7 @@ import { DATE, TEXT } from '../return-types'
 export default class FieldDatePicker extends Field {
   static typeLabel = 'Date'
   static type = 'field-date-picker'
+  static treatAsType = DATE
   static returnTypes = [DATE, TEXT]
   static matchTypes = [DATE, TEXT]
 

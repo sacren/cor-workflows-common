@@ -11,6 +11,7 @@ import { USER, TEXT } from '../return-types'
 export default class FieldCoreUserMultiselect extends Field {
   static typeLabel = 'UserMultiselect'
   static type = 'field-core-user-multiselect'
+  static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
 

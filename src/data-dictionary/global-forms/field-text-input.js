@@ -11,6 +11,7 @@ import { NUMBER, TEXT } from '../return-types'
 export default class FieldTextInput extends Field {
   static typeLabel = 'Text'
   static type = 'field-text-input'
-  static returnTypes = [NUMBER, TEXT]
-  static matchTypes = [NUMBER, TEXT]
+  static treatAsType = TEXT
+  static returnTypes = [TEXT, NUMBER]
+  static matchTypes = [TEXT, NUMBER]
 }

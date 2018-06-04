@@ -64,6 +64,7 @@ export default class Form extends Context {
   static global = false
   static type = 'formfill'
   static typeLabel = 'Form'
+  static treatAsType = FORM
   static returnTypes = ALL
   static matchTypes = [FORM, TEXT]
 

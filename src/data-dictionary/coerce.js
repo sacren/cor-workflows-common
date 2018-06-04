@@ -14,11 +14,13 @@ export const COERCIONS = _.reduce(
 )
 
 export function coerce (baseType, requestedCoerceType, value) {
+  console.log({ xxx: 'coerce :0:', baseType, requestedCoerceType, value, COERCIONS })
   const coercionFn = _.get(
     COERCIONS,
     [baseType, requestedCoerceType],
     coercionNotSupported(baseType, requestedCoerceType)
   )
+  console.log({ xxx: 'coerce :1:', coercionFn })
   return coercionFn(value)
 }
 
