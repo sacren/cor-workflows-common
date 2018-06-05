@@ -5,12 +5,11 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { intersection } from 'lodash'
+import { get, intersection } from 'lodash'
 import ctx from '../data-dictionary/context-utils'
 import dataTypeMap from '../data-dictionary/data-types'
 import operators from '../data-dictionary/operators/index'
 import { coerce } from '../data-dictionary/coerce'
-import util from 'util'
 
 const i18n = {
   APPROPRIATE_PARAMETERS: 'Cannot construct rule without appropriate parameters'
@@ -82,18 +81,21 @@ export default class Rule {
 
   findComparableTypes (left, operator, right) {
     const targets = []
+    console.log({ left, operator, right })
     for (let i = 0; i < left.types.length; i++) {
       const type = dataTypeMap[left.types[i]]
       const validTypesforRight = type.VALID_OPERATORS[operator]
+      console.log({ type, validTypesforRight })
       if (validTypesforRight === 'unary') {
         targets.push({ left: type })
-        continue
+        break
       }
       const rightTypes = intersection(validTypesforRight, right.types)
       rightTypes.forEach(rt =>
         targets.push({ left: type, right: dataTypeMap[rt] })
       )
     }
+    console.log({ targets })
     return targets
   }
 
@@ -101,13 +103,12 @@ export default class Rule {
     for (let i = 0; i < comparable.length; i++) {
       try {
         const leftTargetType = comparable[i].left.TYPE
-        const rightTargetType = comparable[i].right.TYPE
+        const rightTargetType = get(comparable[i], 'right.TYPE')
         const l = coerce(left.context.treatAsType, leftTargetType, left.value)
-        const r = coerce(
-          right.context.treatAsType,
-          rightTargetType,
-          right.value
-        )
+        const r = right
+          ? coerce(right.context.treatAsType, rightTargetType, right.value)
+          : undefined
+        console.log({ operators, operator, leftTargetType, l, rightTargetType, r })
         return operators[operator](leftTargetType, l, rightTargetType, r)
       } catch (err) {
         console.log('Error comparing.')

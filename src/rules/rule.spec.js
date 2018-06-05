@@ -1,6 +1,6 @@
 import Rule from './rule'
-import { USER, TEXT } from '../data-dictionary/return-types'
-import { IS, IS_NOT } from '../data-dictionary/operators'
+import { BOOLEAN, USER, TEXT } from '../data-dictionary/return-types'
+import { IS, IS_NOT, IS_TRUE } from '../data-dictionary/operators'
 import { getMockUserContext } from '../data-dictionary/test/fake-context'
 
 describe('Rule', () => {
@@ -35,6 +35,24 @@ describe('Rule', () => {
         left: deflatedMockUserContext,
         operator: IS,
         right: deflatedMockUserContext
+      },
+      resolver
+    )
+    const response = await rule.evaluate()
+    expect(response).toBe(true)
+  })
+
+  test('evaluates single unary rule', async () => {
+    const resolver = jest.fn()
+    resolver.mockResolvedValue({
+      context: { treatAsType: BOOLEAN },
+      types: [BOOLEAN, TEXT],
+      value: true
+    })
+    const rule = new Rule(
+      {
+        left: { treatAsType: BOOLEAN },
+        operator: IS_TRUE
       },
       resolver
     )
