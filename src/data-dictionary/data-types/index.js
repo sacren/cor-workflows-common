@@ -16,6 +16,7 @@ import * as category from './category'
 import * as form from './form'
 import * as group from './group'
 import * as number from './number'
+import * as options from './options'
 import * as role from './role'
 import * as subflow from './subflow'
 import * as text from './text'
@@ -28,6 +29,7 @@ export default {
   [FORM]: form,
   [GROUP]: group,
   [NUMBER]: number,
+  [OPTIONS]: options,
   [ROLE]: role,
   [SUBFLOW]: subflow,
   [TEXT]: text,
