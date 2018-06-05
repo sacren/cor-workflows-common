@@ -1,8 +1,7 @@
 import _ from 'lodash'
-import { CATEGORY, TEXT } from '../return-types'
+import { CATEGORY, GROUP, TEXT } from '../return-types'
 import {
   IS,
-  IS_NOT,
   CONTAINS,
   DOES_NOT_CONTAIN,
   BEGINS_WITH,
@@ -11,11 +10,10 @@ import {
   DOES_NOT_END_WITH
 } from '../operators'
 
-export const TYPE = CATEGORY
-export const CAN_COERCE_TO = [CATEGORY, TEXT]
+export const TYPE = GROUP
+export const CAN_COERCE_TO = [CATEGORY, GROUP, TEXT]
 export const VALID_OPERATORS = {
-  [IS]: [CATEGORY, TEXT],
-  [IS_NOT]: [CATEGORY, TEXT],
+  [IS]: [CATEGORY, GROUP, TEXT],
   [CONTAINS]: [TEXT],
   [DOES_NOT_CONTAIN]: [TEXT],
   [BEGINS_WITH]: [TEXT],
@@ -25,6 +23,7 @@ export const VALID_OPERATORS = {
 }
 
 export const COERCIONS = {
-  [CATEGORY]: _.identity,
-  [TEXT]: category => _.get(category, 'displayName') || _.get(category, 'name')
+  [CATEGORY]: group => ({ id: _.get(group, 'categoryId') }),
+  [GROUP]: _.identity,
+  [TEXT]: group => _.get(group, 'displayName') || _.get(group, 'name')
 }
