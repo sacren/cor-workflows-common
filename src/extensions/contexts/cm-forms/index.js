@@ -9,13 +9,13 @@ import { get } from 'lodash'
 
 import Context from '../../../data-dictionary/context'
 import Form from './form'
-import { CMFORM } from '../../return-types'
+import { FORM } from '../../../data-dictionary/return-types'
 
 export default class CMForms extends Context {
   static global = false
   static type = 'cm-forms'
   static displayName = 'CM Forms'
-  static returnTypes = [CMFORM]
+  static returnTypes = [FORM]
 
   static async inflate (ctx, deflated) {
     return deflated
