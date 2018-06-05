@@ -10,4 +10,4 @@ import Checklist from './field-checklist'
 import { NUMBER, TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(Checklist, [NUMBER, TEXT], [NUMBER, TEXT])
+FieldTest(Checklist, [TEXT, NUMBER], [TEXT, NUMBER])

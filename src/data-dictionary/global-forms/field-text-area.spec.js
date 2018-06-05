@@ -10,4 +10,4 @@ import FieldTextArea from './field-text-area'
 import { NUMBER, TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(FieldTextArea, [NUMBER, TEXT], [NUMBER, TEXT], true)
+FieldTest(FieldTextArea, [TEXT, NUMBER], [TEXT, NUMBER], true)

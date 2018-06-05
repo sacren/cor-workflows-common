@@ -10,7 +10,7 @@ import FieldDropdown from './field-drop-down'
 import { NUMBER, TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(FieldDropdown, [NUMBER, TEXT], [NUMBER, TEXT], true)
+FieldTest(FieldDropdown, [TEXT, NUMBER], [TEXT, NUMBER], true)
 
 describe('FieldDropdown', () => {
   it('should return the appropriate value', async () => {

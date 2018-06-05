@@ -10,4 +10,4 @@ import FieldRichText from './field-rich-text-area'
 import { NUMBER, TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(FieldRichText, [NUMBER, TEXT], [NUMBER, TEXT], true)
+FieldTest(FieldRichText, [TEXT, NUMBER], [TEXT, NUMBER], true)

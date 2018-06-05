@@ -10,4 +10,4 @@ import FieldTextInput from './field-text-input'
 import { NUMBER, TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(FieldTextInput, [NUMBER, TEXT], [NUMBER, TEXT], true)
+FieldTest(FieldTextInput, [TEXT, NUMBER], [TEXT, NUMBER], true)
