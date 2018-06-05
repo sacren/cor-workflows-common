@@ -1,6 +1,12 @@
 import _ from 'lodash'
 import { BOOLEAN, NUMBER, TEXT } from '../return-types'
-import { CAN_COERCE_TO, COERCIONS, TYPE, VALID_OPERATORS } from './boolean'
+import {
+  CAN_COERCE_TO,
+  COERCIONS,
+  TYPE,
+  UNARY,
+  VALID_OPERATORS
+} from './boolean'
 import * as operators from '../operators'
 
 describe('Boolean Data Type', () => {
@@ -64,11 +70,11 @@ describe('Boolean Data Type', () => {
     })
 
     it('allows IS_TRUE operations against BOOLEAN and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS_TRUE]).toEqual([])
+      expect(VALID_OPERATORS[operators.IS_TRUE]).toEqual(UNARY)
     })
 
     it('allows IS_FALSE operations against BOOLEAN and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS_FALSE]).toEqual([])
+      expect(VALID_OPERATORS[operators.IS_FALSE]).toEqual(UNARY)
     })
 
     it('allows CONTAINS opertions against TEXT data types', () => {
