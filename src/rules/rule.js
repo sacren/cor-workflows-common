@@ -37,7 +37,6 @@ export default class Rule {
     if (!this.rule) throw new Error(i18n.APPROPRIATE_PARAMETERS)
     const { TYPES } = this.constructor
     const { left, operator, logicalOperator, expressions } = this.rule
-    console.log({ left, operator, logicalOperator, expressions })
     if (left && operator) return TYPES.SINGLE
     else if (logicalOperator && expressions) return TYPES.COMPOUND
     else throw new Error(i18n.APPROPRIATE_PARAMETERS)
@@ -55,7 +54,6 @@ export default class Rule {
       promises.push(this.resolver(this.rule.right))
     }
     const [left, right] = await Promise.all(promises)
-    console.log({ left, operator: this.rule.operator, right })
     const comparable = this.findComparableTypes(left, this.rule.operator, right)
     const response = this.findBestResponse(
       comparable,
@@ -63,27 +61,29 @@ export default class Rule {
       this.rule.operator,
       right
     )
-    console.log({ xxx: 'evaluateSingle', response })
     return response
   }
 
   async evaluateCompound () {
     const promises = this.rule.expressions.map(expr => {
-      console.log({ expr })
       const rule = new Rule(expr, this.resolver)
       return rule.evaluate()
     })
     const responses = await Promise.all(promises)
-    console.log({ responses })
-    return true
+    switch (this.rule.logicalOperator) {
+      case Rule.LOGICAL_OPERATORS.AND:
+        return responses.find(response => response !== true) === undefined
+      case Rule.LOGICAL_OPERATORS.OR:
+        return responses.find(response => response === true) !== undefined
+      default:
+        throw new Error('Unknown logical operator')
+    }
   }
 
   findComparableTypes (left, operator, right) {
     const targets = []
-    console.log({ leftTypes: left.types })
     for (let i = 0; i < left.types.length; i++) {
       const type = dataTypeMap[left.types[i]]
-      console.log({ dataTypeMap, ts: left.types[i], type })
       const validTypesforRight = type.VALID_OPERATORS[operator]
       if (validTypesforRight === 'unary') {
         targets.push({ left: type })
@@ -98,45 +98,18 @@ export default class Rule {
   }
 
   findBestResponse (comparable, left, operator, right) {
-    console.log({
-      xxx: 'findBestResponse :0:',
-      comparable,
-      left,
-      operator,
-      right
-    })
     for (let i = 0; i < comparable.length; i++) {
       try {
-        const leftTargetType = comparable[i].left
-        const rightTargetType = comparable[i].right
-        console.log({
-          xxx: 'findBestResponse :1:',
-          left: {
-            treatAs: left.context.treatAsType,
-            targetType: leftTargetType,
-            value: left.value
-          },
-          right: {
-            treatAs: left.context.treatAsType,
-            targetType: leftTargetType,
-            value: left.value
-          }
-        })
+        const leftTargetType = comparable[i].left.TYPE
+        const rightTargetType = comparable[i].right.TYPE
         const l = coerce(left.context.treatAsType, leftTargetType, left.value)
         const r = coerce(
           right.context.treatAsType,
           rightTargetType,
           right.value
         )
-        console.log({
-          xxx: 'findBestResponse :2:',
-          operators,
-          operator,
-          fn: operators[operator]
-        })
         return operators[operator](leftTargetType, l, rightTargetType, r)
       } catch (err) {
-        console.log({ left: left.context, right: right.context })
         console.log('Error comparing.')
         console.log(err)
         continue
@@ -145,10 +118,25 @@ export default class Rule {
   }
 
   toJSON () {
+    return this.type === this.constructor.TYPES.SINGLE
+      ? this.toJSONSingle()
+      : this.toJSONCompound()
+  }
+
+  toJSONSingle () {
+    const { left, operator, right } = this.rule
     return {
-      left: ctx.deflate(this.left),
-      operator: this.operator,
-      right: ctx.deflate(this.right)
+      left: ctx.deflate(left),
+      operator,
+      right: ctx.deflate(right)
+    }
+  }
+
+  toJSONCompound () {
+    const { logicalOperator, expressions } = this.rule
+    return {
+      logicalOperator,
+      expressions: expressions.map(expr => new Rule(expr).toJSON())
     }
   }
 }

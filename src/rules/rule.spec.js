@@ -1,6 +1,6 @@
 import Rule from './rule'
 import { USER, TEXT } from '../data-dictionary/return-types'
-import { IS } from '../data-dictionary/operators'
+import { IS, IS_NOT } from '../data-dictionary/operators'
 import { getMockUserContext } from '../data-dictionary/test/fake-context'
 
 describe('Rule', () => {
@@ -23,16 +23,26 @@ describe('Rule', () => {
 
   test('evaluates single rule', async () => {
     const resolver = jest.fn()
+    const mockUserContext = await getMockUserContext()
+    const deflatedMockUserContext = mockUserContext.deflate()
     resolver.mockResolvedValue({
+      context: mockUserContext,
       types: [USER, TEXT],
       value: { id: 'abc123', name: 'Tom' }
     })
-    const rule = new Rule({ left: true, operator: IS, right: true }, resolver)
+    const rule = new Rule(
+      {
+        left: deflatedMockUserContext,
+        operator: IS,
+        right: deflatedMockUserContext
+      },
+      resolver
+    )
     const response = await rule.evaluate()
-    console.log(response)
+    expect(response).toBe(true)
   })
 
-  test('evaluates compound rule', async () => {
+  test('evaluates compound "and" rule', async () => {
     const resolver = jest.fn()
     const mockUserContext = await getMockUserContext()
     const deflatedMockUserContext = mockUserContext.deflate()
@@ -41,7 +51,6 @@ describe('Rule', () => {
       types: [USER, TEXT],
       value: { id: 'abc123', name: 'Tom' }
     })
-    console.log('this one -->')
     const rule = new Rule(
       {
         logicalOperator: Rule.LOGICAL_OPERATORS.AND,
@@ -61,19 +70,157 @@ describe('Rule', () => {
       resolver
     )
     const response = await rule.evaluate()
-    console.log(response)
-    console.log('-')
-    console.log('-')
-    console.log('-')
-    console.log('-')
+    expect(response).toBe(true)
   })
 
-  test('toJSONs', () => {
-    const rule = new Rule({})
-    expect(rule.toJSON()).toMatchObject({
-      left: 'l',
-      operator: 'o',
-      right: 'r'
+  test('evaluates compound "and" rule that is false', async () => {
+    const resolver = jest.fn()
+    const mockUserContext = await getMockUserContext()
+    const deflatedMockUserContext = mockUserContext.deflate()
+    resolver.mockResolvedValue({
+      context: mockUserContext,
+      types: [USER, TEXT],
+      value: { id: 'abc123', name: 'Tom' }
+    })
+    const rule = new Rule(
+      {
+        logicalOperator: Rule.LOGICAL_OPERATORS.AND,
+        expressions: [
+          {
+            left: deflatedMockUserContext,
+            operator: IS,
+            right: deflatedMockUserContext
+          },
+          {
+            left: deflatedMockUserContext,
+            operator: IS_NOT,
+            right: deflatedMockUserContext
+          }
+        ]
+      },
+      resolver
+    )
+    const response = await rule.evaluate()
+    expect(response).toBe(false)
+  })
+
+  test('evaluates compound "or" rule', async () => {
+    const resolver = jest.fn()
+    const mockUserContext = await getMockUserContext()
+    const deflatedMockUserContext = mockUserContext.deflate()
+    resolver.mockResolvedValue({
+      context: mockUserContext,
+      types: [USER, TEXT],
+      value: { id: 'abc123', name: 'Tom' }
+    })
+    const rule = new Rule(
+      {
+        logicalOperator: Rule.LOGICAL_OPERATORS.OR,
+        expressions: [
+          {
+            left: deflatedMockUserContext,
+            operator: IS_NOT,
+            right: deflatedMockUserContext
+          },
+          {
+            left: deflatedMockUserContext,
+            operator: IS,
+            right: deflatedMockUserContext
+          }
+        ]
+      },
+      resolver
+    )
+    const response = await rule.evaluate()
+    expect(response).toBe(true)
+  })
+
+  test('evaluates compound "or" rule that is false', async () => {
+    const resolver = jest.fn()
+    const mockUserContext = await getMockUserContext()
+    const deflatedMockUserContext = mockUserContext.deflate()
+    resolver.mockResolvedValue({
+      context: mockUserContext,
+      types: [USER, TEXT],
+      value: { id: 'abc123', name: 'Tom' }
+    })
+    const rule = new Rule(
+      {
+        logicalOperator: Rule.LOGICAL_OPERATORS.OR,
+        expressions: [
+          {
+            left: deflatedMockUserContext,
+            operator: IS_NOT,
+            right: deflatedMockUserContext
+          },
+          {
+            left: deflatedMockUserContext,
+            operator: IS_NOT,
+            right: deflatedMockUserContext
+          }
+        ]
+      },
+      resolver
+    )
+    const response = await rule.evaluate()
+    expect(response).toBe(false)
+  })
+
+  test('toJSONs on ', async () => {
+    const mockUserContext = await getMockUserContext()
+    const deflatedMockUserContext = mockUserContext.deflate()
+    const rule = new Rule({
+      left: deflatedMockUserContext,
+      operator: IS_NOT,
+      right: deflatedMockUserContext
+    })
+    const json = rule.toJSON()
+    expect(json).toMatchObject({
+      left: deflatedMockUserContext,
+      operator: IS_NOT,
+      right: deflatedMockUserContext
+    })
+  })
+
+  test('toJSONs compound expression', async () => {
+    const resolver = jest.fn()
+    const mockUserContext = await getMockUserContext()
+    const deflatedMockUserContext = mockUserContext.deflate()
+    resolver.mockResolvedValue({
+      context: mockUserContext,
+      types: [USER, TEXT],
+      value: { id: 'abc123', name: 'Tom' }
+    })
+    const rule = new Rule({
+      logicalOperator: Rule.LOGICAL_OPERATORS.OR,
+      expressions: [
+        {
+          left: mockUserContext,
+          operator: IS,
+          right: mockUserContext
+        },
+        {
+          left: mockUserContext,
+          operator: IS_NOT,
+          right: mockUserContext
+        }
+      ]
+    })
+    const json = rule.toJSON()
+    expect(json).toMatchObject({
+      logicalOperator: Rule.LOGICAL_OPERATORS.OR,
+      expressions: [
+        {
+          left: deflatedMockUserContext,
+          operator: IS,
+          right: deflatedMockUserContext
+        },
+        {
+          left: deflatedMockUserContext,
+          operator: IS_NOT,
+          right: deflatedMockUserContext
+        }
+      ]
     })
   })
 })

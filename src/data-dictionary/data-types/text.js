@@ -1,6 +1,7 @@
 import { TEXT } from '../return-types'
 import {
   IS,
+  IS_NOT,
   CONTAINS,
   DOES_NOT_CONTAIN,
   BEGINS_WITH,
@@ -13,6 +14,7 @@ export const TYPE = TEXT
 export const CAN_COERCE_TO = [TEXT]
 export const VALID_OPERATORS = {
   [IS]: [TEXT],
+  [IS_NOT]: [TEXT],
   [CONTAINS]: [TEXT],
   [DOES_NOT_CONTAIN]: [TEXT],
   [BEGINS_WITH]: [TEXT],

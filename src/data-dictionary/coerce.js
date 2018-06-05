@@ -3,8 +3,9 @@ import CoercionNotSupportedError from './coercion-not-supported-error'
 
 import * as booleanDataType from './data-types/boolean'
 import * as userDataType from './data-types/user'
+import * as textDataType from './data-types/text'
 
-const DATA_TYPES = [booleanDataType, userDataType]
+const DATA_TYPES = [booleanDataType, userDataType, textDataType]
 
 export const COERCIONS = _.reduce(
   DATA_TYPES,
@@ -14,13 +15,11 @@ export const COERCIONS = _.reduce(
 )
 
 export function coerce (baseType, requestedCoerceType, value) {
-  console.log({ xxx: 'coerce :0:', baseType, requestedCoerceType, value, COERCIONS })
   const coercionFn = _.get(
     COERCIONS,
     [baseType, requestedCoerceType],
     coercionNotSupported(baseType, requestedCoerceType)
   )
-  console.log({ xxx: 'coerce :1:', coercionFn })
   return coercionFn(value)
 }
 

@@ -18,7 +18,7 @@ export default function evaluate (
   rightDataType,
   rightValue
 ) {
-  return fnMap[leftDataType.TYPE][rightDataType.TYPE](leftValue, rightValue)
+  return fnMap[leftDataType][rightDataType](leftValue, rightValue)
 }
 
 const fnMap = {

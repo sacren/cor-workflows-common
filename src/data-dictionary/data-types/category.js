@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { CATEGORY, TEXT } from '../return-types'
 import {
   IS,
+  IS_NOT,
   CONTAINS,
   DOES_NOT_CONTAIN,
   BEGINS_WITH,
@@ -14,6 +15,7 @@ export const TYPE = CATEGORY
 export const CAN_COERCE_TO = [CATEGORY, TEXT]
 export const VALID_OPERATORS = {
   [IS]: [CATEGORY, TEXT],
+  [IS_NOT]: [CATEGORY, TEXT],
   [CONTAINS]: [TEXT],
   [DOES_NOT_CONTAIN]: [TEXT],
   [BEGINS_WITH]: [TEXT],
