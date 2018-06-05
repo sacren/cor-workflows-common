@@ -23,7 +23,7 @@ export const VALID_OPERATORS = {
 }
 
 export const COERCIONS = {
-  [CATEGORY]: group => ({ id: group.categoryId }),
+  [CATEGORY]: group => ({ id: _.get(group, 'categoryId') }),
   [GROUP]: _.identity,
-  [TEXT]: group => group.displayName || group.name
+  [TEXT]: group => _.get(group, 'displayName') || _.get(group, 'name')
 }

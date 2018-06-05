@@ -26,5 +26,5 @@ export const VALID_OPERATORS = {
 
 export const COERCIONS = {
   [USER]: _.identity,
-  [TEXT]: user => user.displayName || user.name
+  [TEXT]: user => _.get(user, 'displayName') || _.get(user, 'name')
 }

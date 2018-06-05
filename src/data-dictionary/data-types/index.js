@@ -16,6 +16,7 @@ import * as category from './category'
 import * as form from './form'
 import * as group from './group'
 import * as number from './number'
+import * as role from './role'
 import * as text from './text'
 import * as user from './user'
 
@@ -24,6 +25,7 @@ export default {
   [CATEGORY]: category,
   [GROUP]: group,
   [NUMBER]: number,
+  [ROLE]: role,
   [FORM]: form,
   [USER]: user,
   [TEXT]: text
