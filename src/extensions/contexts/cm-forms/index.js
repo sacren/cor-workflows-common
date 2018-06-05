@@ -39,6 +39,10 @@ export default class CMForms extends Context {
     return valueList
   }
 
+  isEqual (ctx) {
+    return this.name === get(ctx, 'name') && this.type === get(ctx, 'type')
+  }
+
   static extractFormOptionsFromSettings (institution, settings) {
     const formOptions = [
       {
@@ -60,8 +64,8 @@ export default class CMForms extends Context {
       formOptions.push({
         id: 'specializations',
         label:
-        get(settings, 'uiTextReplacements.specialization') ||
-        'Specializations'
+          get(settings, 'uiTextReplacements.specialization') ||
+          'Specializations'
       })
     }
     if (get(institution, 'flags.policies')) {
