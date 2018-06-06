@@ -89,6 +89,10 @@ export default class Group extends Context {
     return false
   }
 
+  isEqual (value) {
+    return get(value, 'data.id') === get(this, 'data.id')
+  }
+
   async getValue (valueMap = {}) {
     super.getValue(valueMap)
     valueMap.groupId = this.data.id
