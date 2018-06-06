@@ -84,4 +84,9 @@ describe('Roles contexts', () => {
     expect(data).toHaveProperty('id', 1)
     expect(data).toHaveProperty('name', 'test')
   })
+
+  test('should test equality properly', () => {
+    const role = new Role(null, ALL, { id: 'test' })
+    expect(role.isEqual({ data: { id: 'test', morejunk: true } })).toBe(true)
+  })
 })
