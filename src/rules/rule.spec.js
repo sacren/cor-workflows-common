@@ -60,6 +60,38 @@ describe('Rule', () => {
     expect(response).toBe(true)
   })
 
+  test('fails evaluating a singular rule if the given operator is unknown', async () => {
+    const resolver = jest.fn()
+    const mockUserContext = await getMockUserContext()
+    const deflatedMockUserContext = mockUserContext.deflate()
+    resolver.mockResolvedValue({
+      context: mockUserContext,
+      types: [USER, TEXT],
+      value: { id: 'abc123', name: 'Tom' }
+    })
+    const operators = {
+      [IS]: () => {
+        throw new Error('failed operation')
+      }
+    }
+    const rule = new Rule(
+      {
+        left: deflatedMockUserContext,
+        operator: IS,
+        right: deflatedMockUserContext
+      },
+      resolver,
+      operators
+    )
+    return rule
+      .evaluate()
+      .then(() => {
+        throw new Error('Expected evaluation error, got none')
+      })
+      .catch(error => expect(error.message).toMatch(/failed operation/))
+      .then(() => expect.assertions(1))
+  })
+
   test('evaluates compound "and" rule', async () => {
     const resolver = jest.fn()
     const mockUserContext = await getMockUserContext()
@@ -122,7 +154,7 @@ describe('Rule', () => {
     expect(response).toBe(false)
   })
 
-  test('fails evaluating a compound given an invalid logical operator', async () => {
+  test('fails evaluating a compound rule given an invalid logical operator', async () => {
     const resolver = jest.fn()
     const mockUserContext = await getMockUserContext()
     const deflatedMockUserContext = mockUserContext.deflate()

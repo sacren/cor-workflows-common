@@ -38,10 +38,11 @@ export default class Rule {
     [LOGICAL_OPERATORS.OR]: logicalOperator(some, expressionIsTrue)
   }
 
-  constructor (rule, resolver) {
+  constructor (rule, resolver, operatorsToUse = operators) {
     this.rule = rule
     this.resolver = resolver
     this.type = this.identifyType()
+    this.operatorsToUse = operatorsToUse
   }
 
   identifyType () {
@@ -121,9 +122,6 @@ export default class Rule {
         const coercedRight = right
           ? coerce(right.context.treatAsType, rightTargetType, right.value)
           : undefined
-        console.log('Error comparing.')
-        console.log(err)
-        continue
 
         return this.operatorsToUse[operator](
           leftTargetType,
@@ -132,6 +130,12 @@ export default class Rule {
           coercedRight
         )
       } catch (error) {
+        console.log(`[${operator}] Operation Failed:`, error)
+        if (i === comparables.length - 1) {
+          throw error
+        } else {
+          continue
+        }
       }
     }
   }
