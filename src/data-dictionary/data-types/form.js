@@ -26,9 +26,5 @@ export const VALID_OPERATORS = {
 
 export const COERCIONS = {
   [FORM]: _.identity,
-  [TEXT]: form => {
-    console.log('***** COERCE FORM TO TEXT *****')
-    console.log({form})
-    return form.label
-  }
+  [TEXT]: form => _.get(form, 'label') || _.get(form, 'id')
 }

@@ -1,19 +1,19 @@
-import { TEXT, USER } from '../return-types'
-import { CAN_COERCE_TO, COERCIONS, TYPE, VALID_OPERATORS } from './user'
+import { TEXT, ROLE } from '../return-types'
+import { CAN_COERCE_TO, COERCIONS, TYPE, VALID_OPERATORS } from './role'
 import * as operators from '../operators'
 
-describe('User Data Type', () => {
+describe('Role Data Type', () => {
   describe('TYPE', () => {
-    it('is USER', () => {
-      expect(TYPE).toBe(USER)
+    it('is ROLE', () => {
+      expect(TYPE).toBe(ROLE)
     })
   })
 
   describe('CAN_COERCE_TO', () => {
-    it('can coerce to USER', () => {
-      expect(CAN_COERCE_TO).toContain(USER)
-      expect(COERCIONS).toHaveProperty(USER)
-      expect(COERCIONS[USER].length).toBe(1)
+    it('can coerce to ROLE', () => {
+      expect(CAN_COERCE_TO).toContain(ROLE)
+      expect(COERCIONS).toHaveProperty(ROLE)
+      expect(COERCIONS[ROLE].length).toBe(1)
     })
 
     it('can coerce to TEXT', () => {
@@ -24,28 +24,28 @@ describe('User Data Type', () => {
   })
 
   describe('COERCIONS', () => {
-    it('coerces user -> user (e.g. identity)', () => {
-      const user = { displayName: 'Bob' }
-      const coercedUser = COERCIONS[USER](user)
-      expect(coercedUser).toBe(user)
+    it('coerces role -> role (e.g. identity)', () => {
+      const role = { name: 'Bob' }
+      const coercedRole = COERCIONS[ROLE](role)
+      expect(coercedRole).toBe(role)
     })
 
-    it("coerces user -> text using the user's displayName", () => {
-      const user = { displayName: 'Bobby', name: 'Robert' }
-      const coercedUser = COERCIONS[TEXT](user)
-      expect(coercedUser).toBe(user.displayName)
+    it("coerces role -> text using the role's name", () => {
+      const role = { id: 'role-123', name: 'Robert' }
+      const coercedRole = COERCIONS[TEXT](role)
+      expect(coercedRole).toBe(role.name)
     })
 
-    it("coerces user -> text using the user's name when the displayName is not present", () => {
-      const user = { displayName: undefined, name: 'Robert' }
-      const coercedUser = COERCIONS[TEXT](user)
-      expect(coercedUser).toBe(user.name)
+    it("coerces role -> text using the role's id when the name is not present", () => {
+      const role = { id: 'role-123', name: undefined }
+      const coercedRole = COERCIONS[TEXT](role)
+      expect(coercedRole).toBe(role.id)
     })
   })
 
   describe('VALID_OPERATORS', () => {
-    it('allows IS operations against USER and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS]).toEqual([USER, TEXT])
+    it('allows IS operations against ROLE and TEXT data types', () => {
+      expect(VALID_OPERATORS[operators.IS]).toEqual([ROLE, TEXT])
     })
 
     it('allows CONTAINS opertions against TEXT data types', () => {
