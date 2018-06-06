@@ -19,6 +19,12 @@ const LOGICAL_OPERATORS = {
   AND: 'and',
   OR: 'or'
 }
+const expressionIsTrue = evaluatedExpression => evaluatedExpression === true
+const logicalOperator = curry(
+  (logicalIterator, comparator, evaluatedExpressions) =>
+    logicalIterator(evaluatedExpressions, comparator)
+)
+
 export default class Rule {
   static TYPES = {
     SINGLE: 'single',
@@ -26,6 +32,10 @@ export default class Rule {
   }
 
   static LOGICAL_OPERATORS = LOGICAL_OPERATORS
+
+  static LOGICAL_OPERATOR_EVALUATORS = {
+    [LOGICAL_OPERATORS.AND]: logicalOperator(every, expressionIsTrue),
+    [LOGICAL_OPERATORS.OR]: logicalOperator(some, expressionIsTrue)
   }
 
   constructor (rule, resolver) {
@@ -74,15 +84,10 @@ export default class Rule {
       const rule = new Rule(expression, this.resolver)
       return rule.evaluate()
     })
-    const responses = await Promise.all(promises)
-    switch (this.rule.logicalOperator) {
-      case Rule.LOGICAL_OPERATORS.AND:
-        return responses.find(response => response !== true) === undefined
-      case Rule.LOGICAL_OPERATORS.OR:
-        return responses.find(response => response === true) !== undefined
-      default:
-        throw new Error('Unknown logical operator')
-    }
+    const evaluatedExpressions = await Promise.all(promises)
+    return Rule.LOGICAL_OPERATOR_EVALUATORS[this.rule.logicalOperator](
+      evaluatedExpressions
+    )
   }
 
   findComparableTypes (left, operator, right) {
@@ -139,7 +144,7 @@ export default class Rule {
     const { logicalOperator, expressions } = this.rule
     return {
       logicalOperator,
-      expressions: expressions.map(expr => new Rule(expr).toJSON())
+      expressions: expressions.map(expression => new Rule(expression).toJSON())
     }
   }
 }
