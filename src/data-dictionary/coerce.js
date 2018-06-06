@@ -2,10 +2,11 @@ import _ from 'lodash'
 import CoercionNotSupportedError from './coercion-not-supported-error'
 
 import * as booleanDataType from './data-types/boolean'
+import * as numberDataType from './data-types/number'
 import * as userDataType from './data-types/user'
 import * as textDataType from './data-types/text'
 
-const DATA_TYPES = [booleanDataType, userDataType, textDataType]
+const DATA_TYPES = [booleanDataType, numberDataType, userDataType, textDataType]
 
 export const COERCIONS = _.reduce(
   DATA_TYPES,

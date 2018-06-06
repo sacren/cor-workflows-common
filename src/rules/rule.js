@@ -81,11 +81,9 @@ export default class Rule {
 
   findComparableTypes (left, operator, right) {
     const targets = []
-    console.log({ left, operator, right })
     for (let i = 0; i < left.types.length; i++) {
       const type = dataTypeMap[left.types[i]]
       const validTypesforRight = type.VALID_OPERATORS[operator]
-      console.log({ type, validTypesforRight })
       if (validTypesforRight === 'unary') {
         targets.push({ left: type })
         break
@@ -95,7 +93,6 @@ export default class Rule {
         targets.push({ left: type, right: dataTypeMap[rt] })
       )
     }
-    console.log({ targets })
     return targets
   }
 
@@ -108,7 +105,6 @@ export default class Rule {
         const r = right
           ? coerce(right.context.treatAsType, rightTargetType, right.value)
           : undefined
-        console.log({ operators, operator, leftTargetType, l, rightTargetType, r })
         return operators[operator](leftTargetType, l, rightTargetType, r)
       } catch (err) {
         console.log('Error comparing.')

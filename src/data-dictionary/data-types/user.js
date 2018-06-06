@@ -1,4 +1,4 @@
-import * as _ from 'lodash'
+import { get, identity } from 'lodash'
 import { USER, TEXT } from '../return-types'
 import {
   IS,
@@ -25,6 +25,6 @@ export const VALID_OPERATORS = {
 }
 
 export const COERCIONS = {
-  [USER]: _.identity,
-  [TEXT]: user => _.get(user, 'displayName') || _.get(user, 'name')
+  [USER]: identity,
+  [TEXT]: user => get(user, 'displayName') || get(user, 'name')
 }

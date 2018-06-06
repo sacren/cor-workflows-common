@@ -1,3 +1,4 @@
+import { identity } from 'lodash'
 import { TEXT } from '../return-types'
 import {
   IS,
@@ -23,15 +24,6 @@ export const VALID_OPERATORS = {
   [DOES_NOT_END_WITH]: [TEXT]
 }
 
-export function coerce (type, text) {
-  switch (type) {
-    case TEXT:
-      return coerceToText(text)
-    default:
-      throw new Error('Unsupported coersition')
-  }
-}
-
-function coerceToText (text) {
-  return text
+export const COERCIONS = {
+  [TEXT]: identity
 }
