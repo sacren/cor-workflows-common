@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { find } from 'lodash'
+import { find, get } from 'lodash'
 import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
 
@@ -33,7 +33,8 @@ export default class FieldDropDown extends Field {
     const option = find(schema.schema[data.formKey].details.options, option => {
       return option.key === optionKey
     })
-    valueMap.field = { value: option.lbl }
-    return option.lbl
+    const label = get(option, 'lbl', '?')
+    valueMap.field = { value: label }
+    return label
   }
 }
