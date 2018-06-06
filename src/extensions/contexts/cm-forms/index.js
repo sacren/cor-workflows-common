@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { filter, get, values } from 'lodash'
+import { filter, get } from 'lodash'
 
 import Context from '../../../data-dictionary/context'
 import Form from './form'
