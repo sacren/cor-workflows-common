@@ -7,7 +7,7 @@
  */
 import { isNumber } from 'lodash'
 import Context from '../context'
-import { NUMBER } from '../return-types'
+import { NUMBER, TEXT } from '../return-types'
 
 const i18n = {
   MISSING_VALUE: 'Cannot create a Numeric Input Context without a value',
@@ -19,7 +19,8 @@ export default class GlobalNumericInput extends Context {
   static type = 'numeric-input'
   static displayName = 'Numeric Input'
   static treatAsType = NUMBER
-  static returnTypes = [NUMBER]
+  static returnTypes = [NUMBER, TEXT]
+  static matchTypes = [NUMBER, TEXT]
   static inputType = NUMBER
 
   static async inflate (ctx, deflated) {

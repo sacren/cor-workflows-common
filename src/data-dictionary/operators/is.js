@@ -1,15 +1,6 @@
 import {
-  BOOLEAN,
-  CATEGORY,
-  FORM,
-  GROUP,
-  NUMBER,
-  ROLE,
-  SUBFLOW,
   TEXT,
-  USER,
-  OPTIONS,
-  ALL
+  USER
 } from '../return-types'
 
 export default function evaluate (
@@ -23,9 +14,15 @@ export default function evaluate (
 
 const fnMap = {
   [TEXT]: {
-    [TEXT]: (left, right) => left === right
+    [TEXT]: (left, right) => {
+      console.log({ left, right })
+      return left === right
+    }
   },
   [USER]: {
-    [USER]: (left, right) => left.id === right.id
+    [USER]: (left, right) => {
+      console.log({ left, right })
+      return left.id === right.id
+    }
   }
 }

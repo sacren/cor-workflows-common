@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { get, intersection } from 'lodash'
+import { curry, every, get, has, intersection, some, toUpper } from 'lodash'
 import ctx from '../data-dictionary/context-utils'
 import dataTypeMap from '../data-dictionary/data-types'
 import operators from '../data-dictionary/operators/index'
@@ -15,21 +15,34 @@ const i18n = {
   APPROPRIATE_PARAMETERS: 'Cannot construct rule without appropriate parameters'
 }
 
+const LOGICAL_OPERATORS = {
+  AND: 'and',
+  OR: 'or'
+}
+const expressionIsTrue = evaluatedExpression => evaluatedExpression === true
+const logicalOperator = curry(
+  (logicalIterator, comparator, evaluatedExpressions) =>
+    logicalIterator(evaluatedExpressions, comparator)
+)
+
 export default class Rule {
   static TYPES = {
     SINGLE: 'single',
     COMPOUND: 'compound'
   }
 
-  static LOGICAL_OPERATORS = {
-    AND: 'and',
-    OR: 'or'
+  static LOGICAL_OPERATORS = LOGICAL_OPERATORS
+
+  static LOGICAL_OPERATOR_EVALUATORS = {
+    [LOGICAL_OPERATORS.AND]: logicalOperator(every, expressionIsTrue),
+    [LOGICAL_OPERATORS.OR]: logicalOperator(some, expressionIsTrue)
   }
 
-  constructor (rule, resolver) {
+  constructor (rule, resolver, operatorsToUse = operators) {
     this.rule = rule
     this.resolver = resolver
     this.type = this.identifyType()
+    this.operatorsToUse = operatorsToUse
   }
 
   identifyType () {
@@ -71,19 +84,18 @@ export default class Rule {
   }
 
   async evaluateCompound () {
-    const promises = this.rule.expressions.map(expr => {
-      const rule = new Rule(expr, this.resolver)
+    if (!has(LOGICAL_OPERATORS, toUpper(this.rule.logicalOperator))) {
+      throw new Error(`Unknown logical operator "${this.rule.logicalOperator}"`)
+    }
+
+    const promises = this.rule.expressions.map(expression => {
+      const rule = new Rule(expression, this.resolver)
       return rule.evaluate()
     })
-    const responses = await Promise.all(promises)
-    switch (this.rule.logicalOperator) {
-      case Rule.LOGICAL_OPERATORS.AND:
-        return responses.find(response => response !== true) === undefined
-      case Rule.LOGICAL_OPERATORS.OR:
-        return responses.find(response => response === true) !== undefined
-      default:
-        throw new Error('Unknown logical operator')
-    }
+    const evaluatedExpressions = await Promise.all(promises)
+    return Rule.LOGICAL_OPERATOR_EVALUATORS[this.rule.logicalOperator](
+      evaluatedExpressions
+    )
   }
 
   findComparableTypes (left, operator, right) {
@@ -114,18 +126,33 @@ export default class Rule {
     }
   }
 
-  findBestResponse (comparable, left, operator, right) {
-    for (let i = 0; i < comparable.length; i++) {
+  findBestResponse (comparables, left, operator, right) {
+    for (let i = 0; i < comparables.length; i++) {
       try {
-        const leftTargetType = comparable[i].left.TYPE
-        const rightTargetType = get(comparable[i], 'right.TYPE')
-        const l = coerce(left.context.treatAsType, leftTargetType, left.value)
-        const r = right
+        const comparable = comparables[i]
+        const leftTargetType = get(comparable, 'left.TYPE')
+        const rightTargetType = get(comparable, 'right.TYPE')
+        const coercedLeft = coerce(
+          left.context.treatAsType,
+          leftTargetType,
+          left.value
+        )
+        const coercedRight = right
           ? coerce(right.context.treatAsType, rightTargetType, right.value)
           : undefined
-        return operators[operator](leftTargetType, l, rightTargetType, r)
-      } catch (err) {
-        continue
+        return this.operatorsToUse[operator](
+          leftTargetType,
+          coercedLeft,
+          rightTargetType,
+          coercedRight
+        )
+      } catch (error) {
+        console.log(`[${operator}] Operation Failed:`, error)
+        if (i === comparables.length - 1) {
+          throw error
+        } else {
+          continue
+        }
       }
     }
   }
@@ -149,7 +176,7 @@ export default class Rule {
     const { logicalOperator, expressions } = this.rule
     return {
       logicalOperator,
-      expressions: expressions.map(expr => new Rule(expr).toJSON())
+      expressions: expressions.map(expression => new Rule(expression).toJSON())
     }
   }
 }

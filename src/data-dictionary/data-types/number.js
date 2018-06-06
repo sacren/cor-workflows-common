@@ -29,6 +29,6 @@ export const VALID_OPERATORS = {
 }
 
 export const COERCIONS = {
-  [NUMBER]: _.identity,
+  [NUMBER]: number => _.isString ? parseFloat(number) : number,
   [TEXT]: number => `${number}`
 }
