@@ -26,7 +26,7 @@ describe('Number Data Type', () => {
 
   describe('COERCIONS', () => {
     it('coerces number -> number (e.g. identity)', () => {
-      const number = true
+      const number = 1
       const coercedNumber = COERCIONS[NUMBER](number)
       expect(coercedNumber).toBe(number)
     })
