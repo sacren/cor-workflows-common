@@ -107,20 +107,31 @@ export default class Rule {
     return targets
   }
 
-  findBestResponse (comparable, left, operator, right) {
-    for (let i = 0; i < comparable.length; i++) {
+  findBestResponse (comparables, left, operator, right) {
+    for (let i = 0; i < comparables.length; i++) {
       try {
-        const leftTargetType = comparable[i].left.TYPE
-        const rightTargetType = get(comparable[i], 'right.TYPE')
-        const l = coerce(left.context.treatAsType, leftTargetType, left.value)
-        const r = right
+        const comparable = comparables[i]
+        const leftTargetType = get(comparable, 'left.TYPE')
+        const rightTargetType = get(comparable, 'right.TYPE')
+        const coercedLeft = coerce(
+          left.context.treatAsType,
+          leftTargetType,
+          left.value
+        )
+        const coercedRight = right
           ? coerce(right.context.treatAsType, rightTargetType, right.value)
           : undefined
-        return operators[operator](leftTargetType, l, rightTargetType, r)
-      } catch (err) {
         console.log('Error comparing.')
         console.log(err)
         continue
+
+        return this.operatorsToUse[operator](
+          leftTargetType,
+          coercedLeft,
+          rightTargetType,
+          coercedRight
+        )
+      } catch (error) {
       }
     }
   }
