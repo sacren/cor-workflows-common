@@ -1,15 +1,6 @@
 import {
-  BOOLEAN,
-  CATEGORY,
-  FORM,
-  GROUP,
-  NUMBER,
-  ROLE,
-  SUBFLOW,
   TEXT,
-  USER,
-  OPTIONS,
-  ALL
+  USER
 } from '../return-types'
 
 export default function evaluate (

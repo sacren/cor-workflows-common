@@ -67,7 +67,11 @@ export default class Rule {
         promises.push(this.resolver(this.rule.right))
       }
       const [left, right] = await Promise.all(promises)
-      const comparable = this.findComparableTypes(left, this.rule.operator, right)
+      const comparable = this.findComparableTypes(
+        left,
+        this.rule.operator,
+        right
+      )
       const response = this.findBestResponse(
         comparable,
         left,
@@ -80,6 +84,7 @@ export default class Rule {
       console.log('rule ->')
       console.log(JSON.stringify(this.rule, null, 2))
       console.log(err)
+      throw err
     }
   }
 
@@ -123,6 +128,7 @@ export default class Rule {
       console.log('right ->')
       console.log(JSON.stringify(right, null, 2))
       console.log(err)
+      throw err
     }
   }
 
@@ -140,6 +146,7 @@ export default class Rule {
         const coercedRight = right
           ? coerce(right.context.treatAsType, rightTargetType, right.value)
           : undefined
+        console.log({ operatorsToUse: this.operatorsToUse })
         return this.operatorsToUse[operator](
           leftTargetType,
           coercedLeft,

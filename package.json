@@ -53,10 +53,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 93,
+        "statements": 92,
         "branches": 85,
-        "lines": 93,
-        "functions": 94
+        "lines": 92,
+        "functions": 90
       }
     },
     "rootDir": "src",
