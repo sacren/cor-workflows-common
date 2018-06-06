@@ -42,7 +42,7 @@ export default class WorkflowContexts extends Context {
       workflowCtxs.map(async workflowCtx => {
         const { context, step } = workflowCtx
         const data = {
-          context: await this.ctx.inflate(context),
+          context: await this.ctx.inflate(context, this.returnTypes),
           ancestry: step.ancestry,
           stepId: step.step._id
         }

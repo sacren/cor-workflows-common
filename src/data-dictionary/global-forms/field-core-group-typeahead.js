@@ -8,14 +8,14 @@
 import Field from './field'
 import Category from '../global-categories/category'
 import Role from '../global-roles/role'
-import { GROUP, TEXT } from '../return-types'
+import { GROUP, ROLE, TEXT } from '../return-types'
 import { IS, IS_ONE_OF } from '../operators'
 
 export default class FieldCoreGroupTypeahead extends Field {
   static typeLabel = 'GroupTypeahead'
   static type = 'field-core-group-typeahead'
   static treatAsType = GROUP
-  static returnTypes = [GROUP, TEXT]
+  static returnTypes = [GROUP, ROLE, TEXT]
   static matchTypes = [GROUP, TEXT]
   static operators = [ IS, IS_ONE_OF ]
 
