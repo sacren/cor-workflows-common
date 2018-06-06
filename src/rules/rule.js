@@ -48,19 +48,26 @@ export default class Rule {
   }
 
   async evaluateSingle () {
-    const promises = [this.resolver(this.rule.left)]
-    if (this.rule.right) {
-      promises.push(this.resolver(this.rule.right))
+    try {
+      const promises = [this.resolver(this.rule.left)]
+      if (this.rule.right) {
+        promises.push(this.resolver(this.rule.right))
+      }
+      const [left, right] = await Promise.all(promises)
+      const comparable = this.findComparableTypes(left, this.rule.operator, right)
+      const response = this.findBestResponse(
+        comparable,
+        left,
+        this.rule.operator,
+        right
+      )
+      return response
+    } catch (err) {
+      console.log('Error finding comparable types.')
+      console.log('rule ->')
+      console.log(JSON.stringify(this.rule, null, 2))
+      console.log(err)
     }
-    const [left, right] = await Promise.all(promises)
-    const comparable = this.findComparableTypes(left, this.rule.operator, right)
-    const response = this.findBestResponse(
-      comparable,
-      left,
-      this.rule.operator,
-      right
-    )
-    return response
   }
 
   async evaluateCompound () {
@@ -80,20 +87,31 @@ export default class Rule {
   }
 
   findComparableTypes (left, operator, right) {
-    const targets = []
-    for (let i = 0; i < left.types.length; i++) {
-      const type = dataTypeMap[left.types[i]]
-      const validTypesforRight = type.VALID_OPERATORS[operator]
-      if (validTypesforRight === 'unary') {
-        targets.push({ left: type })
-        break
+    try {
+      const targets = []
+      for (let i = 0; i < left.types.length; i++) {
+        const type = dataTypeMap[left.types[i]]
+        const validTypesforRight = type.VALID_OPERATORS[operator]
+        if (validTypesforRight === 'unary') {
+          targets.push({ left: type })
+          break
+        }
+        const rightTypes = intersection(validTypesforRight, right.types)
+        rightTypes.forEach(rt =>
+          targets.push({ left: type, right: dataTypeMap[rt] })
+        )
       }
-      const rightTypes = intersection(validTypesforRight, right.types)
-      rightTypes.forEach(rt =>
-        targets.push({ left: type, right: dataTypeMap[rt] })
-      )
+      return targets
+    } catch (err) {
+      console.log('Error finding comparable types.')
+      console.log('left ->')
+      console.log(JSON.stringify(left, null, 2))
+      console.log('operator ->')
+      console.log(JSON.stringify(operator, null, 2))
+      console.log('right ->')
+      console.log(JSON.stringify(right, null, 2))
+      console.log(err)
     }
-    return targets
   }
 
   findBestResponse (comparable, left, operator, right) {
@@ -107,8 +125,6 @@ export default class Rule {
           : undefined
         return operators[operator](leftTargetType, l, rightTargetType, r)
       } catch (err) {
-        console.log('Error comparing.')
-        console.log(err)
         continue
       }
     }
