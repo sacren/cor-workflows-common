@@ -122,6 +122,42 @@ describe('Rule', () => {
     expect(response).toBe(false)
   })
 
+  test('fails evaluating a compound given an invalid logical operator', async () => {
+    const resolver = jest.fn()
+    const mockUserContext = await getMockUserContext()
+    const deflatedMockUserContext = mockUserContext.deflate()
+    resolver.mockResolvedValue({
+      context: mockUserContext,
+      types: [USER, TEXT],
+      value: { id: 'abc123', name: 'Tom' }
+    })
+    const rule = new Rule(
+      {
+        logicalOperator: 'FAKE_NEWS',
+        expressions: [
+          {
+            left: deflatedMockUserContext,
+            operator: IS,
+            right: deflatedMockUserContext
+          },
+          {
+            left: deflatedMockUserContext,
+            operator: IS,
+            right: deflatedMockUserContext
+          }
+        ]
+      },
+      resolver
+    )
+    return rule
+      .evaluate()
+      .then(() => {
+        throw new Error('Expected evaluation error, got none')
+      })
+      .catch(error => expect(error.message).toMatch(/Unknown logical operator/))
+      .then(() => expect.assertions(1))
+  })
+
   test('evaluates compound "or" rule', async () => {
     const resolver = jest.fn()
     const mockUserContext = await getMockUserContext()

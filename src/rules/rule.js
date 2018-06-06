@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { get, intersection } from 'lodash'
+import { curry, every, get, has, intersection, some, toUpper } from 'lodash'
 import ctx from '../data-dictionary/context-utils'
 import dataTypeMap from '../data-dictionary/data-types'
 import operators from '../data-dictionary/operators/index'
@@ -15,15 +15,17 @@ const i18n = {
   APPROPRIATE_PARAMETERS: 'Cannot construct rule without appropriate parameters'
 }
 
+const LOGICAL_OPERATORS = {
+  AND: 'and',
+  OR: 'or'
+}
 export default class Rule {
   static TYPES = {
     SINGLE: 'single',
     COMPOUND: 'compound'
   }
 
-  static LOGICAL_OPERATORS = {
-    AND: 'and',
-    OR: 'or'
+  static LOGICAL_OPERATORS = LOGICAL_OPERATORS
   }
 
   constructor (rule, resolver) {
@@ -64,8 +66,12 @@ export default class Rule {
   }
 
   async evaluateCompound () {
-    const promises = this.rule.expressions.map(expr => {
-      const rule = new Rule(expr, this.resolver)
+    if (!has(LOGICAL_OPERATORS, toUpper(this.rule.logicalOperator))) {
+      throw new Error(`Unknown logical operator "${this.rule.logicalOperator}"`)
+    }
+
+    const promises = this.rule.expressions.map(expression => {
+      const rule = new Rule(expression, this.resolver)
       return rule.evaluate()
     })
     const responses = await Promise.all(promises)
