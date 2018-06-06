@@ -44,7 +44,7 @@ export default class RootContext extends Context {
       this.returnTypes === ALL ? this.contexts : this.reduceByReturnType()
     if (filter) {
       const regex = new RegExp(filter, 'ig')
-      reduced = this.contexts.filter(context =>
+      reduced = reduced.filter(context =>
         !context.type.displayName.search(regex)
       )
     }
