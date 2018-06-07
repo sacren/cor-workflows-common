@@ -7,7 +7,7 @@
  */
 
 import GroupMultiselect from './field-core-group-multiselect'
-import { GROUP, TEXT } from '../return-types'
+import { GROUP, ROLE, TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(GroupMultiselect, [GROUP, TEXT], [GROUP, TEXT])
+FieldTest(GroupMultiselect, [GROUP, ROLE, TEXT], [GROUP, TEXT])

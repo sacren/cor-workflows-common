@@ -5,6 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
+import { get } from 'lodash'
 import Context from '../context'
 import { ROLE, TEXT, USER } from '../return-types'
 
@@ -32,6 +33,10 @@ export default class Role extends Context {
   getChildren = async () => []
 
   isLeaf = () => true
+
+  isEqual (value) {
+    return get(value, 'data.id') === get(this, 'data.id')
+  }
 
   deflate (valueList = []) {
     const { parent, type, name, data } = this

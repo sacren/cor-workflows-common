@@ -6,16 +6,16 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 import Field from './field'
-import { GROUP, TEXT } from '../return-types'
+import { GROUP, ROLE, TEXT } from '../return-types'
 import { IS_EMPTY, IS_NOT_EMPTY } from '../operators'
 
 export default class FieldCoreGroupMultiselect extends Field {
   static typeLabel = 'GroupMultiselect'
   static type = 'field-core-group-multiselect'
   static treatAsType = GROUP
-  static returnTypes = [GROUP, TEXT]
+  static returnTypes = [GROUP, ROLE, TEXT]
   static matchTypes = [GROUP, TEXT]
-  static operators = [ IS_EMPTY, IS_NOT_EMPTY ]
+  static operators = [IS_EMPTY, IS_NOT_EMPTY]
 
   getChildren = async filter => {
     // TODO: return children

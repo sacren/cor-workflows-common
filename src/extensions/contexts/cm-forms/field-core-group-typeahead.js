@@ -16,7 +16,7 @@ export default class FieldCoreGroupTypeahead extends CMField {
   static typeLabel = 'GroupsTypeahead'
   static type = 'cm-field-core-group-typeahead'
   static treatAsType = GROUP
-  static returnTypes = [GROUP, TEXT]
+  static returnTypes = [GROUP, ROLE, TEXT]
   static matchTypes = [GROUP, TEXT]
   static operators = [IS, IS_ONE_OF]
 
