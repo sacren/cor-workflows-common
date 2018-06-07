@@ -13,11 +13,11 @@ import RadioButton from './field-radio-button'
 import TextArea from './field-text-area'
 import TextInput from './field-text-input'
 
-import { BOOLEAN, GROUP, NUMBER, TEXT } from '../../../data-dictionary/return-types'
+import { BOOLEAN, GROUP, NUMBER, ROLE, TEXT } from '../../../data-dictionary/return-types'
 
 testCMField(Checkbox, [BOOLEAN], [BOOLEAN], true)
-testCMField(GroupMultiselect, [GROUP, TEXT], [GROUP, TEXT])
-testCMField(GroupTypeahead, [GROUP, TEXT], [GROUP, TEXT])
+testCMField(GroupMultiselect, [GROUP, ROLE, TEXT], [GROUP, TEXT])
+testCMField(GroupTypeahead, [GROUP, ROLE, TEXT], [GROUP, TEXT])
 testCMField(RadioButton, [NUMBER, TEXT], [NUMBER, TEXT])
 testCMField(TextArea, [NUMBER, TEXT], [NUMBER, TEXT], true)
 testCMField(TextInput, [NUMBER, TEXT], [NUMBER, TEXT], true)

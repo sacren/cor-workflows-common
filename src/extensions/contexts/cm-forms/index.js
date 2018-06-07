@@ -5,27 +5,31 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { get } from 'lodash'
+import { filter, get } from 'lodash'
 
 import Context from '../../../data-dictionary/context'
 import Form from './form'
-import { CMFORM } from '../../return-types'
+import { FORM } from '../../../data-dictionary/return-types'
 
 export default class CMForms extends Context {
   static global = false
   static type = 'cm-forms'
   static displayName = 'CM Forms'
-  static returnTypes = [CMFORM]
+  static returnTypes = [FORM]
 
   static async inflate (ctx, deflated) {
     return deflated
   }
 
-  async getChildren (filter) {
+  async getChildren (search) {
     if (!this.ctx) return []
     const institution = await this.ctx.apis.cm.institution()
     const settings = await this.ctx.apis.cm.settings()
-    const forms = CMForms.extractFormOptionsFromSettings(institution, settings)
+    let forms = CMForms.extractFormOptionsFromSettings(institution, settings)
+    if (search) {
+      const regex = new RegExp(search, 'ig')
+      forms = filter(forms, form => !form.label.search(regex))
+    }
     const formCtxs = forms.map(
       form => new Form(this, this.returnTypes, form, this.ctx)
     )
@@ -37,6 +41,10 @@ export default class CMForms extends Context {
     if (parent) parent.deflate(valueList)
     valueList.push({ type, name, requiresParent: false })
     return valueList
+  }
+
+  isEqual (ctx) {
+    return this.name === get(ctx, 'name') && this.type === get(ctx, 'type')
   }
 
   static extractFormOptionsFromSettings (institution, settings) {
@@ -60,8 +68,8 @@ export default class CMForms extends Context {
       formOptions.push({
         id: 'specializations',
         label:
-        get(settings, 'uiTextReplacements.specialization') ||
-        'Specializations'
+          get(settings, 'uiTextReplacements.specialization') ||
+          'Specializations'
       })
     }
     if (get(institution, 'flags.policies')) {

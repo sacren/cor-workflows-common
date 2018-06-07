@@ -5,8 +5,6 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { returnTypes } from '../extensions/return-types'
-
 export const BOOLEAN = 'boolean'
 export const CATEGORY = 'category'
 export const FORM = 'form'
@@ -18,5 +16,3 @@ export const TEXT = 'text'
 export const USER = 'user'
 export const OPTIONS = 'options'
 export const ALL = '*'
-
-export const ALLFORMS = [FORM].concat(returnTypes.forms)

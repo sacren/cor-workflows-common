@@ -69,6 +69,13 @@ describe('CMForms', () => {
       expect(children[0].name).toBe('Courses')
       expect(children[1].name).toBe('Programs')
     })
+    it('properly filters when searching', async () => {
+      settingsFn.mockReturnValue({})
+      institutionFn.mockReturnValue({})
+      const children = await form.getChildren('Pro')
+      expect(children.length).toBe(1)
+      expect(children[0].name).toBe('Programs')
+    })
     it('includes additional form types when they are turned on', async () => {
       const mockInstitution = {
         flags: {
@@ -114,5 +121,11 @@ describe('CMForms', () => {
       expect(children[3].name).toBe('D')
       expect(children[4].name).toBe('E')
     })
+  })
+
+  it('should test equality properly', () => {
+    expect(form.isEqual({ name: 'CM Forms', type: 'cm-forms' })).toBe(true)
+    expect(form.isEqual({ name: 'CM Forms', type: 'cm-formss' })).toBe(false)
+    expect(form.isEqual({ name: 'CM Formss', type: 'cm-forms' })).toBe(false)
   })
 })

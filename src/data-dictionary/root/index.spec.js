@@ -22,7 +22,7 @@ describe('Root context', () => {
     test('can get contexts by return type', async () => {
       const root = new Root(null, [CATEGORY])
       const contexts = await root.getChildren()
-      expect(contexts).toHaveLength(3)
+      expect(contexts).toHaveLength(2)
       contexts.forEach(ctx => {
         expect(ctx.returnTypes).toEqual(expect.arrayContaining([CATEGORY]))
       })

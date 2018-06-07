@@ -73,7 +73,13 @@ describe('Global Groups', () => {
           }
         }
       }
-      const group = new Group(null, ['a', 'b', 'c'], { parentId: '123' }, ctx, catData.name)
+      const group = new Group(
+        null,
+        ['a', 'b', 'c'],
+        { parentId: '123' },
+        ctx,
+        catData.name
+      )
       const newGroup = await group.getGroupParent()
       expect(ctx.apis.groups.get).toHaveBeenCalledWith('123')
       expect(ctx.apis.categories.get).toHaveBeenCalledWith('blah')
@@ -151,5 +157,10 @@ describe('Global Groups', () => {
     const group = new Group(null, null, { id: 'test' })
     const value = await group.getValue()
     expect(value).toHaveProperty('id', 'test')
+  })
+
+  it('should test equality properly', () => {
+    const group = new Group(null, null, { id: 'test' })
+    expect(group.isEqual({ data: { id: 'test', morejunk: true } })).toBe(true)
   })
 })
