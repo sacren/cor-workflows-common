@@ -116,6 +116,14 @@ describe('Form', () => {
       const children = await form.getChildren()
       expect(children.length).toBe(0)
     })
+    it('properly filters when searching', async () => {
+      form = new Form(parent, '*', data, ctx)
+      form.data.schema = {
+        foo: { type: 'Radios', formKey: 'foo', label: 'Foo' }
+      }
+      const children = await form.getChildren('Bar')
+      expect(children.length).toBe(0)
+    })
   })
 
   describe('matches', () => {

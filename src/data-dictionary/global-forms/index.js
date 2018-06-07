@@ -7,12 +7,13 @@
  */
 import Context from '../context'
 import Form from './form'
+import { FORM } from '../return-types'
 
 export default class GlobalForms extends Context {
   static global = true
   static type = 'global-forms'
   static displayName = 'Forms'
-  static returnTypes = '*'
+  static returnTypes = [FORM]
 
   static async inflate () {}
 

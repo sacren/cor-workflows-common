@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { compact, get, isArray, keyBy, map } from 'lodash'
+import { compact, filter, get, isArray, keyBy, map } from 'lodash'
 
 import Context from '../../../data-dictionary/context'
 import { ALL } from '../../../data-dictionary/return-types'
@@ -60,14 +60,14 @@ export default class Form extends Context {
     this.name = data.label
   }
 
-  async getChildren (noop) {
+  async getChildren (search) {
     if (!this.data || !this.data.id) return []
     const schema =
       this.data.schema || (await this.ctx.apis.cm.schema(this.data.id))
     const myReturnTypes = isArray(this.returnTypes)
       ? this.returnTypes
       : [this.returnTypes]
-    const children = map(schema, (field, formKey) => {
+    let children = map(schema, (field, formKey) => {
       const FieldContext = formKey === 'meta.proposalType'
         ? CMFieldProposalType
         : fieldMap[field.type]
@@ -87,6 +87,10 @@ export default class Form extends Context {
         )
       }
     })
+    if (search) {
+      const regex = new RegExp(search, 'ig')
+      children = filter(children, child => !get(child, 'data.label', '').search(regex))
+    }
     return compact(children)
   }
 

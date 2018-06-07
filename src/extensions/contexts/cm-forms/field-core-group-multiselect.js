@@ -16,7 +16,7 @@ export default class FieldCoreGroupMultiselect extends CMField {
   static typeLabel = 'GroupsMultiselect'
   static type = 'cm-field-core-group-multiselect'
   static treatAsType = GROUP
-  static returnTypes = [GROUP, TEXT]
+  static returnTypes = [GROUP, ROLE, TEXT]
   static matchTypes = [GROUP, TEXT]
   static operators = [IS_EMPTY, IS_NOT_EMPTY]
 
