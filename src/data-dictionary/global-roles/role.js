@@ -12,6 +12,7 @@ import { ROLE, TEXT, USER } from '../return-types'
 export default class Role extends Context {
   static global = true
   static type = 'role'
+  static treatAsType = ROLE
   static returnTypes = [ROLE, TEXT, USER]
   static matchTypes = [ROLE, TEXT]
 

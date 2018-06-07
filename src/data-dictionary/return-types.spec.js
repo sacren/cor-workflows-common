@@ -20,5 +20,6 @@ describe('Return Types', () => {
     expect(ReturnTypes.TEXT).toEqual('text')
     expect(ReturnTypes.USER).toEqual('user')
     expect(ReturnTypes.ALL).toEqual('*')
+    expect(ReturnTypes.ALLFORMS).toEqual(['form', 'cmform'])
   })
 })

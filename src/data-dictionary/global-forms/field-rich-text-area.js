@@ -11,8 +11,9 @@ import { NUMBER, TEXT } from '../return-types'
 export default class FieldRichTextArea extends Field {
   static typeLabel = 'RichText'
   static type = 'field-rich-text-area'
-  static returnTypes = [NUMBER, TEXT]
-  static matchTypes = [NUMBER, TEXT]
+  static treatAsType = TEXT
+  static returnTypes = [TEXT, NUMBER]
+  static matchTypes = [TEXT, NUMBER]
 
   getChildren = async filter => []
 

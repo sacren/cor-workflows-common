@@ -11,6 +11,7 @@ import { FORM, TEXT } from '../return-types'
 export default class FieldFormsTypeahead extends Field {
   static typeLabel = 'Typeahead'
   static type = 'field-forms-typeahead'
+  static treatAsType = FORM
   static returnTypes = [FORM, TEXT]
   static matchTypes = [FORM, TEXT]
 

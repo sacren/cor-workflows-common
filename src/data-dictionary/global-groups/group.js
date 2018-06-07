@@ -14,6 +14,7 @@ import { CATEGORY, GROUP, ROLE, TEXT, USER } from '../return-types'
 export default class Group extends Context {
   static global = true
   static type = 'group'
+  static treatAsType = GROUP
   static returnTypes = [CATEGORY, GROUP, ROLE, TEXT, USER]
   static matchTypes = [TEXT, GROUP]
 

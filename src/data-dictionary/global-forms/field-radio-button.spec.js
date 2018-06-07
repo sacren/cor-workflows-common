@@ -10,7 +10,7 @@ import FieldRadioButton from './field-radio-button'
 import { TEXT, NUMBER } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(FieldRadioButton, [NUMBER, TEXT], [NUMBER, TEXT], true)
+FieldTest(FieldRadioButton, [TEXT, NUMBER], [TEXT, NUMBER], true)
 
 describe('FieldRadioButton', () => {
   it('should return the appropriate value', async () => {

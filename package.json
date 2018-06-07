@@ -1,6 +1,6 @@
 {
   "name": "kuali-cor-workflows-common",
-  "version": "0.4.15",
+  "version": "0.4.16",
   "description": "Workflows code common to both client and server",
   "author": "Kuali Core Team",
   "license": "SEE LICENSE IN LICENSE",
@@ -16,6 +16,7 @@
     "build": "gulp",
     "prepublish": "npm run onlymaster && npm test && npm run build",
     "test": "standard && jest",
+    "test:jest": "jest",
     "test:jest:watch": "jest --watch",
     "onlymaster": "[[ \"$(git rev-parse --abbrev-ref HEAD)\" == \"master\" ]] || (echo 'You can only publish from the master branch. You should also be a core team member' && exit 1)",
     "watch": "gulp watch"
@@ -52,10 +53,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 93,
+        "statements": 92,
         "branches": 85,
-        "lines": 93,
-        "functions": 94
+        "lines": 92,
+        "functions": 90
       }
     },
     "rootDir": "src",

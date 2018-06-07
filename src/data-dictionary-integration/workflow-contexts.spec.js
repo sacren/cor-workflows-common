@@ -24,7 +24,6 @@ describe('Workflow Contexts', () => {
 
   describe('getChildren', () => {
     it('should do some stuff', async () => {
-      console.log(utils)
       const ctx = {
         inflate: jest.fn().mockImplementation(context => {
           return new Context(null, null, { displayName: context })

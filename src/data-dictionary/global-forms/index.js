@@ -13,6 +13,7 @@ export default class GlobalForms extends Context {
   static global = true
   static type = 'global-forms'
   static displayName = 'Forms'
+  static treatAsType = undefined
   static returnTypes = [FORM]
 
   static async inflate () {}

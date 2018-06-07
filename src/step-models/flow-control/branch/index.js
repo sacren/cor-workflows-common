@@ -40,7 +40,7 @@ export default class ConditionalModel extends StepModel {
     const routes = data.routes.map(({ name, flow, rule }) => {
       return !rule || rule instanceof Rule
         ? { name, flow, rule }
-        : { name, flow, rule: new Rule(rule.left, rule.operator, rule.right) }
+        : { name, flow, rule: new Rule(rule) }
     })
     this.meta = { routes }
   }

@@ -10,4 +10,4 @@ import FieldFormPropertyView from './field-forms-property-view'
 import { NUMBER, TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(FieldFormPropertyView, [NUMBER, TEXT], [NUMBER, TEXT], true)
+FieldTest(FieldFormPropertyView, [TEXT, NUMBER], [TEXT, NUMBER], true)

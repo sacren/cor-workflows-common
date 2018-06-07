@@ -11,6 +11,7 @@ import { FORM, TEXT } from '../return-types'
 export default class FieldFormsMultiselect extends Field {
   static typeLabel = 'Multiselect'
   static type = 'field-forms-multiselect'
+  static treatAsType = FORM
   static returnTypes = [FORM, TEXT]
   static matchTypes = [FORM, TEXT]
 

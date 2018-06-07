@@ -16,3 +16,4 @@ export const TEXT = 'text'
 export const USER = 'user'
 export const OPTIONS = 'options'
 export const ALL = '*'
+export const ALLFORMS = ['form', 'cmform']

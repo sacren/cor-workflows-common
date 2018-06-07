@@ -12,8 +12,9 @@ import { TEXT, USER } from '../return-types'
 export default class User extends Context {
   static global = true
   static type = 'user'
-  static returnTypes = [TEXT, USER]
-  static matchTypes = [TEXT, USER]
+  static treatAsType = USER
+  static returnTypes = [USER, TEXT]
+  static matchTypes = [USER, TEXT]
 
   static async inflate (ctx, deflated) {
     return ctx.apis.users.getUser(deflated.id)

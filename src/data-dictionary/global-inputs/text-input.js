@@ -7,13 +7,15 @@
  */
 import { isString } from 'lodash'
 import Context from '../context'
-import { TEXT } from '../return-types'
+import { NUMBER, TEXT } from '../return-types'
 
 export default class GlobalTextInput extends Context {
   static global = true
   static type = 'text-input'
   static displayName = 'Text Input'
-  static returnTypes = [TEXT]
+  static treatAsType = TEXT
+  static returnTypes = [TEXT, NUMBER]
+  static matchTypes = [TEXT, NUMBER]
   static inputType = TEXT
 
   static async inflate (ctx, deflated) {

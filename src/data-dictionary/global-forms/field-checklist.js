@@ -11,8 +11,9 @@ import { NUMBER, TEXT } from '../return-types'
 export default class FieldChecklist extends Field {
   static typeLabel = 'Checkboxes'
   static type = 'field-checklist'
-  static returnTypes = [NUMBER, TEXT]
-  static matchTypes = [NUMBER, TEXT]
+  static treatAsType = TEXT
+  static returnTypes = [TEXT, NUMBER]
+  static matchTypes = [TEXT, NUMBER]
 
   getChildren = async filter => {
     // TODO: return children

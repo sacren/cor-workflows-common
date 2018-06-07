@@ -10,4 +10,4 @@ import SurveyGrid from './field-core-survey-grid'
 import { TEXT, NUMBER } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(SurveyGrid, [NUMBER, TEXT], [NUMBER, TEXT])
+FieldTest(SurveyGrid, [TEXT, NUMBER], [TEXT, NUMBER])

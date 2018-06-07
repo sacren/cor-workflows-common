@@ -13,8 +13,9 @@ import { IS, IS_NOT } from '../operators'
 export default class FieldRadioButton extends Field {
   static typeLabel = 'Radios'
   static type = 'field-radio-button'
-  static returnTypes = [NUMBER, TEXT]
-  static matchTypes = [NUMBER, TEXT]
+  static treatAsType = TEXT
+  static returnTypes = [TEXT, NUMBER]
+  static matchTypes = [TEXT, NUMBER]
   static operators = [IS, IS_NOT]
 
   getChildren = async filter => []
