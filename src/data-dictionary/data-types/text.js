@@ -1,4 +1,4 @@
-import { identity, isNumber } from 'lodash'
+import { identity } from 'lodash'
 import { TEXT, NUMBER } from '../return-types'
 import {
   IS,
