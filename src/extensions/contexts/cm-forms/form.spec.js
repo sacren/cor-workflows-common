@@ -8,7 +8,7 @@
 
 import Form from './form'
 import CMFieldRadioButton from './field-radio-button'
-import { CMFORM } from '../../return-types'
+import { FORM } from '../../../data-dictionary/return-types'
 
 describe('Form', () => {
   let form, data, ctx, parent, schemaFn
@@ -134,9 +134,9 @@ describe('Form', () => {
       form.match = false
       expect(form.matches(false)).toBe(false)
     })
-    it('returns true if match is CMFORM', () => {
+    it('returns true if match is FORM', () => {
       form.match = 'anything'
-      expect(form.matches(CMFORM)).toBe(true)
+      expect(form.matches(FORM)).toBe(true)
     })
     it('matches strings', () => {
       form.match = 'A'
