@@ -23,6 +23,4 @@ describe('Subflow Data Type', () => {
       expect(coercedSubflow).toBe(subflow)
     })
   })
-
-  describe('VALID_OPERATORS', () => {})
 })

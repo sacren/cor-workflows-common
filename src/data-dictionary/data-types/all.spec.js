@@ -23,6 +23,4 @@ describe('All Data Type', () => {
       expect(coercedThing).toBe(thing)
     })
   })
-
-  describe('VALID_OPERATORS', () => {})
 })

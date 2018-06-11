@@ -1,13 +1,6 @@
 import _ from 'lodash'
 import { BOOLEAN, NUMBER, TEXT } from '../return-types'
-import {
-  CAN_COERCE_TO,
-  COERCIONS,
-  TYPE,
-  UNARY,
-  VALID_OPERATORS
-} from './boolean'
-import * as operators from '../operators'
+import { CAN_COERCE_TO, COERCIONS, TYPE } from './boolean'
 
 describe('Boolean Data Type', () => {
   describe('TYPE', () => {
@@ -57,48 +50,6 @@ describe('Boolean Data Type', () => {
         const coercedText = COERCIONS[TEXT](bool)
         expect(expected).toBe(coercedText)
       })
-    })
-  })
-
-  describe('VALID_OPERATORS', () => {
-    it('allows IS operations against BOOLEAN and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS]).toEqual([BOOLEAN, TEXT])
-    })
-
-    it('allows IS_NOT operations against BOOLEAN and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS_NOT]).toEqual([BOOLEAN, TEXT])
-    })
-
-    it('allows IS_TRUE operations against BOOLEAN and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS_TRUE]).toEqual(UNARY)
-    })
-
-    it('allows IS_FALSE operations against BOOLEAN and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS_FALSE]).toEqual(UNARY)
-    })
-
-    it('allows CONTAINS opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.CONTAINS]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_CONTAIN opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_CONTAIN]).toEqual([TEXT])
-    })
-
-    it('allows BEGINS_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.BEGINS_WITH]).toEqual([TEXT])
-    })
-
-    it('allows ENDS_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.ENDS_WITH]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_BEGIN_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_BEGIN_WITH]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_END_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_END_WITH]).toEqual([TEXT])
     })
   })
 })

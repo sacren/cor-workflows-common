@@ -3,16 +3,7 @@ import {
   USER
 } from '../return-types'
 
-export default function evaluate (
-  leftDataType,
-  leftValue,
-  rightDataType,
-  rightValue
-) {
-  return fnMap[leftDataType][rightDataType](leftValue, rightValue)
-}
-
-const fnMap = {
+export default {
   [TEXT]: {
     [TEXT]: (left, right) => left !== right
   },

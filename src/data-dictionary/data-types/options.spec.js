@@ -1,6 +1,5 @@
 import { TEXT, OPTIONS } from '../return-types'
-import { CAN_COERCE_TO, COERCIONS, TYPE, VALID_OPERATORS } from './options'
-import * as operators from '../operators'
+import { CAN_COERCE_TO, COERCIONS, TYPE } from './options'
 
 describe('Options Data Type', () => {
   describe('TYPE', () => {
@@ -40,36 +39,6 @@ describe('Options Data Type', () => {
       const option = { displayName: undefined, name: 'Robert' }
       const coercedOptions = COERCIONS[TEXT](option)
       expect(coercedOptions).toBe(option.name)
-    })
-  })
-
-  describe('VALID_OPERATORS', () => {
-    it('allows IS operations against OPTIONS and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS]).toEqual([OPTIONS, TEXT])
-    })
-
-    it('allows CONTAINS opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.CONTAINS]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_CONTAIN opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_CONTAIN]).toEqual([TEXT])
-    })
-
-    it('allows BEGINS_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.BEGINS_WITH]).toEqual([TEXT])
-    })
-
-    it('allows ENDS_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.ENDS_WITH]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_BEGIN_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_BEGIN_WITH]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_END_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_END_WITH]).toEqual([TEXT])
     })
   })
 })
