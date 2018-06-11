@@ -1,4 +1,4 @@
-import { TEXT, USER } from '../return-types'
+import { GROUP, TEXT, USER } from '../return-types'
 
 export default {
   [TEXT]: {
@@ -6,5 +6,8 @@ export default {
   },
   [USER]: {
     [USER]: (left, right) => left.id === right.id
+  },
+  [GROUP]: {
+    [GROUP]: (left, right) => left.id === right.id
   }
 }
