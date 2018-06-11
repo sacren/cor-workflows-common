@@ -18,12 +18,16 @@ export async function runOperatorTest (
     return param === leftDeflated
       ? {
         context: leftCtx,
-        types: leftCtx.constructor.matchTypes || [leftCtx.constructor.treatAsType],
+        types: leftCtx.constructor.matchTypes || [
+          leftCtx.constructor.treatAsType
+        ],
         value: leftVal
       }
       : {
         context: rightCtx,
-        types: rightCtx.constructor.matchTypes || [rightCtx.constructor.treatAsType],
+        types: rightCtx.constructor.matchTypes || [
+          rightCtx.constructor.treatAsType
+        ],
         value: rightVal
       }
   })
@@ -35,6 +39,5 @@ export async function runOperatorTest (
     },
     resolver
   )
-  console.log({ rule })
   return rule.evaluate()
 }
