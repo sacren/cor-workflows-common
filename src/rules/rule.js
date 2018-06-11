@@ -10,6 +10,7 @@ import ctx from '../data-dictionary/context-utils'
 import dataTypeMap from '../data-dictionary/data-types'
 import operators from '../data-dictionary/operators/index'
 import { coerce } from '../data-dictionary/coerce'
+import util from 'util'
 
 const i18n = {
   APPROPRIATE_PARAMETERS: 'Cannot construct rule without appropriate parameters'
@@ -122,11 +123,11 @@ export default class Rule {
     } catch (err) {
       console.log('Error finding comparable types.')
       console.log('left ->')
-      console.log(JSON.stringify(left, null, 2))
+      console.log(util.inspect(left, { depth: 5 }))
       console.log('operator ->')
-      console.log(JSON.stringify(operator, null, 2))
+      console.log(operator)
       console.log('right ->')
-      console.log(JSON.stringify(right, null, 2))
+      console.log(util.inspect(right, { depth: 5 }))
       console.log(err)
       throw err
     }
@@ -146,7 +147,6 @@ export default class Rule {
         const coercedRight = right
           ? coerce(right.context.treatAsType, rightTargetType, right.value)
           : undefined
-        console.log({ operatorsToUse: this.operatorsToUse })
         return this.operatorsToUse[operator](
           leftTargetType,
           coercedLeft,
@@ -154,7 +154,6 @@ export default class Rule {
           coercedRight
         )
       } catch (error) {
-        console.log(`[${operator}] Operation Failed:`, error)
         if (i === comparables.length - 1) {
           throw error
         } else {

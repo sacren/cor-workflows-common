@@ -46,6 +46,7 @@ export default class Form extends Context {
   static global = false
   static type = 'cmformfill'
   static typeLabel = 'CM Form'
+  static treatAsType = FORM
   static matchTypes = [FORM]
 
   static async inflate (ctx, deflated) {

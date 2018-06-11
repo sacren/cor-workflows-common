@@ -35,6 +35,5 @@ export async function runOperatorTest (
     },
     resolver
   )
-  console.log({ rule })
   return rule.evaluate()
 }

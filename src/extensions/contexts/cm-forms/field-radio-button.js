@@ -14,6 +14,7 @@ import { IS, IS_NOT } from '../../../data-dictionary/operators'
 export default class FieldRadioButton extends CMField {
   static typeLabel = 'Radios'
   static type = 'cm-field-radio-button'
+  static treatAsType = TEXT
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
   static operators = [IS, IS_NOT]
