@@ -41,6 +41,4 @@ describe('Form Data Type', () => {
       expect(coercedform).toBe(form.id)
     })
   })
-
-  describe('VALID_OPERATORS', () => {})
 })

@@ -1,5 +1,5 @@
 import { TEXT, ROLE } from '../return-types'
-import { CAN_COERCE_TO, COERCIONS, TYPE, VALID_OPERATORS } from './role'
+import { CAN_COERCE_TO, COERCIONS, TYPE } from './role'
 import * as operators from '../operators'
 
 describe('Role Data Type', () => {
@@ -40,36 +40,6 @@ describe('Role Data Type', () => {
       const role = { id: 'role-123', name: undefined }
       const coercedRole = COERCIONS[TEXT](role)
       expect(coercedRole).toBe(role.id)
-    })
-  })
-
-  describe('VALID_OPERATORS', () => {
-    it('allows IS operations against ROLE and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS]).toEqual([ROLE, TEXT])
-    })
-
-    it('allows CONTAINS opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.CONTAINS]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_CONTAIN opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_CONTAIN]).toEqual([TEXT])
-    })
-
-    it('allows BEGINS_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.BEGINS_WITH]).toEqual([TEXT])
-    })
-
-    it('allows ENDS_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.ENDS_WITH]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_BEGIN_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_BEGIN_WITH]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_END_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_END_WITH]).toEqual([TEXT])
     })
   })
 })

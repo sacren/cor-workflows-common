@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { NUMBER, TEXT } from '../return-types'
-import { CAN_COERCE_TO, COERCIONS, TYPE, VALID_OPERATORS } from './number'
+import { CAN_COERCE_TO, COERCIONS, TYPE } from './number'
 import * as operators from '../operators'
 
 describe('Number Data Type', () => {
@@ -37,48 +37,6 @@ describe('Number Data Type', () => {
         const coercedText = COERCIONS[TEXT](number)
         expect(expected).toBe(coercedText)
       })
-    })
-  })
-
-  describe('VALID_OPERATORS', () => {
-    it('allows IS operations against NUMBER and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS]).toEqual([NUMBER, TEXT])
-    })
-
-    it('allows IS_NOT operations against NUMBER and TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.IS_NOT]).toEqual([NUMBER, TEXT])
-    })
-
-    it('allows IS_GREATER_THAN operations against NUMBER data type', () => {
-      expect(VALID_OPERATORS[operators.IS_GREATER_THAN]).toEqual([NUMBER])
-    })
-
-    it('allows IS_LESS_THAN operations against NUMBER data type', () => {
-      expect(VALID_OPERATORS[operators.IS_LESS_THAN]).toEqual([NUMBER])
-    })
-
-    it('allows CONTAINS opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.CONTAINS]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_CONTAIN opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_CONTAIN]).toEqual([TEXT])
-    })
-
-    it('allows BEGINS_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.BEGINS_WITH]).toEqual([TEXT])
-    })
-
-    it('allows ENDS_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.ENDS_WITH]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_BEGIN_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_BEGIN_WITH]).toEqual([TEXT])
-    })
-
-    it('allows DOES_NOT_END_WITH opertions against TEXT data types', () => {
-      expect(VALID_OPERATORS[operators.DOES_NOT_END_WITH]).toEqual([TEXT])
     })
   })
 })
