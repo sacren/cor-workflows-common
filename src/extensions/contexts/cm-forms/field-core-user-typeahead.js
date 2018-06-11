@@ -6,14 +6,13 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 import CMField from './field'
-import User from '../../../data-dictionary/global-users/user'
 import { USER, TEXT } from '../../../data-dictionary/return-types'
 import { IS } from '../../../data-dictionary/operators'
 
 export default class FieldCoreUserTypeahead extends CMField {
   static typeLabel = 'UserTypeahead'
   static type = 'cm-field-core-user-typeahead'
-  static treatAsType = User.type
+  static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
   static operators = [IS]

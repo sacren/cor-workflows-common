@@ -13,6 +13,7 @@ import { IS } from '../../../data-dictionary/operators'
 export default class CMFieldProposalType extends CMField {
   static typeLabel = 'Proposal Type'
   static type = 'cm-field-proposal-type'
+  static treatAsType = TEXT
   static returnTypes = [TEXT]
   static matchTypes = [TEXT]
   static operators = [IS]

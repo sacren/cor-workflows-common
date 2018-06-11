@@ -24,6 +24,7 @@ import {
   supportedRightTypes
 } from '../data-dictionary/operators/index'
 import { coerce } from '../data-dictionary/coerce'
+import util from 'util'
 
 const i18n = {
   APPROPRIATE_PARAMETERS: 'Cannot construct rule without appropriate parameters'
@@ -118,28 +119,40 @@ export default class Rule {
   }
 
   findComparableTypes (left, operator, right) {
-    return flatMapDeep(left.types, leftTypeName => {
-      // TODO what if we don't get a leftType here?
-      const leftType = get(dataTypes, leftTypeName, {})
-      if (isUnary(operator)) {
-        return { left: leftType }
-      }
+    try {
+      return flatMapDeep(left.types, leftTypeName => {
+        // TODO what if we don't get a leftType here?
+        const leftType = get(dataTypes, leftTypeName, {})
+        if (isUnary(operator)) {
+          return { left: leftType }
+        }
 
-      // TODO what if left type doesn't have support for this operator?
-      const operatorSupportedRightTypes = supportedRightTypes(
-        operator,
-        leftTypeName
-      )
-      const rightValueSupportedTypes = get(right, 'types', [])
-      const intersectingRightTypes = intersection(
-        operatorSupportedRightTypes,
-        rightValueSupportedTypes
-      )
-      return map(intersectingRightTypes, rightTypeName => ({
-        left: leftType,
-        right: get(dataTypes, rightTypeName, {}) // TODO what if we don't get a rightType here?
-      }))
-    })
+        // TODO what if left type doesn't have support for this operator?
+        const operatorSupportedRightTypes = supportedRightTypes(
+          operator,
+          leftTypeName
+        )
+        const rightValueSupportedTypes = get(right, 'types', [])
+        const intersectingRightTypes = intersection(
+          operatorSupportedRightTypes,
+          rightValueSupportedTypes
+        )
+        return map(intersectingRightTypes, rightTypeName => ({
+          left: leftType,
+          right: get(dataTypes, rightTypeName, {}) // TODO what if we don't get a rightType here?
+        }))
+      })
+    } catch (err) {
+      console.log('Error finding comparable types.')
+      console.log('left ->')
+      console.log(util.inspect(left, { depth: 5 }))
+      console.log('operator ->')
+      console.log(operator)
+      console.log('right ->')
+      console.log(util.inspect(right, { depth: 5 }))
+      console.log(err)
+      throw err
+    }
   }
 
   findBestResponse (comparables, left, operator, right) {

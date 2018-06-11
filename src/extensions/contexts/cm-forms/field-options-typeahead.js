@@ -12,6 +12,7 @@ import { IS_EMPTY, IS_NOT_EMPTY } from '../../../data-dictionary/operators'
 export default class FieldOptionsTypeahead extends CMField {
   static typeLabel = 'OptionsTypeahead'
   static type = 'cm-field-options-typeahead'
+  static treatAsType = TEXT
   static returnTypes = [TEXT]
   static matchTypes = [TEXT]
   static operators = [IS_NOT_EMPTY, IS_EMPTY]

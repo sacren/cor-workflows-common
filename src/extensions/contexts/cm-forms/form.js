@@ -8,8 +8,7 @@
 import { compact, filter, get, isArray, keyBy, map } from 'lodash'
 
 import Context from '../../../data-dictionary/context'
-import { ALL } from '../../../data-dictionary/return-types'
-import { CMFORM } from '../../return-types'
+import { ALL, FORM } from '../../../data-dictionary/return-types'
 import CMFieldTextInput from './field-text-input'
 import CMFieldCoreGroupTypeahead from './field-core-group-typeahead'
 import CMFieldCoreGroupMultiselect from './field-core-group-multiselect'
@@ -47,7 +46,8 @@ export default class Form extends Context {
   static global = false
   static type = 'cmformfill'
   static typeLabel = 'CM Form'
-  static matchTypes = CMFORM
+  static treatAsType = FORM
+  static matchTypes = [FORM]
 
   static async inflate (ctx, deflated) {
     const schema = await ctx.apis.cm.schema(deflated.id)
@@ -96,7 +96,7 @@ export default class Form extends Context {
 
   matches (match) {
     if (!this.match || !match) return false
-    if (match === CMFORM) return true
+    if (match === FORM) return true
     const thisMatch = isArray(this.match) ? this.match : [this.match]
     const thatMatch = isArray(match) ? match : [match]
     return thisMatch.some(tm => thatMatch.includes(tm)) || false

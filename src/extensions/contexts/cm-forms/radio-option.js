@@ -13,6 +13,7 @@ export default class RadioOption extends Context {
   static typeLabel = 'radio-option'
   static type = 'radio-option'
   static displayName = 'Radio Option'
+  static treatAsType = TEXT
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
 
