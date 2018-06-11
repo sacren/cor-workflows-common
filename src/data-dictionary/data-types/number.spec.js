@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import { NUMBER, TEXT } from '../return-types'
 import { CAN_COERCE_TO, COERCIONS, TYPE } from './number'
-import * as operators from '../operators'
 
 describe('Number Data Type', () => {
   describe('TYPE', () => {

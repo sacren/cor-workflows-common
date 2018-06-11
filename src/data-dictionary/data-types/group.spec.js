@@ -1,6 +1,5 @@
 import { CATEGORY, GROUP, TEXT } from '../return-types'
 import { CAN_COERCE_TO, COERCIONS, TYPE } from './group'
-import * as operators from '../operators'
 
 describe('Group Data Type', () => {
   describe('TYPE', () => {

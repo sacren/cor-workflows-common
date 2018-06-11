@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import { BOOLEAN, NUMBER, TEXT } from '../return-types'
 import { CAN_COERCE_TO, COERCIONS, TYPE } from './boolean'
-import * as operators from '../operators'
 
 describe('Boolean Data Type', () => {
   describe('TYPE', () => {

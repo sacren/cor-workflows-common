@@ -1,6 +1,5 @@
 import { TEXT, USER } from '../return-types'
 import { CAN_COERCE_TO, COERCIONS, TYPE } from './user'
-import * as operators from '../operators'
 
 describe('User Data Type', () => {
   describe('TYPE', () => {

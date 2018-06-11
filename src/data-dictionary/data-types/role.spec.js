@@ -1,6 +1,5 @@
 import { TEXT, ROLE } from '../return-types'
 import { CAN_COERCE_TO, COERCIONS, TYPE } from './role'
-import * as operators from '../operators'
 
 describe('Role Data Type', () => {
   describe('TYPE', () => {
