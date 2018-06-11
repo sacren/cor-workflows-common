@@ -5,10 +5,24 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { curry, every, get, has, intersection, some, toUpper } from 'lodash'
+import {
+  curry,
+  every,
+  flatMapDeep,
+  get,
+  has,
+  intersection,
+  map,
+  some,
+  toUpper
+} from 'lodash'
 import ctx from '../data-dictionary/context-utils'
-import dataTypeMap from '../data-dictionary/data-types'
-import operators from '../data-dictionary/operators/index'
+import dataTypes from '../data-dictionary/data-types'
+import { isUnary } from '../data-dictionary/operators'
+import {
+  evaluate,
+  supportedRightTypes
+} from '../data-dictionary/operators/index'
 import { coerce } from '../data-dictionary/coerce'
 
 const i18n = {
@@ -38,11 +52,11 @@ export default class Rule {
     [LOGICAL_OPERATORS.OR]: logicalOperator(some, expressionIsTrue)
   }
 
-  constructor (rule, resolver, operatorsToUse = operators) {
+  constructor (rule, resolver, ruleEvaluator = evaluate) {
     this.rule = rule
     this.resolver = resolver
     this.type = this.identifyType()
-    this.operatorsToUse = operatorsToUse
+    this.ruleEvaluator = ruleEvaluator
   }
 
   identifyType () {
@@ -89,47 +103,43 @@ export default class Rule {
   }
 
   async evaluateCompound () {
-    if (!has(LOGICAL_OPERATORS, toUpper(this.rule.logicalOperator))) {
-      throw new Error(`Unknown logical operator "${this.rule.logicalOperator}"`)
+    const { logicalOperator, expressions } = this.rule
+    if (!has(LOGICAL_OPERATORS, toUpper(logicalOperator))) {
+      throw new Error(`Unknown logical operator "${logicalOperator}"`)
     }
 
-    const promises = this.rule.expressions.map(expression => {
+    const promises = expressions.map(expression => {
       const rule = new Rule(expression, this.resolver)
       return rule.evaluate()
     })
     const evaluatedExpressions = await Promise.all(promises)
-    return Rule.LOGICAL_OPERATOR_EVALUATORS[this.rule.logicalOperator](
-      evaluatedExpressions
-    )
+    const operatorFn = Rule.LOGICAL_OPERATOR_EVALUATORS[logicalOperator]
+    return operatorFn(evaluatedExpressions)
   }
 
   findComparableTypes (left, operator, right) {
-    try {
-      const targets = []
-      for (let i = 0; i < left.types.length; i++) {
-        const type = dataTypeMap[left.types[i]]
-        const validTypesforRight = type.VALID_OPERATORS[operator]
-        if (validTypesforRight === 'unary') {
-          targets.push({ left: type })
-          break
-        }
-        const rightTypes = intersection(validTypesforRight, right.types)
-        rightTypes.forEach(rt =>
-          targets.push({ left: type, right: dataTypeMap[rt] })
-        )
+    return flatMapDeep(left.types, leftTypeName => {
+      // TODO what if we don't get a leftType here?
+      const leftType = get(dataTypes, leftTypeName, {})
+      if (isUnary(operator)) {
+        return { left: leftType }
       }
-      return targets
-    } catch (err) {
-      console.log('Error finding comparable types.')
-      console.log('left ->')
-      console.log(JSON.stringify(left, null, 2))
-      console.log('operator ->')
-      console.log(JSON.stringify(operator, null, 2))
-      console.log('right ->')
-      console.log(JSON.stringify(right, null, 2))
-      console.log(err)
-      throw err
-    }
+
+      // TODO what if left type doesn't have support for this operator?
+      const operatorSupportedRightTypes = supportedRightTypes(
+        operator,
+        leftTypeName
+      )
+      const rightValueSupportedTypes = get(right, 'types', [])
+      const intersectingRightTypes = intersection(
+        operatorSupportedRightTypes,
+        rightValueSupportedTypes
+      )
+      return map(intersectingRightTypes, rightTypeName => ({
+        left: leftType,
+        right: get(dataTypes, rightTypeName, {}) // TODO what if we don't get a rightType here?
+      }))
+    })
   }
 
   findBestResponse (comparables, left, operator, right) {
@@ -146,8 +156,9 @@ export default class Rule {
         const coercedRight = right
           ? coerce(right.context.treatAsType, rightTargetType, right.value)
           : undefined
-        console.log({ operatorsToUse: this.operatorsToUse })
-        return this.operatorsToUse[operator](
+
+        return this.ruleEvaluator(
+          operator,
           leftTargetType,
           coercedLeft,
           rightTargetType,
@@ -155,10 +166,9 @@ export default class Rule {
         )
       } catch (error) {
         console.log(`[${operator}] Operation Failed:`, error)
-        if (i === comparables.length - 1) {
+        const isLastComparable = comparables.length === i + 1
+        if (isLastComparable) {
           throw error
-        } else {
-          continue
         }
       }
     }

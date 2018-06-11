@@ -69,10 +69,8 @@ describe('Rule', () => {
       types: [USER, TEXT],
       value: { id: 'abc123', name: 'Tom' }
     })
-    const operators = {
-      [IS]: () => {
-        throw new Error('failed operation')
-      }
+    const ruleEvaluator = () => {
+      throw new Error('failed operation')
     }
     const rule = new Rule(
       {
@@ -81,7 +79,7 @@ describe('Rule', () => {
         right: deflatedMockUserContext
       },
       resolver,
-      operators
+      ruleEvaluator
     )
     return rule
       .evaluate()
