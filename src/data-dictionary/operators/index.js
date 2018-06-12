@@ -10,7 +10,6 @@ import {
   keys,
   reduce,
   set,
-  some,
   uniq
 } from 'lodash'
 import * as operators from '../operators'
@@ -31,7 +30,6 @@ import beginsWith from './begins-with'
 import endsWith from './ends-with'
 import doesNotBeginWith from './does-not-begin-with'
 import doesNotEndWith from './does-not-end-with'
-import { CAN_COERCE_TO } from '../data-types/number'
 
 const OPERATORS = {
   [operators.IS]: is,
@@ -100,9 +98,9 @@ export function evaluate (
 
 export const operatorNotSupported = (operator, leftDataType, rightDataType) => {
   throw new Error(
-    `Operator ${
-      operator.operator
-    } not supported for left=${leftDataType}, right=${rightDataType}`
+    `Operator ${operator.operator} not supported for left=${
+      leftDataType
+    }, right=${rightDataType}`
   )
 }
 
