@@ -66,10 +66,10 @@ export const OPERATOR_TYPE_SUPPORT = reduce(
 )
 
 export const isOperationSupported = (operator, leftDataType, rightDataType) =>
-  has(OPERATOR_TYPE_SUPPORT, [operator, leftDataType, rightDataType])
+  has(OPERATOR_TYPE_SUPPORT, [operator.operator, leftDataType, rightDataType])
 
 export const supportedRightTypes = (operator, leftDataType) =>
-  get(OPERATOR_TYPE_SUPPORT, [operator, leftDataType], [])
+  get(OPERATOR_TYPE_SUPPORT, [operator.operator, leftDataType], [])
 
 export function evaluate (
   operator,
@@ -78,15 +78,15 @@ export function evaluate (
   rightDataType,
   rightValue
 ) {
-  const keyPath = [operator, leftDataType, rightDataType]
+  const keyPath = [operator.operator, leftDataType, rightDataType]
   const operatorFn = get(OPERATORS, keyPath) || operatorNotSupported(...keyPath)
   return operatorFn(leftValue, rightValue)
 }
 
 export const operatorNotSupported = (operator, leftDataType, rightDataType) => {
   throw new Error(
-    `Operator ${operator} not supported for left=${leftDataType}, right=${
-      rightDataType
-    }`
+    `Operator ${
+      operator.operator
+    } not supported for left=${leftDataType}, right=${rightDataType}`
   )
 }
