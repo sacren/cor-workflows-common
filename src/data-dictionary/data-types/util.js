@@ -35,9 +35,20 @@ export function wrapCoercionsForListType (singularTypeCoercions) {
     singularTypeCoercions,
     (accumulator, coercionFn, rightSideType) => {
       const listDataTypeKey = _.toUpper(`${rightSideType}_LIST`)
-      const listDataType = _.get(returnTypes, listDataTypeKey) || throw new Error(`List data type ${listDataTypeKey} is not supported for singular base type ${rightSideType} (see ./return-types.js)`)
+      const listDataType =
+        _.get(returnTypes, listDataTypeKey) ||
+        throwWrapCoercionError(listDataTypeKey, rightSideType)
       return _.set(accumulator, listDataType, fp.map(coercionFn))
     },
     {}
   )
+}
+
+function throwWrapCoercionError (listDataTypeKey, rightSideType) {
+  const message = `List data type ${
+    listDataTypeKey
+  } is not supported for singular base type ${
+    rightSideType
+  } (see ./return-types.js)`
+  throw new Error(message)
 }
