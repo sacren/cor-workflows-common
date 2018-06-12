@@ -12,19 +12,16 @@ describe('GroupList Data Type', () => {
     it('can coerce to CATEGORY_LIST', () => {
       expect(CAN_COERCE_TO).toContain(CATEGORY_LIST)
       expect(COERCIONS).toHaveProperty(CATEGORY_LIST)
-      expect(COERCIONS[CATEGORY_LIST].length).toBe(1)
     })
 
     it('can coerce to GROUP', () => {
       expect(CAN_COERCE_TO).toContain(GROUP_LIST)
       expect(COERCIONS).toHaveProperty(GROUP_LIST)
-      expect(COERCIONS[GROUP_LIST].length).toBe(1)
     })
 
     it('can coerce to TEXT', () => {
       expect(CAN_COERCE_TO).toContain(TEXT_LIST)
       expect(COERCIONS).toHaveProperty(TEXT_LIST)
-      expect(COERCIONS[TEXT_LIST].length).toBe(1)
     })
   })
 
