@@ -1,4 +1,18 @@
-import { concat, forEach, get, has, keys, reduce, set, uniq } from 'lodash'
+import {
+  concat,
+  flatMap,
+  forEach,
+  get,
+  has,
+  intersection,
+  isArray,
+  isString,
+  keys,
+  reduce,
+  set,
+  some,
+  uniq
+} from 'lodash'
 import * as operators from '../operators'
 import is from './is'
 import isNot from './is-not'
@@ -17,6 +31,7 @@ import beginsWith from './begins-with'
 import endsWith from './ends-with'
 import doesNotBeginWith from './does-not-begin-with'
 import doesNotEndWith from './does-not-end-with'
+import { CAN_COERCE_TO } from '../data-types/number'
 
 const OPERATORS = {
   [operators.IS]: is,
@@ -89,4 +104,23 @@ export const operatorNotSupported = (operator, leftDataType, rightDataType) => {
       operator.operator
     } not supported for left=${leftDataType}, right=${rightDataType}`
   )
+}
+
+export const getValidOperators = type => {
+  const types = isArray(type) ? type : [type]
+  const typeStrings = flatMap(
+    types,
+    type => (isString(type) ? type : get(type, 'CAN_COERCE_TO'))
+  )
+  const valid = reduce(
+    OPERATORS,
+    (matches, operator, key) => {
+      if (intersection(Object.keys(operator), typeStrings).length) {
+        matches.push(key)
+      }
+      return matches
+    },
+    []
+  )
+  return valid
 }
