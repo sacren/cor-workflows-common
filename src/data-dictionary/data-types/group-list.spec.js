@@ -14,19 +14,19 @@ describe('GroupList Data Type', () => {
       expect(COERCIONS).toHaveProperty(CATEGORY_LIST)
     })
 
-    it('can coerce to GROUP', () => {
+    it('can coerce to GROUP_LIST', () => {
       expect(CAN_COERCE_TO).toContain(GROUP_LIST)
       expect(COERCIONS).toHaveProperty(GROUP_LIST)
     })
 
-    it('can coerce to TEXT', () => {
+    it('can coerce to TEXT_LIST', () => {
       expect(CAN_COERCE_TO).toContain(TEXT_LIST)
       expect(COERCIONS).toHaveProperty(TEXT_LIST)
     })
   })
 
   describe('COERCIONS', () => {
-    it('coerces groupList -> category', () => {
+    it('coerces groupList -> categoryList', () => {
       const groupList = [
         { id: 'group-1', categoryId: 'cat-1' },
         { id: 'group-2', categoryId: 'cat-2' },
@@ -58,7 +58,7 @@ describe('GroupList Data Type', () => {
       expect(coercedGroupList).toEqual(expectedTextList)
     })
 
-    it("coerces groupList -> text using the group's name when the displayName is not present", () => {
+    it("coerces groupList -> textList using each group's name when the displayName is not present", () => {
       const groupList = [
         { id: 'group-1', displayName: undefined, name: 'Jeffrey' },
         { id: 'group-2', displayName: undefined, name: 'Janice' },
