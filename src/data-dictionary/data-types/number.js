@@ -4,7 +4,7 @@ import { NUMBER, TEXT } from '../return-types'
 export const TYPE = NUMBER
 
 export const COERCIONS = {
-  [NUMBER]: number => _.isString ? parseFloat(number) : number,
+  [NUMBER]: number => (_.isString(number) ? +number : number),
   [TEXT]: number => `${number}`
 }
 

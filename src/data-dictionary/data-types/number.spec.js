@@ -30,6 +30,11 @@ describe('Number Data Type', () => {
       expect(coercedNumber).toBe(number)
     })
 
+    it('coerces number -> number (even when the input is a string)', () => {
+      const coercedNumber = COERCIONS[NUMBER]('-123')
+      expect(coercedNumber).toBe(-123)
+    })
+
     it('coerces number -> text', () => {
       const numberToTextCases = [[123, '123'], [0, '0'], [-123, '-123']]
       _.forEach(numberToTextCases, ([number, expected]) => {

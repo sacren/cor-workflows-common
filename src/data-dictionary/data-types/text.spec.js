@@ -1,4 +1,4 @@
-import { TEXT } from '../return-types'
+import { NUMBER, TEXT } from '../return-types'
 import { CAN_COERCE_TO, COERCIONS, TYPE } from './text'
 
 describe('Text Data Type', () => {
@@ -14,6 +14,12 @@ describe('Text Data Type', () => {
       expect(COERCIONS).toHaveProperty(TEXT)
       expect(COERCIONS[TEXT].length).toBe(1)
     })
+
+    it('can coerce to NUMBER', () => {
+      expect(CAN_COERCE_TO).toContain(NUMBER)
+      expect(COERCIONS).toHaveProperty(NUMBER)
+      expect(COERCIONS[NUMBER].length).toBe(1)
+    })
   })
 
   describe('COERCIONS', () => {
@@ -21,6 +27,10 @@ describe('Text Data Type', () => {
       const text = 'some text'
       const coercedText = COERCIONS[TEXT](text)
       expect(coercedText).toBe(text)
+    })
+
+    it('coerces text -> number', () => {
+      expect(COERCIONS[NUMBER]('123')).toBe(123)
     })
   })
 })

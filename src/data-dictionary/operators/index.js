@@ -98,9 +98,9 @@ export function evaluate (
 
 export const operatorNotSupported = (operator, leftDataType, rightDataType) => {
   throw new Error(
-    `Operator ${
-      operator.operator
-    } not supported for left=${leftDataType}, right=${rightDataType}`
+    `Operator ${operator.operator} not supported for left=${
+      leftDataType
+    }, right=${rightDataType}`
   )
 }
 

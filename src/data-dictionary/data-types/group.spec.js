@@ -3,7 +3,7 @@ import { CAN_COERCE_TO, COERCIONS, TYPE } from './group'
 
 describe('Group Data Type', () => {
   describe('TYPE', () => {
-    it('is CATEGORY', () => {
+    it('is GROUP', () => {
       expect(TYPE).toBe(GROUP)
     })
   })

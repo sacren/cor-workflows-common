@@ -17,7 +17,7 @@ export default class FieldCoreGroupTypeahead extends Field {
   static treatAsType = GROUP
   static returnTypes = [GROUP, ROLE, TEXT]
   static matchTypes = [GROUP, TEXT]
-  static operators = [ IS, IS_ONE_OF ]
+  static operators = [IS, IS_ONE_OF]
 
   static async inflate (ctx, deflated, parent) {
     return deflated.data
@@ -59,7 +59,9 @@ export default class FieldCoreGroupTypeahead extends Field {
     const { document } = valueMap.formfill
     const groupId = document.data[data.formKey].id
     const group = await this.ctx.apis.groups.get(groupId)
-    group.toString = function () { return this.name }
+    group.toString = function () {
+      return this.name
+    }
     valueMap.field = { value: group }
     return group
   }
