@@ -20,10 +20,18 @@ export default class FieldCoreGroupTypeahead extends Field {
   static operators = [IS, IS_ONE_OF]
 
   static async inflate (ctx, deflated, parent) {
+    console.log({
+      src: 'field-core-group-typeahead -> inflate',
+      data: this.data
+    })
     return deflated.data
   }
 
   getChildren = async filter => {
+    console.log({
+      src: 'field-core-group-typeahead -> getChildren',
+      data: this.data
+    })
     const { categoryId } = this.data.details
     const category = await this.ctx.apis.categories.get(categoryId)
     const { parentId, roleSchemas } = category
