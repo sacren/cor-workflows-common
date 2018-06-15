@@ -20,7 +20,7 @@ import ctx from '../data-dictionary/context-utils'
 import dataTypes from '../data-dictionary/data-types'
 import { isUnary } from '../data-dictionary/operators'
 import {
-  evaluate,
+  evaluate as operatorEvaluate,
   supportedRightTypes
 } from '../data-dictionary/operators/index'
 import { coerce } from '../data-dictionary/coerce'
@@ -53,7 +53,7 @@ export default class Rule {
     [LOGICAL_OPERATORS.OR]: logicalOperator(some, expressionIsTrue)
   }
 
-  constructor (rule, resolver, ruleEvaluator = evaluate) {
+  constructor (rule, resolver, ruleEvaluator = operatorEvaluate) {
     this.rule = rule
     this.resolver = resolver
     this.type = this.identifyType()
