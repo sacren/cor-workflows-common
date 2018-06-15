@@ -1,8 +1,34 @@
 import { CONTAINS } from '../operators'
-import { getMockTextContext } from '../test/fake-context'
+import {
+  getMockCategoriesContext,
+  getMockCategoryContext,
+  getMockTextContext
+} from '../test/fake-context'
+
+import { CATEGORIES } from '../test/fake-categories'
 import { runOperatorTest } from '../test/util'
 
 describe('contains operator', () => {
+  describe('CATEGORY_LIST:CATEGORY', () => {
+    test('category list contains category', async () => {
+      const response = await runEvaluation(
+        getMockCategoriesContext,
+        getMockCategoryContext,
+        CATEGORIES,
+        CATEGORIES[0]
+      )
+      expect(response).toBe(true)
+    })
+
+    test('text does not contain', async () => {
+      const response = await runEvaluation(
+        getMockCategoriesContext,
+        getMockCategoryContext,
+        CATEGORIES,
+        { id: 'not-in-the-list' }
+      )
+      expect(response).toBe(false)
+    })
   })
 
   describe('TEXT:TEXT', () => {
