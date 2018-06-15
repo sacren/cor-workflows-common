@@ -21,6 +21,7 @@ import dataTypes from '../data-dictionary/data-types'
 import { isUnary } from '../data-dictionary/operators'
 import {
   evaluate as operatorEvaluate,
+  isOperationSupported,
   supportedRightTypes
 } from '../data-dictionary/operators/index'
 import { coerce } from '../data-dictionary/coerce'
@@ -75,6 +76,27 @@ export default class Rule {
       : this.evaluateCompound()
   }
 
+  compareAsIs (left, right) {
+    return this.ruleEvaluator(
+      this.rule.operator,
+      left.context.treatAsType,
+      left.value,
+      right.context.treatAsType,
+      right.value
+    )
+  }
+
+  coerceAndCompare (left, right) {
+    const comparable = this.findComparableTypes(left, this.rule.operator, right)
+    const response = this.findBestResponse(
+      comparable,
+      left,
+      this.rule.operator,
+      right
+    )
+    return response
+  }
+
   async evaluateSingle () {
     try {
       const promises = [this.resolver(this.rule.left)]
@@ -82,22 +104,19 @@ export default class Rule {
         promises.push(this.resolver(this.rule.right))
       }
       const [left, right] = await Promise.all(promises)
-      const comparable = this.findComparableTypes(
-        left,
-        this.rule.operator,
-        right
-      )
-      const response = this.findBestResponse(
-        comparable,
-        left,
-        this.rule.operator,
-        right
-      )
-      return response
+      if (
+        isOperationSupported(
+          this.rule.operator,
+          left.context.treatAsType,
+          right.context.treatAsType
+        )
+      ) {
+        return this.compareAsIs(left, right)
+      }
+      return this.coerceAndCompare(left, right)
     } catch (err) {
       console.log('Error finding comparable types.')
-      console.log('rule ->')
-      console.log(JSON.stringify(this.rule, null, 2))
+      console.log('rule ->', JSON.stringify(this.rule, null, 2))
       console.log(err)
       throw err
     }

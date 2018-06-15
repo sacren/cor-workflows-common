@@ -79,7 +79,7 @@ export const OPERATOR_TYPE_SUPPORT = reduce(
 )
 
 export const isOperationSupported = (operator, leftDataType, rightDataType) =>
-  has(OPERATOR_TYPE_SUPPORT, [operator.operator, leftDataType, rightDataType])
+  has(OPERATORS, [operator.operator, leftDataType, rightDataType])
 
 export const supportedRightTypes = (operator, leftDataType) =>
   get(OPERATOR_TYPE_SUPPORT, [operator.operator, leftDataType], [])
