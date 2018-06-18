@@ -2,6 +2,7 @@ import Context from '../context'
 import _ctx from '../context-utils'
 import { ALL, NUMBER, TEXT } from '../return-types'
 import { CATEGORIES } from './fake-categories'
+import { GROUPS } from './fake-groups'
 import { USERS } from './fake-users'
 import TextInput from '../global-inputs/text-input'
 import NumericInput from '../global-inputs/numeric-input'
@@ -34,6 +35,23 @@ export async function getMockCategoryContext () {
   const categoriesContext = await getMockCategoriesContext()
   const categories = await categoriesContext.getChildren()
   return categories[0]
+}
+
+export async function getMockGroupsContext () {
+  const root = getMockRootContext()
+  const children = await root.getChildren()
+  const globalGroups = children.find(child => child.type === 'global-groups')
+  globalGroups.ctx.apis.groups.list = jest.fn()
+  globalGroups.ctx.apis.groups.list.mockResolvedValue(GROUPS)
+  globalGroups.ctx.apis.categories.list = jest.fn()
+  globalGroups.ctx.apis.categories.list.mockResolvedValue(CATEGORIES)
+  return globalGroups
+}
+
+export async function getMockGroupContext () {
+  const groupsContext = await getMockGroupsContext()
+  const groups = await groupsContext.getChildren()
+  return groups[0]
 }
 
 export async function getMockUserContext () {
