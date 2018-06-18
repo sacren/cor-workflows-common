@@ -41,7 +41,6 @@ export async function getMockGroupsContext () {
   const root = getMockRootContext()
   const children = await root.getChildren()
   const globalGroups = children.find(child => child.type === 'global-groups')
-  console.log({ globalGroups })
   globalGroups.ctx.apis.groups.list = jest.fn()
   globalGroups.ctx.apis.groups.list.mockResolvedValue(GROUPS)
   globalGroups.ctx.apis.categories.list = jest.fn()
@@ -50,7 +49,7 @@ export async function getMockGroupsContext () {
 }
 
 export async function getMockGroupContext () {
-  const groupsContext = await getMockGroupContext()
+  const groupsContext = await getMockGroupsContext()
   const groups = await groupsContext.getChildren()
   return groups[0]
 }

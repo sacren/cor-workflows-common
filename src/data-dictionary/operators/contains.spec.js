@@ -2,10 +2,13 @@ import { CONTAINS } from '../operators'
 import {
   getMockCategoriesContext,
   getMockCategoryContext,
+  getMockGroupsContext,
+  getMockGroupContext,
   getMockTextContext
 } from '../test/fake-context'
 
 import { CATEGORIES } from '../test/fake-categories'
+import { GROUPS } from '../test/fake-groups'
 import { runOperatorTest } from '../test/util'
 
 describe('contains operator', () => {
@@ -26,6 +29,28 @@ describe('contains operator', () => {
         getMockCategoryContext,
         CATEGORIES,
         { id: 'not-in-the-list' }
+      )
+      expect(response).toBe(false)
+    })
+  })
+
+  describe('GROUP_LIST:GROUP', () => {
+    test('group list contains group', async () => {
+      const response = await runEvaluation(
+        getMockGroupsContext,
+        getMockGroupContext,
+        GROUPS,
+        GROUPS[0]
+      )
+      expect(response).toBe(true)
+    })
+
+    test('text does not contain', async () => {
+      const response = await runEvaluation(
+        getMockGroupsContext,
+        getMockGroupContext,
+        GROUPS,
+        { categoryId: 'not-in-the-list' }
       )
       expect(response).toBe(false)
     })
