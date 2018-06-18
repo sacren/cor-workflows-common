@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { find, get } from 'lodash'
+import { get, keyBy } from 'lodash'
 import Context from '../context'
 import Group from './group'
 import { CATEGORY, GROUP, ROLE, TEXT, USER } from '../return-types'
@@ -23,13 +23,9 @@ export default class GlobalGroups extends Context {
     if (!this.ctx) throw new Error('no ctx')
     const groups = await this.ctx.apis.groups.list(filter)
     const categories = await this.ctx.apis.categories.list()
+    const indexedCategories = keyBy(categories, 'id')
     return groups.map(group => {
-      let categoryName
-      const { categoryId } = group
-      if (categoryId) {
-        const category = find(categories, { id: categoryId })
-        categoryName = get(category, 'name')
-      }
+      const categoryName = get(indexedCategories, [group.categoryId, 'name'])
       return new Group(this, this.returnTypes, group, this.ctx, categoryName)
     })
   }
