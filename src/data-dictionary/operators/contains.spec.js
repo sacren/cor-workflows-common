@@ -23,7 +23,7 @@ describe('contains operator', () => {
       expect(response).toBe(true)
     })
 
-    test('text does not contain', async () => {
+    test('category list does not contain category', async () => {
       const response = await runEvaluation(
         getMockCategoriesContext,
         getMockCategoryContext,
@@ -45,12 +45,12 @@ describe('contains operator', () => {
       expect(response).toBe(true)
     })
 
-    test('text does not contain', async () => {
+    test('group list does not contain group', async () => {
       const response = await runEvaluation(
         getMockGroupsContext,
         getMockGroupContext,
         GROUPS,
-        { categoryId: 'not-in-the-list' }
+        { id: 'not-in-the-list' }
       )
       expect(response).toBe(false)
     })
