@@ -8,36 +8,28 @@ export async function runOperatorTest (
   rightContextFn,
   rightVal
 ) {
-  const { leftCtx, rightCtx } = await Promise.props({
-    leftCtx: leftContextFn(),
-    rightCtx: rightContextFn()
+  const { leftContext, rightContext } = await Promise.props({
+    leftContext: leftContextFn(),
+    rightContext: rightContextFn()
   })
-  const leftDeflated = leftCtx.deflate()
-  const rightDeflated = rightCtx.deflate()
+  const left = leftContext.deflate()
+  const right = rightContext.deflate()
   const resolver = jest.fn().mockImplementation(param => {
-    return param === leftDeflated
-      ? {
-        context: leftCtx,
-        types: leftCtx.constructor.matchTypes || [
-          leftCtx.constructor.treatAsType
-        ],
-        value: leftVal
-      }
-      : {
-        context: rightCtx,
-        types: rightCtx.constructor.matchTypes || [
-          rightCtx.constructor.treatAsType
-        ],
-        value: rightVal
-      }
+    return param === left
+      ? buildResolvedValue(leftContext, leftVal)
+      : buildResolvedValue(rightContext, rightVal)
   })
-  const rule = new Rule(
-    {
-      left: leftDeflated,
-      operator,
-      right: rightDeflated
-    },
-    resolver
-  )
+  const rule = new Rule({ left, operator, right }, resolver)
   return rule.evaluate()
+}
+
+const buildResolvedValue = (context, value) => ({
+  context,
+  value,
+  types: extractTypes(context)
+})
+
+const extractTypes = context => {
+  const { matchTypes, treatAsType } = context.constructor
+  return matchTypes || [treatAsType]
 }

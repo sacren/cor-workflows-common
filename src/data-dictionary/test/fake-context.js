@@ -1,7 +1,8 @@
 import Context from '../context'
 import _ctx from '../context-utils'
-import { ALL } from '../return-types'
-import { TEXT, USERS } from './fake-users'
+import { ALL, NUMBER, TEXT } from '../return-types'
+import { CATEGORIES } from './fake-categories'
+import { USERS } from './fake-users'
 import TextInput from '../global-inputs/text-input'
 import NumericInput from '../global-inputs/numeric-input'
 
@@ -16,6 +17,23 @@ export function getMockContext (
   ctx = _ctx
 ) {
   return new Context(parent, ALL, data, ctx)
+}
+
+export async function getMockCategoriesContext () {
+  const root = getMockRootContext()
+  const children = await root.getChildren()
+  const globalCategories = children.find(
+    child => child.type === 'global-categories'
+  )
+  globalCategories.ctx.apis.categories.list = jest.fn()
+  globalCategories.ctx.apis.categories.list.mockResolvedValue(CATEGORIES)
+  return globalCategories
+}
+
+export async function getMockCategoryContext () {
+  const categoriesContext = await getMockCategoriesContext()
+  const categories = await categoriesContext.getChildren()
+  return categories[0]
 }
 
 export async function getMockUserContext () {
@@ -35,5 +53,5 @@ export async function getMockTextContext (value = 'test') {
 
 export async function getMockNumericContext (value = 8) {
   const root = getMockRootContext()
-  return new NumericInput(root, TEXT, value, root.ctx)
+  return new NumericInput(root, NUMBER, value, root.ctx)
 }

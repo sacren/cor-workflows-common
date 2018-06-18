@@ -1,7 +1,22 @@
-import { TEXT } from '../return-types'
+import _ from 'lodash'
+import {
+  CATEGORY,
+  CATEGORY_LIST,
+  TEXT,
+} from '../return-types'
+
+const compareObject = _.curry(
+  (rightFn, leftFn, right, left) => rightFn(right) === leftFn(left)
+)
+const listContains = _.curry((comparator, list, right) =>
+  _.some(list, comparator(right))
+)
 
 export default {
+  [CATEGORY_LIST]: {
+    [CATEGORY]: listContains(compareObject(_.property('id'), _.property('id'))),
+  },
   [TEXT]: {
-    [TEXT]: (left, right) => left.includes(right)
+    [TEXT]: _.includes
   }
 }
