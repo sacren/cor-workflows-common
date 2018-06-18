@@ -8,13 +8,13 @@
 import { get, keyBy } from 'lodash'
 import Context from '../context'
 import Group from './group'
-import { CATEGORY, GROUP, ROLE, TEXT, USER } from '../return-types'
+import { CATEGORY, GROUP, GROUP_LIST, ROLE, TEXT, USER } from '../return-types'
 
 export default class GlobalGroups extends Context {
   static global = true
   static type = 'global-groups'
   static displayName = 'Groups'
-  static treatAsType = undefined
+  static treatAsType = GROUP_LIST
   static returnTypes = [CATEGORY, GROUP, ROLE, TEXT, USER]
 
   static async inflate () {}
