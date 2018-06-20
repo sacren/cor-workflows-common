@@ -1,17 +1,4 @@
-import {
-  concat,
-  flatMap,
-  forEach,
-  get,
-  has,
-  intersection,
-  isArray,
-  isString,
-  keys,
-  reduce,
-  set,
-  uniq
-} from 'lodash'
+import _ from 'lodash'
 import * as operators from '../operators'
 import is from './is'
 import isNot from './is-not'
@@ -62,16 +49,16 @@ export default OPERATORS
  *   }
  * }
  */
-export const OPERATOR_TYPE_SUPPORT = reduce(
+export const OPERATOR_TYPE_SUPPORT = _.reduce(
   OPERATORS,
   (accumulator, operatorTypeMap, operatorName) => {
-    forEach(operatorTypeMap, (rightTypeEvaluators, leftTypeName) => {
+    _.forEach(operatorTypeMap, (rightTypeEvaluators, leftTypeName) => {
       const keyPath = [operatorName, leftTypeName]
-      const rightTypesSet = concat(
-        get(accumulator, keyPath, []),
-        keys(rightTypeEvaluators)
+      const rightTypesSet = _.concat(
+        _.get(accumulator, keyPath, []),
+        _.keys(rightTypeEvaluators)
       )
-      set(accumulator, keyPath, uniq(rightTypesSet))
+      _.set(accumulator, keyPath, _.uniq(rightTypesSet))
     })
     return accumulator
   },
@@ -82,7 +69,7 @@ export const isOperationSupported = (operator, leftDataType, rightDataType) =>
   has(OPERATORS, [operator.operator, leftDataType, rightDataType])
 
 export const supportedRightTypes = (operator, leftDataType) =>
-  get(OPERATOR_TYPE_SUPPORT, [operator.operator, leftDataType], [])
+  _.get(OPERATOR_TYPE_SUPPORT, [operator.operator, leftDataType], [])
 
 export function evaluate (
   operator,
@@ -92,7 +79,8 @@ export function evaluate (
   rightValue
 ) {
   const keyPath = [operator.operator, leftDataType, rightDataType]
-  const operatorFn = get(OPERATORS, keyPath) || operatorNotSupported(...keyPath)
+  const operatorFn =
+    _.get(OPERATORS, keyPath) || operatorNotSupported(...keyPath)
   return operatorFn(leftValue, rightValue)
 }
 
@@ -105,15 +93,15 @@ export const operatorNotSupported = (operator, leftDataType, rightDataType) => {
 }
 
 export const getValidOperators = type => {
-  const types = isArray(type) ? type : [type]
-  const typeStrings = flatMap(
+  const types = _.isArray(type) ? type : [type]
+  const typeStrings = _.flatMap(
     types,
-    type => (isString(type) ? type : get(type, 'CAN_COERCE_TO'))
+    type => (_.isString(type) ? type : _.get(type, 'CAN_COERCE_TO'))
   )
-  const valid = reduce(
+  const valid = _.reduce(
     OPERATORS,
     (matches, operator, key) => {
-      if (intersection(Object.keys(operator), typeStrings).length) {
+      if (_.intersection(_.keys(operator), typeStrings).length) {
         matches.push(key)
       }
       return matches
