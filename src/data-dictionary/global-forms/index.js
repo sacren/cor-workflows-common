@@ -15,6 +15,7 @@ export default class GlobalForms extends Context {
   static displayName = 'Forms'
   static treatAsType = undefined
   static returnTypes = [FORM]
+  static preferredOperators = []
 
   static async inflate () {}
 

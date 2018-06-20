@@ -17,6 +17,7 @@ export default class GlobalTextInput extends Context {
   static returnTypes = [TEXT, NUMBER]
   static matchTypes = [TEXT, NUMBER]
   static inputType = TEXT
+  static preferredOperators = []
 
   static async inflate (ctx, deflated) {
     return deflated.data

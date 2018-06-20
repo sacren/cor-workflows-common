@@ -22,6 +22,7 @@ export default class GlobalCategories extends Context {
   static displayName = 'Categories'
   static treatAsType = CATEGORY_LIST
   static returnTypes = [CATEGORY, GROUP, ROLE, TEXT, USER]
+  static preferredOperators = []
 
   static async inflate () {}
 

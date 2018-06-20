@@ -15,6 +15,7 @@ export default class Category extends Context {
   static treatAsType = CATEGORY
   static returnTypes = [CATEGORY, GROUP, ROLE, TEXT, USER]
   static matchTypes = [CATEGORY, TEXT]
+  static preferredOperators = []
 
   static async inflate (ctx, deflated) {
     const category = await ctx.apis.categories.get(deflated.id)

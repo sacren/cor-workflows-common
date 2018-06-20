@@ -17,6 +17,7 @@ export default class Group extends Context {
   static treatAsType = GROUP
   static returnTypes = [CATEGORY, GROUP, ROLE, TEXT, USER]
   static matchTypes = [TEXT, GROUP]
+  static preferredOperators = []
 
   constructor (parent, returnTypes, data, ctx, secondaryName) {
     super(parent, returnTypes, data, ctx)
