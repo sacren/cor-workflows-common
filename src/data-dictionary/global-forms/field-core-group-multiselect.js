@@ -15,7 +15,7 @@ export default class FieldCoreGroupMultiselect extends Field {
   static treatAsType = GROUP
   static returnTypes = [GROUP, ROLE, TEXT]
   static matchTypes = [GROUP, TEXT]
-  static operators = [IS_EMPTY, IS_NOT_EMPTY]
+  static preferredOperators = [IS_EMPTY, IS_NOT_EMPTY]
 
   getChildren = async filter => {
     // TODO: return children

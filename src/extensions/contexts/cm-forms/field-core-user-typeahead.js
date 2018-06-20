@@ -15,7 +15,7 @@ export default class FieldCoreUserTypeahead extends CMField {
   static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
-  static operators = [IS]
+  static preferredOperators = [IS]
 
   async getValue (valueMap = {}) {
     const { data, parent } = this

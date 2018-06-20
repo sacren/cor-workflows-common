@@ -15,5 +15,5 @@ export default class CMFieldCheckbox extends CMField {
   static treatAsType = BOOLEAN
   static returnTypes = [BOOLEAN]
   static matchTypes = [BOOLEAN]
-  static operators = [IS_TRUE, IS_FALSE]
+  static preferredOperators = [IS_TRUE, IS_FALSE]
 }

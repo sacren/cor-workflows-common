@@ -15,7 +15,7 @@ export default class FieldOptionsTypeahead extends CMField {
   static treatAsType = TEXT
   static returnTypes = [TEXT]
   static matchTypes = [TEXT]
-  static operators = [IS_NOT_EMPTY, IS_EMPTY]
+  static preferredOperators = [IS_NOT_EMPTY, IS_EMPTY]
 
   async getValue (valueMap = {}) {
     const { data, parent } = this

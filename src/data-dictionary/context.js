@@ -36,7 +36,7 @@ export default class Context {
   static displayName = 'Data Source'
   static returnTypes = ALL
   static matchTypes = false
-  static operators = [
+  static preferredOperators = [
     CONTAINS,
     DOES_NOT_CONTAIN,
     IS,
@@ -70,14 +70,14 @@ export default class Context {
       treatAsType,
       displayName,
       matchTypes,
-      operators
+      preferredOperators
     } = this.constructor
     this.type = type
     this.treatAsType = treatAsType
     this.name = displayName
     this.secondaryName = typeLabel
     this.match = matchTypes
-    this.operators = operators
+    this.preferredOperators = preferredOperators || []
     this.parent = parent
     this.returnTypes = returnTypes
     this.data = data

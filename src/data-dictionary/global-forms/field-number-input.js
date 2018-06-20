@@ -15,5 +15,5 @@ export default class FieldNumberInput extends Field {
   static treatAsType = NUMBER
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
-  static operators = [IS, IS_GREATER_THAN, IS_LESS_THAN]
+  static preferredOperators = [IS, IS_GREATER_THAN, IS_LESS_THAN]
 }

@@ -15,5 +15,5 @@ export default class CMFieldCheckboxes extends CMField {
   static treatAsType = OPTIONS
   static returnTypes = [OPTIONS]
   static matchTypes = [OPTIONS]
-  static operators = [IS, IS_NOT]
+  static preferredOperators = [IS, IS_NOT]
 }

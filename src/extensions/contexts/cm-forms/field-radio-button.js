@@ -17,7 +17,7 @@ export default class FieldRadioButton extends CMField {
   static treatAsType = TEXT
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
-  static operators = [IS, IS_NOT]
+  static preferredOperators = [IS, IS_NOT]
 
   getChildren = async () => {
     const { data, parent } = this

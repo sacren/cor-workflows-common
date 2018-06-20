@@ -16,7 +16,7 @@ export default class FieldRadioButton extends Field {
   static treatAsType = TEXT
   static returnTypes = [TEXT, NUMBER]
   static matchTypes = [TEXT, NUMBER]
-  static operators = [IS, IS_NOT]
+  static preferredOperators = [IS, IS_NOT]
 
   getChildren = async filter => []
 

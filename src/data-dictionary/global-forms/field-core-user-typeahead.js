@@ -16,7 +16,7 @@ export default class FieldCoreUserTypeahead extends Field {
   static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
-  static operators = [IS]
+  static preferredOperators = [IS]
 
   getChildren = async filter => []
 

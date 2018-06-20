@@ -17,7 +17,7 @@ export default class FieldCoreGroupTypeahead extends Field {
   static treatAsType = GROUP
   static returnTypes = [GROUP, ROLE, TEXT]
   static matchTypes = [GROUP, TEXT]
-  static operators = [IS, IS_ONE_OF]
+  static preferredOperators = [IS, IS_ONE_OF]
 
   static async inflate (ctx, deflated, parent) {
     return deflated.data
