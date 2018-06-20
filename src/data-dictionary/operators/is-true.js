@@ -1,8 +1,6 @@
 import { BOOLEAN } from '../return-types'
-import { identity } from 'lodash'
+import _ from 'lodash'
 
 export default {
-  [BOOLEAN]: {
-    [undefined]: identity
-  }
+  [BOOLEAN]: _.identity
 }

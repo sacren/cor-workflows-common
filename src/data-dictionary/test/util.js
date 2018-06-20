@@ -1,4 +1,4 @@
-import { difference, get } from 'lodash'
+import { difference, get, isUndefined } from 'lodash'
 import Promise from 'bluebird'
 import Rule from '../../rules/rule'
 import { getValidOperators } from '../operators/index'
@@ -10,12 +10,13 @@ export async function runOperatorTest (
   rightContextFn,
   rightVal
 ) {
+  const rightContextFnSafe = rightContextFn || unaryRightContextFn
   const { leftContext, rightContext } = await Promise.props({
     leftContext: leftContextFn(),
-    rightContext: rightContextFn()
+    rightContext: rightContextFnSafe()
   })
   const left = leftContext.deflate()
-  const right = rightContext.deflate()
+  const right = rightContext ? rightContext.deflate() : undefined
   const resolver = jest.fn().mockImplementation(param => {
     return param === left
       ? buildResolvedValue(leftContext, leftVal)
@@ -25,11 +26,16 @@ export async function runOperatorTest (
   return rule.evaluate()
 }
 
-const buildResolvedValue = (context, value) => ({
-  context,
-  value,
-  types: extractTypes(context)
-})
+const buildResolvedValue = (context, value) => {
+  if (isUndefined(context)) {
+    return undefined
+  }
+  return {
+    context,
+    value,
+    types: extractTypes(context)
+  }
+}
 
 const extractTypes = context => {
   const { matchTypes, treatAsType } = context.constructor
@@ -43,3 +49,5 @@ export const extractUnsupportedPreferredOperators = type => {
   const preferredOperators = get(type, 'preferredOperators') || []
   return difference(preferredOperators, allOperators)
 }
+
+const unaryRightContextFn = () => Promise.resolve(undefined)

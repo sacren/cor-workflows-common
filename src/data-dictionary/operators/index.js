@@ -65,8 +65,12 @@ export const OPERATOR_TYPE_SUPPORT = _.reduce(
   {}
 )
 
-export const isOperationSupported = (operator, leftDataType, rightDataType) =>
-  has(OPERATORS, [operator.operator, leftDataType, rightDataType])
+export const isOperationSupported = (operator, leftDataType, rightDataType) => {
+  const keyPath = operators.isUnary(operator)
+    ? [operator.operator, leftDataType]
+    : [operator.operator, leftDataType, rightDataType]
+  return _.isFunction(_.get(OPERATORS, keyPath))
+}
 
 export const supportedRightTypes = (operator, leftDataType) =>
   _.get(OPERATOR_TYPE_SUPPORT, [operator.operator, leftDataType], [])
@@ -78,10 +82,36 @@ export function evaluate (
   rightDataType,
   rightValue
 ) {
+  if (operators.isUnary(operator)) {
+    return evaluateUnaryOperation(operator, leftDataType, leftValue)
+  }
+  return evaluateBinaryOperation(
+    operator,
+    leftDataType,
+    leftValue,
+    rightDataType,
+    rightValue
+  )
+}
+
+function evaluateBinaryOperation (
+  operator,
+  leftDataType,
+  leftValue,
+  rightDataType,
+  rightValue
+) {
   const keyPath = [operator.operator, leftDataType, rightDataType]
   const operatorFn =
     _.get(OPERATORS, keyPath) || operatorNotSupported(...keyPath)
   return operatorFn(leftValue, rightValue)
+}
+
+function evaluateUnaryOperation (operator, leftDataType, leftValue) {
+  const keyPath = [operator.operator, leftDataType]
+  const operatorFn =
+    _.get(OPERATORS, keyPath) || operatorNotSupported(...keyPath)
+  return operatorFn(leftValue)
 }
 
 export const operatorNotSupported = (operator, leftDataType, rightDataType) => {
