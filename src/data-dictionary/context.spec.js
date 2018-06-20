@@ -30,6 +30,7 @@ describe('Data Dictionary > Context', () => {
     expect(ctx.returnTypes).toEqual(ALL)
     expect(ctx.data).toEqual(data)
     expect(ctx.ctx).toEqual(context)
+    expect(ctx.preferredOperators.length).not.toEqual(0)
   })
 
   it('should return its parent for getParent', () => {

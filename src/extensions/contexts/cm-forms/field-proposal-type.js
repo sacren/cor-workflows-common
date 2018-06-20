@@ -8,7 +8,7 @@
 import { get } from 'lodash'
 import CMField from './field'
 import { TEXT } from '../../../data-dictionary/return-types'
-import { IS } from '../../../data-dictionary/operators'
+import { names, IS } from '../../../data-dictionary/operators'
 
 export default class CMFieldProposalType extends CMField {
   static typeLabel = 'Proposal Type'
@@ -16,7 +16,7 @@ export default class CMFieldProposalType extends CMField {
   static treatAsType = TEXT
   static returnTypes = [TEXT]
   static matchTypes = [TEXT]
-  static preferredOperators = [IS]
+  static preferredOperators = names(IS)
 
   constructor (parent, returnTypes, data, ctx) {
     data.type = 'proposalType'

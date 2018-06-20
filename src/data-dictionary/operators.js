@@ -41,3 +41,5 @@ export const IS_NOT = binary('is not')
 export const IS_NOT_EMPTY = binary('is not empty')
 export const IS_ONE_OF = binary('is one of')
 export const IS_TRUE = unary('is true')
+
+export const names = (...operators) => _.map(operators, 'operator')

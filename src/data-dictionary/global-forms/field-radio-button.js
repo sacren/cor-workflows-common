@@ -8,15 +8,16 @@
 import { find, get } from 'lodash'
 import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
-import { IS, IS_NOT } from '../operators'
+import { names, IS, IS_NOT } from '../operators'
 
 export default class FieldRadioButton extends Field {
+  static displayName = 'RadioButton'
   static typeLabel = 'Radios'
   static type = 'field-radio-button'
   static treatAsType = TEXT
   static returnTypes = [TEXT, NUMBER]
   static matchTypes = [TEXT, NUMBER]
-  static preferredOperators = [IS, IS_NOT]
+  static preferredOperators = names(IS, IS_NOT)
 
   getChildren = async filter => []
 

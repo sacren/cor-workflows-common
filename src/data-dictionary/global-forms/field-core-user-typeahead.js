@@ -8,15 +8,16 @@
 import { get } from 'lodash'
 import Field from './field'
 import { USER, TEXT } from '../return-types'
-import { IS } from '../operators'
+import { names, IS } from '../operators'
 
 export default class FieldCoreUserTypeahead extends Field {
+  static displayName = 'CoreUserTypeahead'
   static typeLabel = 'UserTypeahead'
   static type = 'field-core-user-typeahead'
   static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
-  static preferredOperators = [IS]
+  static preferredOperators = names(IS)
 
   getChildren = async filter => []
 

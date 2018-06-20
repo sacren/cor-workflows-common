@@ -7,7 +7,7 @@
  */
 import CMField from './field'
 import { TEXT } from '../../../data-dictionary/return-types'
-import { IS_EMPTY, IS_NOT_EMPTY } from '../../../data-dictionary/operators'
+import { names, IS_EMPTY, IS_NOT_EMPTY } from '../../../data-dictionary/operators'
 
 export default class FieldOptionsTypeahead extends CMField {
   static typeLabel = 'OptionsTypeahead'
@@ -15,7 +15,7 @@ export default class FieldOptionsTypeahead extends CMField {
   static treatAsType = TEXT
   static returnTypes = [TEXT]
   static matchTypes = [TEXT]
-  static preferredOperators = [IS_NOT_EMPTY, IS_EMPTY]
+  static preferredOperators = names(IS_NOT_EMPTY, IS_EMPTY)
 
   async getValue (valueMap = {}) {
     const { data, parent } = this

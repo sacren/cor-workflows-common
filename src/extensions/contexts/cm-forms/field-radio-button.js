@@ -9,7 +9,7 @@ import { get, map } from 'lodash'
 import CMField from './field'
 import RadioOption from './radio-option'
 import { NUMBER, TEXT } from '../../../data-dictionary/return-types'
-import { IS, IS_NOT } from '../../../data-dictionary/operators'
+import { names, IS, IS_NOT } from '../../../data-dictionary/operators'
 
 export default class FieldRadioButton extends CMField {
   static typeLabel = 'Radios'
@@ -17,7 +17,7 @@ export default class FieldRadioButton extends CMField {
   static treatAsType = TEXT
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
-  static preferredOperators = [IS, IS_NOT]
+  static preferredOperators = names(IS, IS_NOT)
 
   getChildren = async () => {
     const { data, parent } = this

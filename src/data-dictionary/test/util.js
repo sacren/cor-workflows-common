@@ -1,5 +1,7 @@
+import { difference, get } from 'lodash'
 import Promise from 'bluebird'
 import Rule from '../../rules/rule'
+import { getValidOperators } from '../operators/index'
 
 export async function runOperatorTest (
   operator,
@@ -32,4 +34,12 @@ const buildResolvedValue = (context, value) => ({
 const extractTypes = context => {
   const { matchTypes, treatAsType } = context.constructor
   return matchTypes || [treatAsType]
+}
+
+export const extractUnsupportedPreferredOperators = type => {
+  const allOperators = type.treatAsType
+    ? getValidOperators(type.treatAsType)
+    : []
+  const preferredOperators = get(type, 'preferredOperators') || []
+  return difference(preferredOperators, allOperators)
 }

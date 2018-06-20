@@ -7,7 +7,7 @@
  */
 import CMField from './field'
 import { OPTIONS } from '../../../data-dictionary/return-types'
-import { IS, IS_NOT } from '../../../data-dictionary/operators'
+import { names, IS, IS_NOT } from '../../../data-dictionary/operators'
 
 export default class CMFieldCheckboxes extends CMField {
   static typeLabel = 'Checkboxes'
@@ -15,5 +15,5 @@ export default class CMFieldCheckboxes extends CMField {
   static treatAsType = OPTIONS
   static returnTypes = [OPTIONS]
   static matchTypes = [OPTIONS]
-  static preferredOperators = [IS, IS_NOT]
+  static preferredOperators = names(IS, IS_NOT)
 }

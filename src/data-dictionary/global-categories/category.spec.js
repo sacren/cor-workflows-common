@@ -8,6 +8,7 @@
 
 import Category from './category'
 import TestDeflation from '../../test/utils/deflation'
+import { extractUnsupportedPreferredOperators } from '../test/util'
 
 describe('Category', () => {
   it('should call the categories api to inflate itself', async () => {
@@ -122,4 +123,8 @@ describe('Category', () => {
       requiresParent: false
     }
   )
+
+  it('ensures preferredOperators are all valid', () => {
+    expect(extractUnsupportedPreferredOperators(Category)).toEqual([])
+  })
 })
