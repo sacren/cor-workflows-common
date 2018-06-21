@@ -79,10 +79,10 @@ export default class Rule {
   compareAsIs (left, right) {
     return this.ruleEvaluator(
       this.rule.operator,
-      left.context.treatAsType,
-      left.value,
-      right.context.treatAsType,
-      right.value
+      get(left, ['context', 'treatAsType']),
+      get(left, 'value'),
+      get(right, ['context', 'treatAsType']),
+      get(right, 'value')
     )
   }
 
@@ -107,8 +107,8 @@ export default class Rule {
       if (
         isOperationSupported(
           this.rule.operator,
-          left.context.treatAsType,
-          right.context.treatAsType
+          get(left, ['context', 'treatAsType']),
+          get(right, ['context', 'treatAsType'])
         )
       ) {
         return this.compareAsIs(left, right)
@@ -181,12 +181,16 @@ export default class Rule {
         const leftTargetType = get(comparable, 'left.TYPE')
         const rightTargetType = get(comparable, 'right.TYPE')
         const coercedLeft = coerce(
-          left.context.treatAsType,
+          get(left, ['context', 'treatAsType']),
           leftTargetType,
-          left.value
+          get(left, 'value')
         )
         const coercedRight = right
-          ? coerce(right.context.treatAsType, rightTargetType, right.value)
+          ? coerce(
+            get(right, ['context', 'treatAsType']),
+            rightTargetType,
+            get(right, 'value')
+          )
           : undefined
 
         return this.ruleEvaluator(

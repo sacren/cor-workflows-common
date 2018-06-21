@@ -14,6 +14,7 @@ export default class FieldLanguageDropDown extends Field {
   static treatAsType = TEXT
   static returnTypes = [TEXT]
   static matchTypes = [TEXT]
+  static preferredOperators = []
 
   getChildren = async filter => []
 

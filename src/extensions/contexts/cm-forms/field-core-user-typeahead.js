@@ -7,7 +7,7 @@
  */
 import CMField from './field'
 import { USER, TEXT } from '../../../data-dictionary/return-types'
-import { IS } from '../../../data-dictionary/operators'
+import { names, IS } from '../../../data-dictionary/operators'
 
 export default class FieldCoreUserTypeahead extends CMField {
   static typeLabel = 'UserTypeahead'
@@ -15,7 +15,7 @@ export default class FieldCoreUserTypeahead extends CMField {
   static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
-  static operators = [IS]
+  static preferredOperators = names(IS)
 
   async getValue (valueMap = {}) {
     const { data, parent } = this

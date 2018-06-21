@@ -7,12 +7,14 @@
  */
 import { isEqual } from 'lodash'
 import Context from '../context'
+import { ALL } from '../return-types'
 
 export default class Field extends Context {
   static typeLabel = 'Unknown'
   static type = 'field'
   static displayName = 'Field'
-  static returnTypes = '*'
+  static returnTypes = ALL
+  static preferredOperators = []
 
   static async inflate (ctx, deflated, parent) {
     return parent.data.schema[deflated.formKey]
@@ -38,7 +40,7 @@ export default class Field extends Context {
     if (parent) parent.deflate(valueList)
     const deflatedValue = {
       type,
-      ...treatAsType && { treatAsType },
+      ...(treatAsType && { treatAsType }),
       name,
       formKey: data.formKey,
       requiresParent: true

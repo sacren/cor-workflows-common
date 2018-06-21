@@ -22,6 +22,7 @@ export default class GlobalNumericInput extends Context {
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
   static inputType = NUMBER
+  static preferredOperators = []
 
   static async inflate (ctx, deflated) {
     return deflated.data

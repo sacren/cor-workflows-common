@@ -14,6 +14,7 @@ export default class FieldChecklist extends Field {
   static treatAsType = TEXT
   static returnTypes = [TEXT, NUMBER]
   static matchTypes = [TEXT, NUMBER]
+  static preferredOperators = []
 
   getChildren = async filter => {
     // TODO: return children

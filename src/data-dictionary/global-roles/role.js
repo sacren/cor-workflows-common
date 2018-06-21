@@ -15,6 +15,7 @@ export default class Role extends Context {
   static treatAsType = ROLE
   static returnTypes = [ROLE, TEXT, USER]
   static matchTypes = [ROLE, TEXT]
+  static preferredOperators = []
 
   static async inflate (ctx, deflated, parent) {
     const children = await parent.getChildren({}, [ROLE])

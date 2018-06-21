@@ -67,6 +67,7 @@ export default class Form extends Context {
   static treatAsType = FORM
   static returnTypes = ALL
   static matchTypes = [FORM, TEXT]
+  static preferredOperators = []
 
   static async inflate (ctx, deflated) {
     const [form, schema] = await Promise.all([

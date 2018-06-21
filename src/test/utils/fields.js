@@ -6,6 +6,8 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 
+import { extractUnsupportedPreferredOperators } from '../../data-dictionary/test/util'
+
 export function mockFieldData () {
   return { type: 'foo', formKey: 'bar', label: 'baz' }
 }
@@ -43,6 +45,10 @@ export default function testField (
       } else {
         await expect(field.getChildren()).toThrowErrorMatchingSnapshot()
       }
+    })
+
+    it('ensures preferredOperators are all valid', () => {
+      expect(extractUnsupportedPreferredOperators(Field)).toEqual([])
     })
   })
 }

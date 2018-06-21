@@ -9,7 +9,7 @@ import Field from './field'
 import Category from '../global-categories/category'
 import Role from '../global-roles/role'
 import { GROUP, ROLE, TEXT } from '../return-types'
-import { IS, IS_ONE_OF } from '../operators'
+import { names, IS, IS_ONE_OF } from '../operators'
 
 export default class FieldCoreGroupTypeahead extends Field {
   static typeLabel = 'GroupTypeahead'
@@ -17,7 +17,7 @@ export default class FieldCoreGroupTypeahead extends Field {
   static treatAsType = GROUP
   static returnTypes = [GROUP, ROLE, TEXT]
   static matchTypes = [GROUP, TEXT]
-  static operators = [IS, IS_ONE_OF]
+  static preferredOperators = names(IS, IS_ONE_OF)
 
   static async inflate (ctx, deflated, parent) {
     return deflated.data

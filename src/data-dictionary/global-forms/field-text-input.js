@@ -14,4 +14,5 @@ export default class FieldTextInput extends Field {
   static treatAsType = TEXT
   static returnTypes = [TEXT, NUMBER]
   static matchTypes = [TEXT, NUMBER]
+  static preferredOperators = []
 }
