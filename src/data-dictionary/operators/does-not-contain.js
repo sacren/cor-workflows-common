@@ -1,7 +1,8 @@
+import _ from 'lodash'
 import { TEXT } from '../return-types'
 
 export default {
   [TEXT]: {
-    [TEXT]: (left, right) => !left.includes(right)
+    [TEXT]: _.negate(_.includes)
   }
 }
