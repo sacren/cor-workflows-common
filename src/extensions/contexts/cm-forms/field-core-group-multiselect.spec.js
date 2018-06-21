@@ -9,6 +9,7 @@
 import GroupMultiselect from './field-core-group-multiselect'
 import Category from '../../../data-dictionary/global-categories/category'
 import Role from '../../../data-dictionary/global-roles/role'
+import { extractUnsupportedPreferredOperators } from '../../../data-dictionary/test/util'
 
 describe('GroupMultiselect', () => {
   let field, data, ctx, parent, getFn, listFn
@@ -63,11 +64,15 @@ describe('GroupMultiselect', () => {
     })
   })
 
+  it('ensures preferredOperators are all valid', () => {
+    expect(extractUnsupportedPreferredOperators(GroupMultiselect)).toEqual([])
+  })
+
   describe('getChildren', () => {
     it('finds role children', async () => {
       getFn.mockReturnValue({ roleSchemas: [{ id: 'role1' }] })
       listFn.mockReturnValue([])
-      const children = await field.getChildren({}, [ 'role' ])
+      const children = await field.getChildren({}, ['role'])
       expect(children.length).toBe(1)
       expect(children[0].type).toBe(Role.type)
     })
@@ -75,7 +80,7 @@ describe('GroupMultiselect', () => {
     it('finds category children', async () => {
       getFn.mockReturnValue({ parentId: 'p123', roleSchemas: [] })
       listFn.mockReturnValue([])
-      const children = await field.getChildren({}, [ 'role' ])
+      const children = await field.getChildren({}, ['role'])
       expect(children.length).toBe(1)
       expect(children[0].type).toBe(Category.type)
     })
