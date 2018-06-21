@@ -7,6 +7,19 @@
  */
 import Field from './field'
 import { NUMBER, TEXT } from '../return-types'
+import {
+  names,
+  BEGINS_WITH,
+  CONTAINS,
+  DOES_NOT_BEGIN_WITH,
+  DOES_NOT_CONTAIN,
+  DOES_NOT_END_WITH,
+  ENDS_WITH,
+  IS,
+  IS_EMPTY,
+  IS_NOT,
+  IS_NOT_EMPTY
+} from '../operators'
 
 export default class FieldTextArea extends Field {
   static typeLabel = 'Textarea'
@@ -14,7 +27,18 @@ export default class FieldTextArea extends Field {
   static treatAsType = TEXT
   static returnTypes = [TEXT, NUMBER]
   static matchTypes = [TEXT, NUMBER]
-  static preferredOperators = []
+  static preferredOperators = names(
+    BEGINS_WITH,
+    CONTAINS,
+    DOES_NOT_BEGIN_WITH,
+    DOES_NOT_CONTAIN,
+    DOES_NOT_END_WITH,
+    ENDS_WITH,
+    IS,
+    IS_EMPTY,
+    IS_NOT,
+    IS_NOT_EMPTY
+  )
 
   getChildren = async filter => []
 

@@ -7,6 +7,19 @@
  */
 import CMField from './field'
 import { NUMBER, TEXT } from '../../../data-dictionary/return-types'
+import {
+  names,
+  BEGINS_WITH,
+  CONTAINS,
+  DOES_NOT_BEGIN_WITH,
+  DOES_NOT_CONTAIN,
+  DOES_NOT_END_WITH,
+  ENDS_WITH,
+  IS,
+  IS_EMPTY,
+  IS_NOT,
+  IS_NOT_EMPTY
+} from '../../../data-dictionary/operators'
 
 export default class FieldTextArea extends CMField {
   static typeLabel = 'Textarea'
@@ -14,4 +27,16 @@ export default class FieldTextArea extends CMField {
   static treatAsType = TEXT
   static returnTypes = [NUMBER, TEXT]
   static matchTypes = [NUMBER, TEXT]
+  static preferredOperators = names(
+    BEGINS_WITH,
+    CONTAINS,
+    DOES_NOT_BEGIN_WITH,
+    DOES_NOT_CONTAIN,
+    DOES_NOT_END_WITH,
+    ENDS_WITH,
+    IS,
+    IS_EMPTY,
+    IS_NOT,
+    IS_NOT_EMPTY
+  )
 }

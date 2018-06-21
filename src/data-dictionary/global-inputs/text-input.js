@@ -8,6 +8,19 @@
 import { isString } from 'lodash'
 import Context from '../context'
 import { NUMBER, TEXT } from '../return-types'
+import {
+  names,
+  BEGINS_WITH,
+  CONTAINS,
+  DOES_NOT_BEGIN_WITH,
+  DOES_NOT_CONTAIN,
+  DOES_NOT_END_WITH,
+  ENDS_WITH,
+  IS,
+  IS_EMPTY,
+  IS_NOT,
+  IS_NOT_EMPTY
+} from '../operators'
 
 export default class GlobalTextInput extends Context {
   static global = true
@@ -17,7 +30,18 @@ export default class GlobalTextInput extends Context {
   static returnTypes = [TEXT, NUMBER]
   static matchTypes = [TEXT, NUMBER]
   static inputType = TEXT
-  static preferredOperators = []
+  static preferredOperators = names(
+    BEGINS_WITH,
+    CONTAINS,
+    DOES_NOT_BEGIN_WITH,
+    DOES_NOT_CONTAIN,
+    DOES_NOT_END_WITH,
+    ENDS_WITH,
+    IS,
+    IS_EMPTY,
+    IS_NOT,
+    IS_NOT_EMPTY
+  )
 
   static async inflate (ctx, deflated) {
     return deflated.data
@@ -28,7 +52,7 @@ export default class GlobalTextInput extends Context {
     this.setData(data)
   }
 
-  setData = (data) => {
+  setData = data => {
     this.data = data
     if (data) {
       const str = '' + data
