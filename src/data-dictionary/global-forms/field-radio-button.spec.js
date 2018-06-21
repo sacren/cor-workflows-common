@@ -9,6 +9,7 @@
 import FieldRadioButton from './field-radio-button'
 import { TEXT, NUMBER } from '../return-types'
 import FieldTest from '../../test/utils/fields'
+import { extractUnsupportedPreferredOperators } from '../test/util'
 
 FieldTest(FieldRadioButton, [TEXT, NUMBER], [TEXT, NUMBER], true)
 
@@ -26,7 +27,10 @@ describe('FieldRadioButton', () => {
             schema: {
               bar: {
                 details: {
-                  options: [{ key: 'a1', lbl: 'one' }, { key: 'a2', lbl: 'two' }]
+                  options: [
+                    { key: 'a1', lbl: 'one' },
+                    { key: 'a2', lbl: 'two' }
+                  ]
                 }
               }
             }
@@ -51,7 +55,10 @@ describe('FieldRadioButton', () => {
             schema: {
               bar: {
                 details: {
-                  options: [{ key: 'a1', lbl: 'one' }, { key: 'a2', lbl: 'two' }]
+                  options: [
+                    { key: 'a1', lbl: 'one' },
+                    { key: 'a2', lbl: 'two' }
+                  ]
                 }
               }
             }
@@ -63,5 +70,9 @@ describe('FieldRadioButton', () => {
     const field = new FieldRadioButton(parent, null, data)
     const value = await field.getValue()
     expect(value).toEqual('?')
+  })
+
+  it('ensures preferredOperators are all valid', () => {
+    expect(extractUnsupportedPreferredOperators(FieldRadioButton)).toEqual([])
   })
 })

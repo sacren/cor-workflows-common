@@ -8,6 +8,7 @@
 
 import RadioButton from './field-radio-button'
 import RadioOption from './radio-option'
+import { extractUnsupportedPreferredOperators } from '../../../data-dictionary/test/util'
 
 describe('RadioButton', () => {
   let parent, ctx, data, field
@@ -42,5 +43,9 @@ describe('RadioButton', () => {
       expect(children.length).toBe(1)
       expect(children[0].type).toBe(RadioOption.type)
     })
+  })
+
+  it('ensures preferredOperators are all valid', () => {
+    expect(extractUnsupportedPreferredOperators(RadioButton)).toEqual([])
   })
 })
