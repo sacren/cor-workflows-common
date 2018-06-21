@@ -1,5 +1,5 @@
-import { GROUP, NUMBER, TEXT, USER } from '../return-types'
 import _ from 'lodash'
+import { GROUP, NUMBER, OPTIONS, TEXT, USER } from '../return-types'
 
 const equalityById = (left, right) =>
   _.isEqual(_.get(left, 'id'), _.get(right, 'id'))
@@ -10,6 +10,9 @@ export default {
   },
   [NUMBER]: {
     [NUMBER]: _.isEqual
+  },
+  [OPTIONS]: {
+    [OPTIONS]: equalityById
   },
   [TEXT]: {
     [TEXT]: _.isEqual
