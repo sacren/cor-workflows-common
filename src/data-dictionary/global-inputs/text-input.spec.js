@@ -8,6 +8,7 @@
 
 import TextInput from './text-input'
 import TestDeflation from '../../test/utils/deflation'
+import { extractUnsupportedPreferredOperators } from '../test/util'
 
 describe('TextInput', () => {
   let input
@@ -27,6 +28,10 @@ describe('TextInput', () => {
   it('should return an empty list for children', async () => {
     const children = await input.getChildren()
     expect(children).toMatchObject([])
+  })
+
+  it('ensures preferredOperators are all valid', () => {
+    expect(extractUnsupportedPreferredOperators(TextInput)).toEqual([])
   })
 
   describe('setData', () => {

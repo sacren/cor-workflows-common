@@ -7,6 +7,7 @@
  */
 
 import FieldCheckbox from './field-checkbox'
+import { extractUnsupportedPreferredOperators } from '../../../data-dictionary/test/util'
 
 describe('CM FieldCheckbox', () => {
   let parent, ctx, data, field
@@ -40,5 +41,9 @@ describe('CM FieldCheckbox', () => {
       const children = await field.getChildren()
       expect(children.length).toBe(0)
     })
+  })
+
+  it('ensures preferredOperators are all valid', () => {
+    expect(extractUnsupportedPreferredOperators(FieldCheckbox)).toEqual([])
   })
 })

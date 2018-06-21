@@ -7,6 +7,7 @@
  */
 
 import FieldTextInput from './field-text-input'
+import { extractUnsupportedPreferredOperators } from '../../../data-dictionary/test/util'
 
 describe('CM FieldTextInput', () => {
   let parent, ctx, data, field
@@ -40,5 +41,9 @@ describe('CM FieldTextInput', () => {
       const children = await field.getChildren()
       expect(children.length).toBe(0)
     })
+  })
+
+  it('ensures preferredOperators are all valid', () => {
+    expect(extractUnsupportedPreferredOperators(FieldTextInput)).toEqual([])
   })
 })

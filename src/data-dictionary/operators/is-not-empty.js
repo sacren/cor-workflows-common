@@ -1,7 +1,10 @@
 import _ from 'lodash'
-import { GROUP_LIST, TEXT } from '../return-types'
+import { GROUP_LIST, OPTIONS, TEXT } from '../return-types'
+
+const isNotEmpty = _.negate(_.isEmpty)
 
 export default {
-  [GROUP_LIST]: _.negate(_.isEmpty),
-  [TEXT]: _.negate(_.isEmpty)
+  [GROUP_LIST]: isNotEmpty,
+  [OPTIONS]: isNotEmpty,
+  [TEXT]: isNotEmpty
 }

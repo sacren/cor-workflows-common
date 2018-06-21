@@ -7,6 +7,7 @@
  */
 
 import FieldTextArea from './field-text-area'
+import { extractUnsupportedPreferredOperators } from '../../../data-dictionary/test/util'
 
 describe('CM FieldTextArea', () => {
   let parent, ctx, data, field
@@ -40,5 +41,9 @@ describe('CM FieldTextArea', () => {
       const children = await field.getChildren()
       expect(children.length).toBe(0)
     })
+  })
+
+  it('ensures preferredOperators are all valid', () => {
+    expect(extractUnsupportedPreferredOperators(FieldTextArea)).toEqual([])
   })
 })
