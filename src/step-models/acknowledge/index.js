@@ -26,7 +26,7 @@ const i18n = {
  * }
  */
 export default class AcknowledgeModel extends StepModel {
-  static displayName = 'Acknowledge'
+  static displayName = 'Acknowledgement'
   static type = 'form-acknowledge'
 
   constructor (data) {
