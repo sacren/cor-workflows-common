@@ -9,15 +9,16 @@ import { isArray, isEqual } from 'lodash'
 import { ALL } from './return-types'
 import hash from 'shorthash'
 import {
-  CONTAINS,
-  DOES_NOT_CONTAIN,
-  IS,
-  IS_NOT,
+  names,
   BEGINS_WITH,
-  ENDS_WITH,
+  CONTAINS,
   DOES_NOT_BEGIN_WITH,
+  DOES_NOT_CONTAIN,
   DOES_NOT_END_WITH,
+  ENDS_WITH,
+  IS,
   IS_EMPTY,
+  IS_NOT,
   IS_NOT_EMPTY
 } from './operators'
 
@@ -36,18 +37,18 @@ export default class Context {
   static displayName = 'Data Source'
   static returnTypes = ALL
   static matchTypes = false
-  static operators = [
-    CONTAINS,
-    DOES_NOT_CONTAIN,
-    IS,
-    IS_NOT,
+  static preferredOperators = names(
     BEGINS_WITH,
-    ENDS_WITH,
+    CONTAINS,
     DOES_NOT_BEGIN_WITH,
+    DOES_NOT_CONTAIN,
     DOES_NOT_END_WITH,
+    ENDS_WITH,
+    IS,
     IS_EMPTY,
+    IS_NOT,
     IS_NOT_EMPTY
-  ]
+  )
 
   /**
    * Not yet implemented
@@ -70,14 +71,14 @@ export default class Context {
       treatAsType,
       displayName,
       matchTypes,
-      operators
+      preferredOperators
     } = this.constructor
     this.type = type
     this.treatAsType = treatAsType
     this.name = displayName
     this.secondaryName = typeLabel
     this.match = matchTypes
-    this.operators = operators
+    this.preferredOperators = preferredOperators || []
     this.parent = parent
     this.returnTypes = returnTypes
     this.data = data

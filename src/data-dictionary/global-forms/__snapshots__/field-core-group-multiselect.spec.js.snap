@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Field throw an error if you get children 1`] = `"received is not a function"`;
+exports[`CoreGroupMultiselect throw an error if you get children 1`] = `"received is not a function"`;

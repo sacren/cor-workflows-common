@@ -14,6 +14,7 @@ export default class FieldDatePicker extends Field {
   static treatAsType = DATE
   static returnTypes = [DATE, TEXT]
   static matchTypes = [DATE, TEXT]
+  static preferredOperators = []
 
   getChildren = async filter => []
 

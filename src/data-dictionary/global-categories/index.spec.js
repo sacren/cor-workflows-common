@@ -9,6 +9,7 @@
 import GlobalCategory from './'
 import { CATEGORY } from '../return-types'
 import TestDeflation from '../../test/utils/deflation'
+import { extractUnsupportedPreferredOperators } from '../test/util'
 
 describe('Global category contexts', () => {
   it('should inflate nothing', async () => {
@@ -46,5 +47,9 @@ describe('Global category contexts', () => {
     type: GlobalCategory.type,
     name: GlobalCategory.displayName,
     requiresParent: false
+  })
+
+  it('ensures preferredOperators are all valid', () => {
+    expect(extractUnsupportedPreferredOperators(GlobalCategory)).toEqual([])
   })
 })

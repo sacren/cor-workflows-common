@@ -20,7 +20,8 @@ import ctx from '../data-dictionary/context-utils'
 import dataTypes from '../data-dictionary/data-types'
 import { isUnary } from '../data-dictionary/operators'
 import {
-  evaluate,
+  evaluate as operatorEvaluate,
+  isOperationSupported,
   supportedRightTypes
 } from '../data-dictionary/operators/index'
 import { coerce } from '../data-dictionary/coerce'
@@ -53,7 +54,7 @@ export default class Rule {
     [LOGICAL_OPERATORS.OR]: logicalOperator(some, expressionIsTrue)
   }
 
-  constructor (rule, resolver, ruleEvaluator = evaluate) {
+  constructor (rule, resolver, ruleEvaluator = operatorEvaluate) {
     this.rule = rule
     this.resolver = resolver
     this.type = this.identifyType()
@@ -75,6 +76,27 @@ export default class Rule {
       : this.evaluateCompound()
   }
 
+  compareAsIs (left, right) {
+    return this.ruleEvaluator(
+      this.rule.operator,
+      get(left, ['context', 'treatAsType']),
+      get(left, 'value'),
+      get(right, ['context', 'treatAsType']),
+      get(right, 'value')
+    )
+  }
+
+  coerceAndCompare (left, right) {
+    const comparable = this.findComparableTypes(left, this.rule.operator, right)
+    const response = this.findBestResponse(
+      comparable,
+      left,
+      this.rule.operator,
+      right
+    )
+    return response
+  }
+
   async evaluateSingle () {
     try {
       const promises = [this.resolver(this.rule.left)]
@@ -82,22 +104,19 @@ export default class Rule {
         promises.push(this.resolver(this.rule.right))
       }
       const [left, right] = await Promise.all(promises)
-      const comparable = this.findComparableTypes(
-        left,
-        this.rule.operator,
-        right
-      )
-      const response = this.findBestResponse(
-        comparable,
-        left,
-        this.rule.operator,
-        right
-      )
-      return response
+      if (
+        isOperationSupported(
+          this.rule.operator,
+          get(left, ['context', 'treatAsType']),
+          get(right, ['context', 'treatAsType'])
+        )
+      ) {
+        return this.compareAsIs(left, right)
+      }
+      return this.coerceAndCompare(left, right)
     } catch (err) {
       console.log('Error finding comparable types.')
-      console.log('rule ->')
-      console.log(JSON.stringify(this.rule, null, 2))
+      console.log('rule ->', JSON.stringify(this.rule, null, 2))
       console.log(err)
       throw err
     }
@@ -162,12 +181,16 @@ export default class Rule {
         const leftTargetType = get(comparable, 'left.TYPE')
         const rightTargetType = get(comparable, 'right.TYPE')
         const coercedLeft = coerce(
-          left.context.treatAsType,
+          get(left, ['context', 'treatAsType']),
           leftTargetType,
-          left.value
+          get(left, 'value')
         )
         const coercedRight = right
-          ? coerce(right.context.treatAsType, rightTargetType, right.value)
+          ? coerce(
+            get(right, ['context', 'treatAsType']),
+            rightTargetType,
+            get(right, 'value')
+          )
           : undefined
 
         return this.ruleEvaluator(

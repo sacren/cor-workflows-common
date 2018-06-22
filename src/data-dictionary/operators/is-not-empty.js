@@ -1,13 +1,10 @@
-import {
-  TEXT,
-  USER
-} from '../return-types'
+import _ from 'lodash'
+import { GROUP_LIST, OPTIONS, TEXT } from '../return-types'
+
+const isNotEmpty = _.negate(_.isEmpty)
 
 export default {
-  [TEXT]: {
-    [TEXT]: (left, right) => left === right
-  },
-  [USER]: {
-    [USER]: (left, right) => left.id === right.id
-  }
+  [GROUP_LIST]: isNotEmpty,
+  [OPTIONS]: isNotEmpty,
+  [TEXT]: isNotEmpty
 }

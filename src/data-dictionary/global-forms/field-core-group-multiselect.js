@@ -9,13 +9,16 @@ import Field from './field'
 import Category from '../global-categories/category'
 import Role from '../global-roles/role'
 import { GROUP, GROUP_LIST, ROLE, TEXT, TEXT_LIST } from '../return-types'
+import { names, IS_EMPTY, IS_NOT_EMPTY } from '../operators'
 
 export default class FieldCoreGroupMultiselect extends Field {
+  static displayName = 'CoreGroupMultiselect'
   static typeLabel = 'GroupMultiselect'
   static type = 'field-core-group-multiselect'
   static treatAsType = GROUP_LIST
   static returnTypes = [GROUP, GROUP_LIST, ROLE, TEXT, TEXT_LIST]
   static matchTypes = [GROUP_LIST, TEXT_LIST]
+  static preferredOperators = names(IS_EMPTY, IS_NOT_EMPTY)
 
   static async inflate (ctx, deflated, parent) {
     return deflated.data

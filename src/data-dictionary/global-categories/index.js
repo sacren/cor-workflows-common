@@ -7,14 +7,22 @@
  */
 import Context from '../context'
 import Category from './category'
-import { CATEGORY, GROUP, ROLE, TEXT, USER } from '../return-types'
+import {
+  CATEGORY,
+  CATEGORY_LIST,
+  GROUP,
+  ROLE,
+  TEXT,
+  USER
+} from '../return-types'
 
 export default class GlobalCategories extends Context {
   static global = true
   static type = 'global-categories'
   static displayName = 'Categories'
-  static treatAsType = undefined
+  static treatAsType = CATEGORY_LIST
   static returnTypes = [CATEGORY, GROUP, ROLE, TEXT, USER]
+  static preferredOperators = []
 
   static async inflate () {}
 

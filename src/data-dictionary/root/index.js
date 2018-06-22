@@ -20,6 +20,7 @@ export default class RootContext extends Context {
   static type = 'root'
   static displayName = 'Data Source'
   static returnTypes = ALL
+  static preferredOperators = []
 
   static async inflate () {}
 

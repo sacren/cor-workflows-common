@@ -1,13 +1,8 @@
-import {
-  TEXT,
-  USER
-} from '../return-types'
+import _ from 'lodash'
+import { GROUP_LIST, OPTIONS, TEXT } from '../return-types'
 
 export default {
-  [TEXT]: {
-    [TEXT]: (left, right) => left === right
-  },
-  [USER]: {
-    [USER]: (left, right) => left.id === right.id
-  }
+  [GROUP_LIST]: _.isEmpty,
+  [OPTIONS]: _.isEmpty,
+  [TEXT]: _.isEmpty
 }

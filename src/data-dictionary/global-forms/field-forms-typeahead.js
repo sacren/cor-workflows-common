@@ -14,6 +14,7 @@ export default class FieldFormsTypeahead extends Field {
   static treatAsType = FORM
   static returnTypes = [FORM, TEXT]
   static matchTypes = [FORM, TEXT]
+  static preferredOperators = []
 
   getChildren = async filter => {
     // TODO: return children

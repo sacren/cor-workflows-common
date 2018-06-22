@@ -1,13 +1,23 @@
-import { GROUP, TEXT, USER } from '../return-types'
+import _ from 'lodash'
+import { GROUP, NUMBER, OPTIONS, TEXT, USER } from '../return-types'
+
+const equalityById = (left, right) =>
+  _.isEqual(_.get(left, 'id'), _.get(right, 'id'))
 
 export default {
+  [GROUP]: {
+    [GROUP]: equalityById
+  },
+  [NUMBER]: {
+    [NUMBER]: _.isEqual
+  },
+  [OPTIONS]: {
+    [OPTIONS]: equalityById
+  },
   [TEXT]: {
-    [TEXT]: (left, right) => left === right
+    [TEXT]: _.isEqual
   },
   [USER]: {
-    [USER]: (left, right) => left.id === right.id
-  },
-  [GROUP]: {
-    [GROUP]: (left, right) => left.id === right.id
+    [USER]: equalityById
   }
 }

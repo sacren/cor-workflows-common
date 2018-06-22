@@ -10,6 +10,7 @@ import GroupTypeahead from './field-core-group-typeahead'
 import { GROUP, TEXT } from '../return-types'
 import { mockFieldData } from '../../test/utils/fields'
 import TestDeflation from '../../test/utils/deflation'
+import { extractUnsupportedPreferredOperators } from '../test/util'
 
 describe('Field Core Group Typeahead', () => {
   it('should return the deflated data for inflation', async () => {
@@ -20,6 +21,10 @@ describe('Field Core Group Typeahead', () => {
   it('should return false for isLeaf', () => {
     const group = new GroupTypeahead(null, null, mockFieldData())
     expect(group.isLeaf()).toBeFalsy()
+  })
+
+  it('ensures preferredOperators are all valid', () => {
+    expect(extractUnsupportedPreferredOperators(GroupTypeahead)).toEqual([])
   })
 
   describe('getChildren', () => {

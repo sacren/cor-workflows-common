@@ -14,6 +14,7 @@ export default class FieldCoreUserMultiselect extends Field {
   static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
+  static preferredOperators = []
 
   getChildren = async filter => []
 

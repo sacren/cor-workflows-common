@@ -15,6 +15,7 @@ export default class User extends Context {
   static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
+  static preferredOperators = []
 
   static async inflate (ctx, deflated) {
     return ctx.apis.users.getUser(deflated.id)
