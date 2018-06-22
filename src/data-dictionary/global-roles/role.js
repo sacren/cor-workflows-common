@@ -5,9 +5,17 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { get } from 'lodash'
+import { get, isArray } from 'lodash'
 import Context from '../context'
-import { ROLE, TEXT, USER } from '../return-types'
+import {
+  CATEGORY,
+  CATEGORY_LIST,
+  GROUP,
+  GROUP_LIST,
+  ROLE,
+  TEXT,
+  USER
+} from '../return-types'
 
 export default class Role extends Context {
   static global = true
@@ -54,17 +62,43 @@ export default class Role extends Context {
    */
   async getValue (valueMap = {}) {
     const { data, parent } = this
-    const parentValue = parent ? await parent.getValue(valueMap) : undefined
 
     valueMap.role = { value: data }
-    if (parent === undefined) return data
-    if (parent.type === 'group' || parent.treatAsType === 'group') {
-      return { ...data, group: parentValue }
+    // This Role is unbounded by a parent category or group (suspicious)
+    if (!parent) return data
+
+    const parentValue = await parent.getValue(valueMap)
+    const { type, treatAsType } = parent
+
+    // This Role is related to a group
+    if (
+      type === GROUP ||
+      type === GROUP_LIST ||
+      treatAsType === GROUP ||
+      treatAsType === GROUP_LIST
+    ) {
+      return isArray(parentValue)
+        ? parentValue.map(group => ({ ...data, group }))
+        : { ...data, group: parentValue }
     }
-    if (parent.type === 'category' || parent.treatAsType === 'category') {
-      return valueMap.instance && parentValue.group
-        ? { ...data, group: parentValue.group }
-        : data
+
+    // This role is related to a category
+    if (
+      type === CATEGORY ||
+      type === CATEGORY_LIST ||
+      treatAsType === CATEGORY ||
+      treatAsType === CATEGORY_LIST
+    ) {
+      if (isArray(parentValue)) {
+        return parentValue.map(category => ({
+          ...data,
+          group: category.group
+        }))
+      } else {
+        return valueMap.instance && parentValue.group
+          ? { ...data, group: parentValue.group }
+          : data
+      }
     }
 
     throw new Error(`Unexpected context where Role parent is: ${parentValue}`)

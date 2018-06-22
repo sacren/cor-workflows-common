@@ -5,9 +5,10 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
+import { isArray } from 'lodash'
 import Context from '../context'
 import Role from '../global-roles/role'
-import { CATEGORY, GROUP, ROLE, TEXT, USER } from '../return-types'
+import { CATEGORY, GROUP, GROUP_LIST, ROLE, TEXT, USER } from '../return-types'
 
 export default class Category extends Context {
   static global = true
@@ -56,20 +57,41 @@ export default class Category extends Context {
    */
   async getValue (valueMap = {}) {
     const { data, parent } = this
-    const parentValue = parent ? await parent.getValue(valueMap) : undefined
-
     valueMap.category = { value: data }
-    // The category is related to a group in which case it may represent a group
-    if (parent && (parent.type === 'group' || parent.treatAsType === 'group')) {
-      if (parentValue.parentId) {
-        const group = await this.ctx.apis.groups.get(parentValue.parentId)
-        return { ...data, group }
+
+    // If this category has an immediate parent that is a group, then this
+    // category represents the group that is related to the parent group, and
+    // not the category itself.
+    if (parent) {
+      const parentValue = await parent.getValue(valueMap)
+      const { type, treatAsType } = parent
+      if (
+        type === GROUP ||
+        type === GROUP_LIST ||
+        treatAsType === GROUP ||
+        treatAsType === GROUP_LIST
+      ) {
+        return isArray(parentValue)
+          ? this.getGroupListData(parentValue, data)
+          : this.getGroupData(parentValue, data)
       }
-      return data
     }
 
     // The category is just a category and represents a classification
     // The category is a parent of a role classification
+    return data
+  }
+
+  async getGroupListData (groupList, data) {
+    const promises = groupList.map(async val => this.getGroupData(val, data))
+    return Promise.all(promises)
+  }
+
+  async getGroupData (group, data) {
+    if (group.parentId) {
+      const parent = await this.ctx.apis.groups.get(group.parentId)
+      return { ...data, group: parent }
+    }
     return data
   }
 }
