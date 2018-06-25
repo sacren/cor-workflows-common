@@ -66,9 +66,10 @@ export const OPERATOR_TYPE_SUPPORT = _.reduce(
 )
 
 export const isOperationSupported = (operator, leftDataType, rightDataType) => {
-  const keyPath = operators.isUnary(operator)
-    ? [operator.operator, leftDataType]
-    : [operator.operator, leftDataType, rightDataType]
+  const structuredOperator = operators.getOperator(operator)
+  const keyPath = operators.isUnary(structuredOperator)
+    ? [structuredOperator.operator, leftDataType]
+    : [structuredOperator.operator, leftDataType, rightDataType]
   return _.isFunction(_.get(OPERATORS, keyPath))
 }
 
@@ -82,11 +83,12 @@ export function evaluate (
   rightDataType,
   rightValue
 ) {
-  if (operators.isUnary(operator)) {
-    return evaluateUnaryOperation(operator, leftDataType, leftValue)
+  const structuredOperator = operators.getOperator(operator)
+  if (operators.isUnary(structuredOperator)) {
+    return evaluateUnaryOperation(structuredOperator, leftDataType, leftValue)
   }
   return evaluateBinaryOperation(
-    operator,
+    structuredOperator,
     leftDataType,
     leftValue,
     rightDataType,

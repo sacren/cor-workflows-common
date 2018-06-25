@@ -42,4 +42,38 @@ export const IS_NOT_EMPTY = unary('is not empty')
 export const IS_ONE_OF = binary('is one of')
 export const IS_TRUE = unary('is true')
 
+const REFACTOR_ME_OPERATOR_MAP = _.reduce(
+  [
+    BEGINS_WITH,
+    CONTAINS,
+    DOES_NOT_BEGIN_WITH,
+    DOES_NOT_CONTAIN,
+    DOES_NOT_END_WITH,
+    ENDS_WITH,
+    HAS_NOT_SELECTED,
+    HAS_SELECTED,
+    IS,
+    IS_EMPTY,
+    IS_FALSE,
+    IS_GREATER_THAN,
+    IS_LESS_THAN,
+    IS_NOT,
+    IS_NOT_EMPTY,
+    IS_ONE_OF,
+    IS_TRUE
+  ],
+  (accumulator, operator) => _.set(accumulator, operator.operator, operator),
+  {}
+)
+
 export const names = (...operators) => _.map(operators, 'operator')
+
+export const getOperator = operator => {
+  const structuredOperator = _.has(operator, 'operator')
+    ? operator
+    : REFACTOR_ME_OPERATOR_MAP[operator]
+  if (!structuredOperator) {
+    throw new Error(`Unknown operator  "${operator}"`)
+  }
+  return structuredOperator
+}
