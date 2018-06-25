@@ -13,10 +13,22 @@ import RadioButton from './field-radio-button'
 import TextArea from './field-text-area'
 import TextInput from './field-text-input'
 
-import { BOOLEAN, GROUP, NUMBER, ROLE, TEXT } from '../../../data-dictionary/return-types'
+import {
+  BOOLEAN,
+  GROUP,
+  GROUP_LIST,
+  NUMBER,
+  ROLE,
+  TEXT,
+  TEXT_LIST
+} from '../../../data-dictionary/return-types'
 
 testCMField(Checkbox, [BOOLEAN], [BOOLEAN], true)
-testCMField(GroupMultiselect, [GROUP, ROLE, TEXT], [GROUP, TEXT])
+testCMField(
+  GroupMultiselect,
+  [GROUP, GROUP_LIST, ROLE, TEXT, TEXT_LIST],
+  [GROUP_LIST, TEXT_LIST]
+)
 testCMField(GroupTypeahead, [GROUP, ROLE, TEXT], [GROUP, TEXT])
 testCMField(RadioButton, [NUMBER, TEXT], [NUMBER, TEXT])
 testCMField(TextArea, [NUMBER, TEXT], [NUMBER, TEXT], true)
@@ -26,12 +38,7 @@ export function mockFieldData () {
   return { type: 'foo', formKey: 'bar', label: 'baz' }
 }
 
-function testCMField (
-  Field,
-  returnTypes,
-  matchTypes,
-  isLeaf = false
-) {
+function testCMField (Field, returnTypes, matchTypes, isLeaf = false) {
   describe(Field.displayName, () => {
     let field, data
     beforeEach(() => {

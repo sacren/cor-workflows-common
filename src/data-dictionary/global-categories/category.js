@@ -30,10 +30,19 @@ export default class Category extends Context {
 
   async getChildren (filter) {
     const category = await this.getData()
-    if (!category || !category.roleSchemas) return []
-    return category.roleSchemas.map(
-      role => new Role(this, this.returnTypes, role, this.ctx)
-    )
+    const children = []
+    if (!category) return children
+    if (category.parentId) {
+      const categoryData = await this.ctx.apis.categories.get(category.parentId)
+      children.push(new Category(this, this.returnTypes, categoryData, this.ctx))
+    }
+    if (category.roleSchemas) {
+      const roles = category.roleSchemas.map(
+        role => new Role(this, this.returnTypes, role, this.ctx)
+      )
+      children.push(...roles)
+    }
+    return children
   }
 
   isLeaf () {
