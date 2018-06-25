@@ -13,7 +13,7 @@ import {
   GROUP_LIST,
   GROUP,
   ROLE,
-  TEXT
+  TEXT, TEXT_LIST
 } from '../../../data-dictionary/return-types'
 import {
   names,
@@ -25,8 +25,8 @@ export default class FieldCoreGroupMultiselect extends CMField {
   static typeLabel = 'GroupsMultiselect'
   static type = 'cm-field-core-group-multiselect'
   static treatAsType = GROUP_LIST
-  static returnTypes = [GROUP, ROLE, TEXT]
-  static matchTypes = [GROUP, TEXT]
+  static returnTypes = [GROUP, GROUP_LIST, ROLE, TEXT, TEXT_LIST]
+  static matchTypes = [GROUP_LIST, TEXT_LIST]
   static preferredOperators = names(IS_EMPTY, IS_NOT_EMPTY)
 
   static async inflate (ctx, deflated, parent) {
@@ -74,14 +74,15 @@ export default class FieldCoreGroupMultiselect extends CMField {
       const parentData = await parent.getValue(valueMap)
       valueMap.formKey = this.data.formKey
       const { formKey } = valueMap
-      let id = parentData.item[formKey]
-      // will still need to handle multiple groups at some point
-      if (isArray(id)) {
-        id = id[0]
-      }
-      if (id) {
-        return this.ctx.apis.groups.get(id)
-      }
+      let ids = parentData.item[formKey]
+      const promises = ids.map(async groupId => {
+        const group = await this.ctx.apis.groups.get(groupId)
+        group.toString = function () { return this.name }
+        return group
+      })
+      const groups = await Promise.all(promises)
+      valueMap.field = { value: groups }
+      return groups
     }
   }
 }
