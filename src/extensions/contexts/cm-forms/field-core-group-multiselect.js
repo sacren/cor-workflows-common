@@ -75,6 +75,7 @@ export default class FieldCoreGroupMultiselect extends CMField {
       valueMap.formKey = this.data.formKey
       const { formKey } = valueMap
       let ids = parentData.item[formKey]
+      if (!isArray(ids)) ids = [ids]
       const promises = ids.map(async groupId => {
         const group = await this.ctx.apis.groups.get(groupId)
         group.toString = function () { return this.name }

@@ -63,10 +63,10 @@ describe('Global groups contexts', () => {
     const groupCtxs = await groups.getChildren()
     const group = groupCtxs[3]
     const children = await group.getChildren()
-    expect(children).toHaveLength(4)
+    expect(children).toHaveLength(5)
     expect(children[0]).toBeInstanceOf(Group)
     expect(children[1]).toBeInstanceOf(Category)
-    expect(children[2]).toBeInstanceOf(Role)
+    expect(children[2]).toBeInstanceOf(Category)
     expect(children[3]).toBeInstanceOf(Role)
   })
 
