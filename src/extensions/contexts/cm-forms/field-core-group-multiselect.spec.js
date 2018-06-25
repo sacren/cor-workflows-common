@@ -96,7 +96,7 @@ describe('GroupMultiselect', () => {
       const valueMap = { test: 'test' }
       const value = await field.getValue(valueMap)
       expect(valueMap.formKey).toBe('bar')
-      expect(value).toHaveProperty('name', 'fake value')
+      expect(value[0]).toHaveProperty('name', 'fake value')
     })
   })
 })
