@@ -7,7 +7,7 @@
  */
 
 import DatePicker from './field-date-picker'
-import { TEXT, DATE } from '../return-types'
+import { TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(DatePicker, [DATE, TEXT], [DATE, TEXT], true)
+FieldTest(DatePicker, [TEXT], [TEXT], true)

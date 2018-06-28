@@ -11,7 +11,7 @@ import { TEXT, NUMBER } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 import { extractUnsupportedPreferredOperators } from '../test/util'
 
-FieldTest(FieldRadioButton, [TEXT, NUMBER], [TEXT, NUMBER], true)
+FieldTest(FieldRadioButton, [TEXT, NUMBER], [TEXT, NUMBER], false)
 
 describe('FieldRadioButton', () => {
   it('should return the appropriate value', async () => {

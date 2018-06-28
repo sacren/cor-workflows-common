@@ -37,9 +37,9 @@ describe('CM FieldCheckboxes', () => {
       expect(children).toEqual([])
     })
 
-    it('returns no children', async () => {
+    it('returns options as children', async () => {
       const children = await field.getChildren()
-      expect(children.length).toBe(0)
+      expect(children.length).toBe(1)
     })
   })
 

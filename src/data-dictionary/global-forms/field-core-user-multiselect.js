@@ -31,9 +31,7 @@ export default class FieldCoreUserMultiselect extends Field {
     if (parent) await parent.getValue(valueMap)
     if (!valueMap.formfill || !valueMap.formfill.document) return
     const { document } = valueMap.formfill
-    console.log({ data, parent, document, valueMap })
     const userId = get(document, `data.${data.formKey}.id`)
-    console.log({ userId })
     const user = userId ? await this.ctx.apis.users.getUser(userId) : {}
     user.toString = function () {
       return this.displayName || this.username
