@@ -41,9 +41,9 @@ describe('Conditional Model', () => {
     it('should adopt the routes provided in data', () => {
       const model = new ConditionalModel({
         routes: [
-          { rule: { left: 'l', operator: 'o', right: 'r' } },
-          { rule: { left: 'l', operator: 'o', right: 'r' } },
-          { rule: { left: 'l', operator: 'o', right: 'r' } }
+          { rule: { left: 'l', operator: 'is', right: 'r' } },
+          { rule: { left: 'l', operator: 'is', right: 'r' } },
+          { rule: { left: 'l', operator: 'is', right: 'r' } }
         ]
       })
       expect(model.meta.routes.length).toBe(3)
@@ -69,12 +69,12 @@ describe('Conditional Model', () => {
           {
             name: 'route 1',
             flow: 'a flow',
-            rule: { left: 'l', operator: 'o', right: 'r' }
+            rule: { left: 'l', operator: 'is', right: 'r' }
           },
           {
             name: undefined,
             flow: undefined,
-            rule: { left: 'l', operator: 'o', right: 'r' }
+            rule: { left: 'l', operator: 'is', right: 'r' }
           }
         ]
       })
@@ -99,12 +99,12 @@ describe('Conditional Model', () => {
         routes: [
           {
             name: 'Route 1',
-            rule: { left: 'l', operator: 'o', right: 'r' }
+            rule: { left: 'l', operator: 'is', right: 'r' }
           },
           {
             name: 'Route 2',
             flow: 'flow2',
-            rule: { left: 'l', operator: 'o', right: 'r' }
+            rule: { left: 'l', operator: 'is', right: 'r' }
           }
         ]
       })
