@@ -18,7 +18,7 @@ import {
 } from 'lodash'
 import ctx from '../data-dictionary/context-utils'
 import dataTypes from '../data-dictionary/data-types'
-import { isUnary } from '../data-dictionary/operators'
+import { getOperator, isUnary } from '../data-dictionary/operators'
 import {
   evaluate as operatorEvaluate,
   isOperationSupported,
@@ -58,6 +58,9 @@ export default class Rule {
     this.rule = rule
     this.resolver = resolver
     this.type = this.identifyType()
+    if (this.type === this.constructor.TYPES.SINGLE) {
+      this.structuredOperator = getOperator(this.rule.operator)
+    }
     this.ruleEvaluator = ruleEvaluator
   }
 
@@ -78,7 +81,7 @@ export default class Rule {
 
   compareAsIs (left, right) {
     return this.ruleEvaluator(
-      this.rule.operator,
+      this.structuredOperator,
       get(left, ['context', 'treatAsType']),
       get(left, 'value'),
       get(right, ['context', 'treatAsType']),
@@ -87,11 +90,11 @@ export default class Rule {
   }
 
   coerceAndCompare (left, right) {
-    const comparable = this.findComparableTypes(left, this.rule.operator, right)
+    const comparable = this.findComparableTypes(left, this.structuredOperator, right)
     const response = this.findBestResponse(
       comparable,
       left,
-      this.rule.operator,
+      this.structuredOperator,
       right
     )
     return response
@@ -106,7 +109,7 @@ export default class Rule {
       const [left, right] = await Promise.all(promises)
       if (
         isOperationSupported(
-          this.rule.operator,
+          this.structuredOperator,
           get(left, ['context', 'treatAsType']),
           get(right, ['context', 'treatAsType'])
         )
