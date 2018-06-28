@@ -17,6 +17,7 @@ export default class CMFieldProposalType extends CMField {
   static returnTypes = [TEXT]
   static matchTypes = [TEXT]
   static preferredOperators = names(IS)
+  static hasEnumerableValues = true
 
   constructor (parent, returnTypes, data, ctx) {
     data.type = 'proposalType'
