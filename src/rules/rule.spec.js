@@ -6,7 +6,7 @@ import { getMockUserContext } from '../data-dictionary/test/fake-context'
 describe('Rule', () => {
   test('constructs', () => {
     const fn = () => {}
-    const single = new Rule({ left: true, operator: true }, fn)
+    const single = new Rule({ left: true, operator: 'is true' }, fn)
     expect(single).toHaveProperty('rule')
     expect(single).toHaveProperty('resolver')
     expect(single).toHaveProperty('type', Rule.TYPES.SINGLE)
