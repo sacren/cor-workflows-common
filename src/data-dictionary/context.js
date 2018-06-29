@@ -71,7 +71,8 @@ export default class Context {
       treatAsType,
       displayName,
       matchTypes,
-      preferredOperators
+      preferredOperators,
+      hasEnumerableValues
     } = this.constructor
     this.type = type
     this.treatAsType = treatAsType
@@ -79,6 +80,7 @@ export default class Context {
     this.secondaryName = typeLabel
     this.match = matchTypes
     this.preferredOperators = preferredOperators || []
+    this.hasEnumerableValues = hasEnumerableValues
     this.parent = parent
     this.returnTypes = returnTypes
     this.data = data

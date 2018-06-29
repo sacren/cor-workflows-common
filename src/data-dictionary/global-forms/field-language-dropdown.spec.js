@@ -10,4 +10,4 @@ import FieldLanguageDropdown from './field-language-dropdown'
 import { TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(FieldLanguageDropdown, [TEXT], [TEXT], true)
+FieldTest(FieldLanguageDropdown, [TEXT], [TEXT], false)

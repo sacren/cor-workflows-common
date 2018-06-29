@@ -5,8 +5,9 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { find, get } from 'lodash'
+import { filter, find, get } from 'lodash'
 import Field from './field'
+import FormFieldOption from './form-field-option'
 import { NUMBER, TEXT } from '../return-types'
 import { names, IS, IS_NOT } from '../operators'
 
@@ -18,10 +19,20 @@ export default class FieldRadioButton extends Field {
   static returnTypes = [TEXT, NUMBER]
   static matchTypes = [TEXT, NUMBER]
   static preferredOperators = names(IS, IS_NOT)
+  static hasEnumerableValues = true
 
-  getChildren = async filter => []
+  getChildren = async match => {
+    let options = get(this, 'data.details.options', [])
+    if (match) {
+      const regex = new RegExp(match, 'ig')
+      options = filter(options, option => !option.lbl.search(regex))
+    }
+    return options.map(
+      option => new FormFieldOption(this, this.returnTypes, option, this.ctx)
+    )
+  }
 
-  isLeaf = () => true
+  isLeaf = () => false
 
   async getValue (valueMap = {}) {
     const { data, parent } = this

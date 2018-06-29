@@ -9,6 +9,10 @@ import Promise from 'bluebird'
 
 import CMForms from './contexts/cm-forms'
 import CMForm from './contexts/cm-forms/form'
+import CMFieldCheckboxes from './contexts/cm-forms/field-checkboxes'
+import CMFieldOptionsMultiselect from './contexts/cm-forms/field-options-multiselect'
+import CMFieldOptionsTypeahead from './contexts/cm-forms/field-options-typeahead'
+import CMFieldProposalType from './contexts/cm-forms/field-proposal-type'
 import CMFieldTextInput from './contexts/cm-forms/field-text-input'
 import CMFieldCoreGroupTypeahead from './contexts/cm-forms/field-core-group-typeahead'
 import CMFieldCoreGroupMultiselect from './contexts/cm-forms/field-core-group-multiselect'
@@ -29,7 +33,11 @@ export const contexts = [
   CMFieldRadioButton,
   CMFieldCheckbox,
   RadioOption,
-  CMFieldTextArea
+  CMFieldTextArea,
+  CMFieldCheckboxes,
+  CMFieldOptionsMultiselect,
+  CMFieldOptionsTypeahead,
+  CMFieldProposalType
 ]
 
 export const rootContexts = [

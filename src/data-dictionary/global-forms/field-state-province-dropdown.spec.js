@@ -10,4 +10,4 @@ import FieldStateDropdown from './field-state-province-dropdown'
 import { TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(FieldStateDropdown, [TEXT], [TEXT], true)
+FieldTest(FieldStateDropdown, [TEXT], [TEXT], false)

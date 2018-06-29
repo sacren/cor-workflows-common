@@ -5,8 +5,9 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { get } from 'lodash'
+import { get, map } from 'lodash'
 import CMField from './field'
+import RadioOption from './radio-option'
 import { TEXT } from '../../../data-dictionary/return-types'
 import { names, IS } from '../../../data-dictionary/operators'
 
@@ -17,10 +18,23 @@ export default class CMFieldProposalType extends CMField {
   static returnTypes = [TEXT]
   static matchTypes = [TEXT]
   static preferredOperators = names(IS)
+  static hasEnumerableValues = true
 
   constructor (parent, returnTypes, data, ctx) {
     data.type = 'proposalType'
     super(parent, returnTypes, data, ctx)
+  }
+
+  getChildren = async () => {
+    const { data, parent } = this
+    const schema = get(parent, 'data.schema')
+    const formKey = 'meta.proposalType'
+    if (!data || !schema || !formKey) return []
+    const options = get(schema[formKey], 'options', [])
+    const children = map(options, optionData => {
+      return new RadioOption(this, this.returnTypes, optionData, this.ctx)
+    })
+    return children
   }
 
   async getValue (valueMap = {}) {
@@ -34,4 +48,6 @@ export default class CMFieldProposalType extends CMField {
       return proposalType
     }
   }
+
+  isLeaf = () => false
 }

@@ -10,4 +10,4 @@ import CountryDropdown from './field-country-dropdown'
 import { TEXT } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(CountryDropdown, [TEXT], [TEXT], true)
+FieldTest(CountryDropdown, [TEXT], [TEXT], false)

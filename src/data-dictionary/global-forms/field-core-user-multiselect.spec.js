@@ -7,7 +7,12 @@
  */
 
 import UserMultiselect from './field-core-user-multiselect'
-import { TEXT, USER } from '../return-types'
+import { TEXT, TEXT_LIST, USER, USER_LIST } from '../return-types'
 import FieldTest from '../../test/utils/fields'
 
-FieldTest(UserMultiselect, [USER, TEXT], [USER, TEXT], true)
+FieldTest(
+  UserMultiselect,
+  [USER, USER_LIST, TEXT, TEXT_LIST],
+  [USER_LIST, TEXT_LIST],
+  true
+)
