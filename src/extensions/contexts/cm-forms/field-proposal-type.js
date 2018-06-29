@@ -28,7 +28,7 @@ export default class CMFieldProposalType extends CMField {
   getChildren = async () => {
     const { data, parent } = this
     const schema = get(parent, 'data.schema')
-    const formKey = get(data, 'formKey')
+    const formKey = 'meta.proposalType'
     if (!data || !schema || !formKey) return []
     const options = get(schema[formKey], 'options', [])
     const children = map(options, optionData => {
@@ -48,4 +48,6 @@ export default class CMFieldProposalType extends CMField {
       return proposalType
     }
   }
+
+  isLeaf = () => false
 }
