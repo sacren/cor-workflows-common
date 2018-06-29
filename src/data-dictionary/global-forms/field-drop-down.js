@@ -9,6 +9,7 @@ import { filter, find, get } from 'lodash'
 import Field from './field'
 import FormFieldOption from './form-field-option'
 import { NUMBER, TEXT } from '../return-types'
+import { names, IS, IS_EMPTY, IS_NOT, IS_NOT_EMPTY } from '../operators'
 
 export default class FieldDropDown extends Field {
   static typeLabel = 'Dropdown'
@@ -16,7 +17,7 @@ export default class FieldDropDown extends Field {
   static treatAsType = TEXT
   static returnTypes = [TEXT, NUMBER]
   static matchTypes = [TEXT, NUMBER]
-  static preferredOperators = []
+  static preferredOperators = names(IS, IS_EMPTY, IS_NOT, IS_NOT_EMPTY)
   static hasEnumerableValues = true
 
   getChildren = async match => {
