@@ -9,7 +9,7 @@ import Field from './field'
 import Category from '../global-categories/category'
 import Role from '../global-roles/role'
 import { GROUP, ROLE, TEXT } from '../return-types'
-import { names, IS, IS_ONE_OF } from '../operators'
+import { names, IS } from '../operators'
 
 export default class FieldCoreGroupTypeahead extends Field {
   static typeLabel = 'GroupTypeahead'
