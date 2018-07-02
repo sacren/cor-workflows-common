@@ -5,41 +5,14 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import {
-  curry,
-  every,
-  flatMapDeep,
-  get,
-  has,
-  intersection,
-  map,
-  some,
-  toUpper
-} from 'lodash'
-import ctx from '../data-dictionary/context-utils'
-import dataTypes from '../data-dictionary/data-types'
-import { getOperator, isUnary } from '../data-dictionary/operators'
-import {
-  evaluate as operatorEvaluate,
-  isOperationSupported,
-  supportedRightTypes
-} from '../data-dictionary/operators/index'
-import { coerce } from '../data-dictionary/coerce'
-import util from 'util'
+
+import CompoundRule, { LOGICAL_OPERATORS } from './compound-rule'
+import SingularRule from './singular-rule'
+import { evaluate as operatorEvaluate } from '../data-dictionary/operators/index'
 
 const i18n = {
   APPROPRIATE_PARAMETERS: 'Cannot construct rule without appropriate parameters'
 }
-
-const LOGICAL_OPERATORS = {
-  AND: 'and',
-  OR: 'or'
-}
-const expressionIsTrue = evaluatedExpression => evaluatedExpression === true
-const logicalOperator = curry(
-  (logicalIterator, comparator, evaluatedExpressions) =>
-    logicalIterator(evaluatedExpressions, comparator)
-)
 
 export default class Rule {
   static TYPES = {
@@ -49,190 +22,38 @@ export default class Rule {
 
   static LOGICAL_OPERATORS = LOGICAL_OPERATORS
 
-  static LOGICAL_OPERATOR_EVALUATORS = {
-    [LOGICAL_OPERATORS.AND]: logicalOperator(every, expressionIsTrue),
-    [LOGICAL_OPERATORS.OR]: logicalOperator(some, expressionIsTrue)
+  constructor (ruleData, resolver, ruleEvaluator = operatorEvaluate) {
+    this.type = this.identifyType(ruleData)
+    this.rule = this.getRule(ruleData, resolver, ruleEvaluator)
   }
 
-  constructor (rule, resolver, ruleEvaluator = operatorEvaluate) {
-    this.rule = rule
-    this.resolver = resolver
-    this.type = this.identifyType()
-    if (this.type === this.constructor.TYPES.SINGLE) {
-      this.structuredOperator = getOperator(this.rule.operator)
+  getRule (ruleData, resolver, ruleEvaluator) {
+    return this.type === this.constructor.TYPES.SINGLE
+      ? new SingularRule(ruleData, resolver, ruleEvaluator)
+      : new CompoundRule(ruleData, resolver, ruleEvaluator)
+  }
+
+  identifyType (ruleData) {
+    if (!ruleData) {
+      throw new Error(i18n.APPROPRIATE_PARAMETERS)
     }
-    this.ruleEvaluator = ruleEvaluator
-  }
 
-  identifyType () {
-    if (!this.rule) throw new Error(i18n.APPROPRIATE_PARAMETERS)
     const { TYPES } = this.constructor
-    const { left, operator, logicalOperator, expressions } = this.rule
-    if (left && operator) return TYPES.SINGLE
-    else if (logicalOperator && expressions) return TYPES.COMPOUND
-    else throw new Error(i18n.APPROPRIATE_PARAMETERS)
+    const { left, operator, logicalOperator, expressions } = ruleData
+    if (left && operator) {
+      return TYPES.SINGLE
+    } else if (logicalOperator && expressions) {
+      return TYPES.COMPOUND
+    } else {
+      throw new Error(i18n.APPROPRIATE_PARAMETERS)
+    }
   }
 
   evaluate () {
-    return this.type === this.constructor.TYPES.SINGLE
-      ? this.evaluateSingle()
-      : this.evaluateCompound()
-  }
-
-  compareAsIs (left, right) {
-    return this.ruleEvaluator(
-      this.structuredOperator,
-      get(left, ['context', 'treatAsType']),
-      get(left, 'value'),
-      get(right, ['context', 'treatAsType']),
-      get(right, 'value')
-    )
-  }
-
-  coerceAndCompare (left, right) {
-    const comparable = this.findComparableTypes(left, this.structuredOperator, right)
-    const response = this.findBestResponse(
-      comparable,
-      left,
-      this.structuredOperator,
-      right
-    )
-    return response
-  }
-
-  async evaluateSingle () {
-    try {
-      const promises = [this.resolver(this.rule.left)]
-      if (this.rule.right) {
-        promises.push(this.resolver(this.rule.right))
-      }
-      const [left, right] = await Promise.all(promises)
-      if (
-        isOperationSupported(
-          this.structuredOperator,
-          get(left, ['context', 'treatAsType']),
-          get(right, ['context', 'treatAsType'])
-        )
-      ) {
-        return this.compareAsIs(left, right)
-      }
-      return this.coerceAndCompare(left, right)
-    } catch (err) {
-      console.log('Error finding comparable types.')
-      console.log('rule ->', JSON.stringify(this.rule, null, 2))
-      console.log(err)
-      throw err
-    }
-  }
-
-  async evaluateCompound () {
-    const { logicalOperator, expressions } = this.rule
-    if (!has(LOGICAL_OPERATORS, toUpper(logicalOperator))) {
-      throw new Error(`Unknown logical operator "${logicalOperator}"`)
-    }
-
-    const promises = expressions.map(expression => {
-      const rule = new Rule(expression, this.resolver)
-      return rule.evaluate()
-    })
-    const evaluatedExpressions = await Promise.all(promises)
-    const operatorFn = Rule.LOGICAL_OPERATOR_EVALUATORS[logicalOperator]
-    return operatorFn(evaluatedExpressions)
-  }
-
-  findComparableTypes (left, operator, right) {
-    try {
-      return flatMapDeep(left.types, leftTypeName => {
-        // TODO what if we don't get a leftType here?
-        const leftType = get(dataTypes, leftTypeName, {})
-        if (isUnary(operator)) {
-          return { left: leftType }
-        }
-
-        // TODO what if left type doesn't have support for this operator?
-        const operatorSupportedRightTypes = supportedRightTypes(
-          operator,
-          leftTypeName
-        )
-        const rightValueSupportedTypes = get(right, 'types', [])
-        const intersectingRightTypes = intersection(
-          operatorSupportedRightTypes,
-          rightValueSupportedTypes
-        )
-        return map(intersectingRightTypes, rightTypeName => ({
-          left: leftType,
-          right: get(dataTypes, rightTypeName, {}) // TODO what if we don't get a rightType here?
-        }))
-      })
-    } catch (err) {
-      console.log('Error finding comparable types.')
-      console.log('left ->')
-      console.log(util.inspect(left, { depth: 5 }))
-      console.log('operator ->')
-      console.log(operator)
-      console.log('right ->')
-      console.log(util.inspect(right, { depth: 5 }))
-      console.log(err)
-      throw err
-    }
-  }
-
-  findBestResponse (comparables, left, operator, right) {
-    for (let i = 0; i < comparables.length; i++) {
-      try {
-        const comparable = comparables[i]
-        const leftTargetType = get(comparable, 'left.TYPE')
-        const rightTargetType = get(comparable, 'right.TYPE')
-        const coercedLeft = coerce(
-          get(left, ['context', 'treatAsType']),
-          leftTargetType,
-          get(left, 'value')
-        )
-        const coercedRight = right
-          ? coerce(
-            get(right, ['context', 'treatAsType']),
-            rightTargetType,
-            get(right, 'value')
-          )
-          : undefined
-
-        return this.ruleEvaluator(
-          operator,
-          leftTargetType,
-          coercedLeft,
-          rightTargetType,
-          coercedRight
-        )
-      } catch (error) {
-        console.log(`[${operator}] Operation Failed:`, error)
-        const isLastComparable = comparables.length === i + 1
-        if (isLastComparable) {
-          throw error
-        }
-      }
-    }
+    return this.rule.evaluate(Rule)
   }
 
   toJSON () {
-    return this.type === this.constructor.TYPES.SINGLE
-      ? this.toJSONSingle()
-      : this.toJSONCompound()
-  }
-
-  toJSONSingle () {
-    const { left, operator, right } = this.rule
-    return {
-      left: ctx.deflate(left),
-      operator,
-      right: ctx.deflate(right)
-    }
-  }
-
-  toJSONCompound () {
-    const { logicalOperator, expressions } = this.rule
-    return {
-      logicalOperator,
-      expressions: expressions.map(expression => new Rule(expression).toJSON())
-    }
+    return this.rule.toJSON(Rule)
   }
 }

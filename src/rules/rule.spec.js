@@ -8,12 +8,16 @@ describe('Rule', () => {
     const fn = () => {}
     const single = new Rule({ left: true, operator: 'is true' }, fn)
     expect(single).toHaveProperty('rule')
-    expect(single).toHaveProperty('resolver')
     expect(single).toHaveProperty('type', Rule.TYPES.SINGLE)
+    expect(single.rule.constructor.name).toBe('SingularRule')
+    expect(single.rule).toHaveProperty('rule')
+    expect(single.rule).toHaveProperty('resolver')
     const compound = new Rule({ logicalOperator: true, expressions: true }, fn)
     expect(compound).toHaveProperty('rule')
-    expect(compound).toHaveProperty('resolver')
     expect(compound).toHaveProperty('type', Rule.TYPES.COMPOUND)
+    expect(compound.rule.constructor.name).toBe('CompoundRule')
+    expect(compound.rule).toHaveProperty('rule')
+    expect(compound.rule).toHaveProperty('resolver')
   })
 
   test('errors if missing parameters', () => {
