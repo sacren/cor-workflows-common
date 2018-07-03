@@ -47,6 +47,7 @@ export default class SingularRule {
       this.structuredOperator,
       right
     )
+    console.log({ comparable, response })
     return response
   }
 
@@ -57,6 +58,7 @@ export default class SingularRule {
         promises.push(this.resolver(this.rule.right))
       }
       const [left, right] = await Promise.all(promises)
+      console.log({ left, right })
       if (
         isOperationSupported(
           this.structuredOperator,

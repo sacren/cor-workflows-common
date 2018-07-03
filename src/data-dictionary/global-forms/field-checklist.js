@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { filter, get } from 'lodash'
+import { filter, find, get } from 'lodash'
 import Field from './field'
 import FormFieldOption from './form-field-option'
 import { NUMBER, TEXT } from '../return-types'
@@ -36,6 +36,7 @@ export default class FieldChecklist extends Field {
   async getValue (valueMap = {}) {
     const { data, parent } = this
     if (parent) await parent.getValue(valueMap)
+    console.log({ data, parent, valueMap })
     if (
       !valueMap.formfill ||
       !valueMap.formfill.document ||
@@ -44,6 +45,7 @@ export default class FieldChecklist extends Field {
       return
     }
     const { document, schema } = valueMap.formfill
+    console.log({ document, schema })
     const optionKey = document.data[data.formKey]
     const option = find(schema.schema[data.formKey].details.options, option => {
       return option.key === optionKey
