@@ -36,7 +36,6 @@ export default class FieldChecklist extends Field {
   async getValue (valueMap = {}) {
     const { data, parent } = this
     if (parent) await parent.getValue(valueMap)
-    console.log({ data, parent, valueMap })
     if (
       !valueMap.formfill ||
       !valueMap.formfill.document ||
@@ -45,7 +44,6 @@ export default class FieldChecklist extends Field {
       return
     }
     const { document, schema } = valueMap.formfill
-    console.log({ document, schema })
     const optionKey = document.data[data.formKey]
     const option = find(schema.schema[data.formKey].details.options, option => {
       return option.key === optionKey

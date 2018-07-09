@@ -47,7 +47,6 @@ export default class SingularRule {
       this.structuredOperator,
       right
     )
-    console.log({ comparable, response })
     return response
   }
 
@@ -58,7 +57,6 @@ export default class SingularRule {
         promises.push(this.resolver(this.rule.right))
       }
       const [left, right] = await Promise.all(promises)
-      console.log({ left, right })
       if (
         isOperationSupported(
           this.structuredOperator,
@@ -124,7 +122,7 @@ export default class SingularRule {
           _.get(left, 'value')
         )
         const coercedRight = right
-          ? _.coerce(
+          ? coerce(
             _.get(right, ['context', 'treatAsType']),
             rightTargetType,
             _.get(right, 'value')
