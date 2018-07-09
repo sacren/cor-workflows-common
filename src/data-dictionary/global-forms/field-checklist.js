@@ -5,7 +5,7 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { filter, get } from 'lodash'
+import { filter, find, get } from 'lodash'
 import Field from './field'
 import FormFieldOption from './form-field-option'
 import { NUMBER, TEXT } from '../return-types'
