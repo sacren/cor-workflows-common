@@ -8,15 +8,15 @@
 import { compact, isArray } from 'lodash'
 import Promise from 'bluebird'
 import CMField from './field'
-import { OPTIONS } from '../../../data-dictionary/return-types'
+import { TEXT_LIST } from '../../../data-dictionary/return-types'
 import { names, IS_EMPTY, IS_NOT_EMPTY } from '../../../data-dictionary/operators'
 
 export default class FieldOptionsMultiselect extends CMField {
   static typeLabel = 'OptionsMultiselect'
   static type = 'cm-field-options-multiselect'
-  static treatAsType = OPTIONS
-  static returnTypes = [OPTIONS]
-  static matchTypes = [OPTIONS]
+  static treatAsType = TEXT_LIST
+  static returnTypes = [TEXT_LIST]
+  static matchTypes = [TEXT_LIST]
   static preferredOperators = names(IS_NOT_EMPTY, IS_EMPTY)
 
   async getValue (valueMap = {}) {

@@ -1,11 +1,14 @@
 import * as _ from 'lodash'
-import { OPTIONS, TEXT } from '../return-types'
+import { OPTIONS, TEXT_LIST } from '../return-types'
 
 export const TYPE = OPTIONS
 
 export const COERCIONS = {
   [OPTIONS]: _.identity,
-  [TEXT]: option => _.get(option, 'displayName') || _.get(option, 'name')
+  [TEXT_LIST]: option => _.reduce(option, (res, val, key) => {
+    if (val) res.push(key)
+    return res
+  }, [])
 }
 
 export const CAN_COERCE_TO = _.keys(COERCIONS)
