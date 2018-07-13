@@ -122,7 +122,7 @@ export default class SingularRule {
           _.get(left, 'value')
         )
         const coercedRight = right
-          ? _.coerce(
+          ? coerce(
             _.get(right, ['context', 'treatAsType']),
             rightTargetType,
             _.get(right, 'value')
