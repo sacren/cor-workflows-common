@@ -12,6 +12,10 @@ export default class ActionAPI extends api {
   static API_KEY = 'actions'
   static ACTION_API = '/cor/actions/api/v1/actions'
 
+  async get (id) {
+    return this._get(`${ActionAPI.ACTION_API}/${id}`)
+  }
+
   async list (q) {
     const params = Object.assign({ limit: 20 }, q)
     const query = qs.encode(params)

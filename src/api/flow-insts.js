@@ -15,6 +15,10 @@ export default class FlowInstanceAPI extends api {
   static API_KEY = 'flowInstances'
   static WORKFLOW_API = '/cor/workflows/api/v0'
 
+  async get (id) {
+    return this._get(`${FlowInstanceAPI.WORKFLOW_API}/${INSTANCE}/${id}`)
+  }
+
   async list (flow, q) {
     const query = qs.encode(Object.assign({ limit: 15 }, q))
     return this._get(`${FlowInstanceAPI.WORKFLOW_API}/${DEFINITION}/${flow._id}/${INSTANCE}?${query}`)

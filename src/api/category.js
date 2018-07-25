@@ -16,7 +16,7 @@ export default class CategoryAPI extends api {
     const query = qs.encode({
       limit: 20,
       sort: 'displayName',
-      q
+      ...q
     })
     return this._get(`${CategoryAPI.CATEGORY_API}?${query}`)
   }
