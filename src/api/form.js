@@ -16,7 +16,7 @@ const typeMap = {
 
 export default class FormAPI extends api {
   static API_KEY = 'forms'
-  static FORM_API = '/cor/forms/api/v2'
+  static FORM_API = '/app/forms/api/v2'
 
   async list (_filter) {
     const filter = _filter

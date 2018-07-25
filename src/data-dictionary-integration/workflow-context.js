@@ -115,7 +115,7 @@ export default class WorkflowContext extends Context {
       ...responses,
       definitionStep,
       instanceStep,
-      formUrl: `/cor/forms/#/i/${responses.container.id}/view/${responses.document.id}`
+      formUrl: `/app/forms/#/i/${responses.container.id}/view/${responses.document.id}`
     }
     valueMap.formfill = data
     return data
