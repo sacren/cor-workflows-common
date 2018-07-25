@@ -159,10 +159,10 @@ describe('Data Dictionary > Util', () => {
 
   test('can inflate a deflated value', async () => {
     mock
-      .onGet(/\/cor\/forms\/api\/v\d\/form-containers\/\w+\/forms\/current\/schema/)
+      .onGet(/\/app\/forms\/api\/v\d\/form-containers\/\w+\/forms\/current\/schema/)
       .reply(200, SIMPLE_FORM_RESPONSE)
     mock
-      .onGet(/\/cor\/forms\/api\/v\d\/form-containers\/\w+/)
+      .onGet(/\/app\/forms\/api\/v\d\/form-containers\/\w+/)
       .reply(200, FORMS_CONTAINER)
     const inflated = await ctx.inflate(DEFLATED_TEXT_FIELD)
     expect(inflated).toHaveProperty('name', 'My Text Input')

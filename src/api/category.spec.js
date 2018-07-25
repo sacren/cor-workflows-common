@@ -18,7 +18,7 @@ describe('Category API', () => {
 
   it('should call _get with the correct api on list', async () => {
     await category.list()
-    expect(mock).toHaveBeenCalledWith(`${Category.CATEGORY_API}?limit=20&sort=displayName&q=`)
+    expect(mock).toHaveBeenCalledWith(`${Category.CATEGORY_API}?limit=20&sort=displayName`)
   })
 
   it('should call _get with the correct id for get', async () => {
