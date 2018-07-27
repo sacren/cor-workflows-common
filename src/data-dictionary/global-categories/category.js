@@ -97,10 +97,12 @@ export default class Category extends Context {
   }
 
   async getGroupData (group, data) {
-    if (group.parentId) {
-      const parent = await this.ctx.apis.groups.get(group.parentId)
-      return { ...data, group: parent }
+    if (group) {
+      if (group.parentId) {
+        const parent = await this.ctx.apis.groups.get(group.parentId)
+        return { ...data, group: parent }
+      }
+      return data
     }
-    return data
   }
 }
