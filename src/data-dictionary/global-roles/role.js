@@ -68,6 +68,8 @@ export default class Role extends Context {
     if (!parent) return data
 
     const parentValue = await parent.getValue(valueMap)
+    if (!parentValue) return
+
     const { type, treatAsType } = parent
 
     // This Role is related to a group
