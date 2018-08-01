@@ -70,7 +70,8 @@ describe('Roles contexts', () => {
   })
 
   test('getValue', async () => {
-    const fakeCat = { type: 'category', getValue: jest.fn() }
+    const getValue = jest.fn().mockReturnValue({ _id: 'abc123' })
+    const fakeCat = { type: 'category', getValue }
     const role = new Role(fakeCat, ALL, { id: 1, name: 'test' }, ctx)
     const data = await role.getValue()
     expect(fakeCat.getValue).toHaveBeenCalled()
