@@ -68,7 +68,7 @@ export default class SingularRule {
       }
       return this.coerceAndCompare(left, right)
     } catch (err) {
-      console.log('Error finding comparable types.')
+      console.log('Error evaluating...')
       console.log('rule ->', JSON.stringify(this.rule, null, 2))
       console.log(err)
       throw err

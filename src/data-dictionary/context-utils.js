@@ -35,6 +35,7 @@ import FieldFormsTypeahead from './global-forms/field-forms-typeahead'
 import FieldLanguageDropDown from './global-forms/field-language-dropdown'
 import FieldNumberInput from './global-forms/field-number-input'
 import FieldRadioButton from './global-forms/field-radio-button'
+import FormFieldOption from './global-forms/form-field-option'
 import FieldRichTextArea from './global-forms/field-rich-text-area'
 import FieldStateProvinceDropDown
   from './global-forms/field-state-province-dropdown'
@@ -82,6 +83,7 @@ export const contexts = [
   FieldLanguageDropDown,
   FieldNumberInput,
   FieldRadioButton,
+  FormFieldOption,
   FieldRichTextArea,
   FieldStateProvinceDropDown,
   FieldTextArea,
