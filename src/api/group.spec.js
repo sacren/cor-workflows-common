@@ -15,14 +15,14 @@ describe('Group', () => {
     group._get = jest.fn()
   })
 
-  test('list', async () => {
-    await group.list('bar')
+  test('list with a query', async () => {
+    await group.list({ q: 'bar' })
     expect(group._get).toHaveBeenCalledWith(`${Group.GROUP_API}?limit=20&sort=name&q=bar`)
   })
 
-  test('list with a query', async () => {
+  test('list', async () => {
     await group.list()
-    expect(group._get).toHaveBeenCalledWith(`${Group.GROUP_API}?limit=20&sort=name&q=`)
+    expect(group._get).toHaveBeenCalledWith(`${Group.GROUP_API}?limit=20&sort=name`)
   })
 
   test('get', async () => {

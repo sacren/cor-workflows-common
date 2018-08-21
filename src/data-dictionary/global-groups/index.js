@@ -22,7 +22,7 @@ export default class GlobalGroups extends Context {
 
   async getChildren (filter) {
     if (!this.ctx) throw new Error('no ctx')
-    const groups = await this.ctx.apis.groups.list(filter)
+    const groups = await this.ctx.apis.groups.list({ q: filter })
     const categories = await this.ctx.apis.categories.list()
     const indexedCategories = keyBy(categories, 'id')
     return groups.map(group => {
