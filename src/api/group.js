@@ -16,7 +16,7 @@ export default class GroupAPI extends api {
     const query = qs.encode({
       limit: 20,
       sort: 'name',
-      q
+      ...q
     })
     return this._get(`${GroupAPI.GROUP_API}?${query}`)
   }
