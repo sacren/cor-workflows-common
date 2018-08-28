@@ -7,7 +7,11 @@
  */
 import CMField from './field'
 import { USER, TEXT } from '../../../data-dictionary/return-types'
-import { names, IS } from '../../../data-dictionary/operators'
+import {
+  names,
+  IS_EMPTY,
+  IS_NOT_EMPTY
+} from '../../../data-dictionary/operators'
 
 export default class FieldCoreUserTypeahead extends CMField {
   static typeLabel = 'UserTypeahead'
@@ -15,7 +19,7 @@ export default class FieldCoreUserTypeahead extends CMField {
   static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
-  static preferredOperators = names(IS)
+  static preferredOperators = names(IS_EMPTY, IS_NOT_EMPTY)
 
   async getValue (valueMap = {}) {
     const { data, parent } = this
@@ -24,12 +28,17 @@ export default class FieldCoreUserTypeahead extends CMField {
       valueMap.formKey = data.formKey
       const { formKey } = valueMap
       const userId = parentData.item[formKey]
-      const user = userId ? await this.ctx.apis.users.getUser(userId) : {}
-      user.toString = function () {
-        return this.displayName || this.username
+      if (userId) {
+        const user = await this.ctx.apis.users.getUser(userId)
+        user.toString = function () {
+          return this.displayName || this.username
+        }
+        valueMap.field = { value: user }
+        return user
+      } else {
+        valueMap.field = { value: null }
+        return null
       }
-      valueMap.field = { value: user }
-      return user
     }
   }
 }

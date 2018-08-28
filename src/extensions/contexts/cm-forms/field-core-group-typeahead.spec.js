@@ -85,6 +85,7 @@ describe('GroupTypeahead', () => {
 
   describe('getValue', () => {
     it('returns formKey', async () => {
+      getFn.mockReturnValueOnce({ name: 'myGroup' })
       const valueMap = {}
       await field.getValue(valueMap)
       expect(getFn).toHaveBeenCalled()

@@ -42,7 +42,7 @@ describe('getValue', () => {
       formfill: { document: { data: {} } }
     })
     expect(ctx.apis.users.getUser).not.toHaveBeenCalled()
-    expect(user.toString()).toBeUndefined()
+    expect(user).toBe(null)
   })
 
   it('should return nothing if formfill and document are not present', async () => {
