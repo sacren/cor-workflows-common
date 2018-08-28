@@ -8,7 +8,7 @@
 import { get } from 'lodash'
 import Field from './field'
 import { USER, TEXT } from '../return-types'
-import { names, IS } from '../operators'
+import { names, IS_EMPTY, IS_NOT_EMPTY } from '../operators'
 
 export default class FieldCoreUserTypeahead extends Field {
   static displayName = 'CoreUserTypeahead'
@@ -17,7 +17,7 @@ export default class FieldCoreUserTypeahead extends Field {
   static treatAsType = USER
   static returnTypes = [USER, TEXT]
   static matchTypes = [USER, TEXT]
-  static preferredOperators = names(IS)
+  static preferredOperators = names(IS_EMPTY, IS_NOT_EMPTY)
 
   getChildren = async filter => []
 
@@ -32,12 +32,17 @@ export default class FieldCoreUserTypeahead extends Field {
     if (parent) await parent.getValue(valueMap)
     if (!valueMap.formfill || !valueMap.formfill.document) return
     const { document } = valueMap.formfill
-    const userId = get(document, `data.${data.formKey}.id`)
-    const user = userId ? await this.ctx.apis.users.getUser(userId) : {}
-    user.toString = function () {
-      return this.displayName || this.username
+    const userData = document.data[data.formKey]
+    if (userData && userData.id) {
+      const user = await this.ctx.apis.users.getUser(userData.id)
+      user.toString = function () {
+        return this.displayName || this.username
+      }
+      valueMap.field = { value: user }
+      return user
+    } else {
+      valueMap.field = { value: null }
+      return null
     }
-    valueMap.field = { value: user }
-    return user
   }
 }

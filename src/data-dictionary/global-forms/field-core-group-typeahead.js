@@ -9,7 +9,7 @@ import Field from './field'
 import Category from '../global-categories/category'
 import Role from '../global-roles/role'
 import { GROUP, ROLE, TEXT } from '../return-types'
-import { names, IS } from '../operators'
+import { names, IS, IS_EMPTY, IS_NOT_EMPTY } from '../operators'
 
 export default class FieldCoreGroupTypeahead extends Field {
   static typeLabel = 'GroupTypeahead'
@@ -17,7 +17,7 @@ export default class FieldCoreGroupTypeahead extends Field {
   static treatAsType = GROUP
   static returnTypes = [GROUP, ROLE, TEXT]
   static matchTypes = [GROUP, TEXT]
-  static preferredOperators = names(IS)
+  static preferredOperators = names(IS, IS_EMPTY, IS_NOT_EMPTY)
 
   static async inflate (ctx, deflated, parent) {
     return deflated.data
@@ -57,12 +57,17 @@ export default class FieldCoreGroupTypeahead extends Field {
     if (parent) await parent.getValue(valueMap)
     if (!valueMap.formfill || !valueMap.formfill.document) return
     const { document } = valueMap.formfill
-    const groupId = document.data[data.formKey].id
-    const group = await this.ctx.apis.groups.get(groupId)
-    group.toString = function () {
-      return this.name
+    const groupData = document.data[data.formKey]
+    if (groupData && groupData.id) {
+      const group = await this.ctx.apis.groups.get(groupData.id)
+      group.toString = function () {
+        return this.name
+      }
+      valueMap.field = { value: group }
+      return group
+    } else {
+      valueMap.field = { value: null }
+      return null
     }
-    valueMap.field = { value: group }
-    return group
   }
 }
