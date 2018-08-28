@@ -46,6 +46,6 @@ describe('Data Dictionary: Field: Core User Typeahead', () => {
     field = new UserTypeahead(parent, '*', data, ctx)
     const user = await field.getValue({})
     expect(ctx.apis.users.getUser).not.toHaveBeenCalled()
-    expect(user.toString()).toBeUndefined()
+    expect(user).toBe(null)
   })
 })
