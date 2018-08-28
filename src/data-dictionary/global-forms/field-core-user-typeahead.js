@@ -5,7 +5,6 @@
  * You should have received a copy of the Kuali, Inc. Pre-Release License
  * Agreement with this file. If not, please write to license@kuali.co.
  */
-import { get } from 'lodash'
 import Field from './field'
 import { USER, TEXT } from '../return-types'
 import { names, IS_EMPTY, IS_NOT_EMPTY } from '../operators'
